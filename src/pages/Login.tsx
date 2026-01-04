@@ -5,37 +5,43 @@ import InputText from '../components/ui/InputText'
 import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
+import FormValidator from '../service/LoginValidation'
 
 function Login() {
-	const [verifyCode, setVerifyCode] = useState(false)
+	const [error, setError] = useState<string | null>(null)
 
 	return (
 		<Page className='flex justify-center items-center'>
-			{verifyCode ? (
-				<Form>
-					<Title className=''>Verify code</Title>
-					<P className='w-full text-center mb-2'>
-						We have send you a code to your email please verify it
-					</P>
-					<InputText className='w-full' placeholder='1234' />
-					<FormButton className='w-5/10 mt-4'>Verify</FormButton>
-				</Form>
-			) : (
-				<Form>
-					<Title className='mb-4'>Login</Title>
-					<InputText className='w-full' placeholder='example@gmail.com' />
-					<InputText className='w-full' placeholder='password' />
-					<FormButton
-						className='mt-4 w-5/10'
-						onClick={(e) => {
-							e.preventDefault()
-							setVerifyCode(true)
-						}}
-					>
-						Login
-					</FormButton>
-				</Form>
-			)}
+			<Form
+				onSubmit={(e) => {
+					e.preventDefault()
+					const formData = new FormData(e.currentTarget)
+					const data = Object.fromEntries(formData.entries())
+					const isValid = FormValidator(data as Record<string, string>)
+					if (typeof isValid === 'string') {
+						setError(isValid)
+						return
+					}
+					// todo make the request to the server
+					window.location.href = '/login/verify'
+				}}
+			>
+				<Title className='mb-4'>Login</Title>
+				<InputText
+					className='w-full'
+					name='account'
+					placeholder='example@gmail.com'
+					required
+				/>
+				<InputText
+					className='w-full'
+					name='pwd'
+					placeholder='password'
+					required
+				/>
+				<FormButton className='mt-4 w-5/10'>Login</FormButton>
+				{error !== null && <P className='text-error'>{error}</P>}
+			</Form>
 		</Page>
 	)
 }

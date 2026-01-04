@@ -1,7 +1,11 @@
 function InputText({
 	className,
 	placeholder,
+	name,
+	required,
 }: {
+	required?: boolean
+	name?: string
 	className?: string
 	placeholder?: string
 }) {
@@ -16,7 +20,9 @@ function InputText({
         placeholder:text-contrast/60
         font-main
 			`}
+			name={name}
 			placeholder={placeholder}
+			required={required}
 			type='text'
 		/>
 	)
