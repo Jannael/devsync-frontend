@@ -1,5 +1,7 @@
+import Page from '../components/ui/Page'
+
 function Login() {
-	return <div>login</div>
+	return <Page>login</Page>
 }
 
 export default Login

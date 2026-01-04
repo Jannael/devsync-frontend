@@ -3,4 +3,7 @@
 
 @theme {
   --font-main: "lexend", sans-serif;
+  --color-primary: #222;
+  --color-contrast: #eee;
+  --color-txt: #eee;
 }
