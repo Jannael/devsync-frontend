@@ -1,10 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400&display=swap");
+@import "tailwindcss";
 
 @theme {
-  --font-main: "lexend", sans-serif;
-  --color-primary: #222;
-  --color-contrast: #eee;
-  --color-txt: #eee;
-  --color-error: #ec003f;
+	--font-main: "lexend", sans-serif;
+	--color-primary: #222;
+	--color-contrast: #eee;
+	--color-txt: #eee;
+	--color-error: #ec003f;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+	-webkit-text-fill-color: var(--color-contrast);
+	-webkit-box-shadow: var(--color-primary) inset;
+	transition: background-color 5000s ease-in-out 0s;
 }
