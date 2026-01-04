@@ -1,4 +1,5 @@
 import Form from '../components/ui/Form'
+import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
 import Page from '../components/ui/Page'
 
@@ -10,6 +11,7 @@ function Login() {
 				<InputText placeholder='Hellos' />
 				<InputText placeholder='Hellos' />
 				<InputText placeholder='Hellos' />
+				<FormButton>Login</FormButton>
 			</Form>
 		</Page>
 	)

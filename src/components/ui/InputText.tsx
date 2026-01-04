@@ -14,6 +14,7 @@ function InputText({
 				transition-border
 				outline-none focus:border-contrast/80 placeholder:text-sm
         placeholder:text-contrast/60
+        font-main
 			`}
 			placeholder={placeholder}
 			type='text'
