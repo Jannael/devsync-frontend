@@ -5,6 +5,7 @@ import InputText from '../components/ui/InputText'
 import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
+import { routesConst } from '../routes.constants'
 import FormValidator from '../service/LoginValidation'
 
 function Login() {
@@ -40,7 +41,11 @@ function Login() {
 					required
 				/>
 				<FormButton className='mt-4 w-5/10'>Login</FormButton>
-				{error !== null && <P className='text-error'>{error}</P>}
+				{error !== null && <P className='text-error w-full text-center'>{error}</P>}
+				<div className='flex flex-col text-md w-full gap-2 text-left'>
+					<a href={routesConst.signup}>New user?</a>
+					<a href={routesConst.forgotPwd}>Forgot password?</a>
+				</div>
 			</Form>
 		</Page>
 	)
