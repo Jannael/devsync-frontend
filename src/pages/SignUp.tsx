@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { Link } from 'react-router'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
 import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
+import { localStorageKeys } from '../localStorageKeys'
 import { routesConst } from '../routes.constants'
 import FormValidator from './../service/SignupValidation'
 
@@ -17,12 +19,12 @@ function Signup() {
 				onSubmit={(e) => {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)
-          const account = localStorage.getItem('verifyCode')
+					const account = localStorage.getItem(localStorageKeys.verifyCode)
 
 					const { fullName, pwd, nickName } = Object.fromEntries(
 						formData.entries(),
 					)
-          
+
 					const isValid = FormValidator({
 						account,
 						fullName,
@@ -34,9 +36,9 @@ function Signup() {
 						return
 					}
 
-          // todo make the request to create the user
-
-          window.location.href = routesConst.main
+					// todo make the request to create the user
+					localStorage.removeItem(localStorageKeys.verifyCode)
+					window.location.href = routesConst.main
 				}}
 			>
 				<Title className='mb-4'>Signup</Title>
@@ -61,7 +63,7 @@ function Signup() {
 				<FormButton className='mt-4'>Signup</FormButton>
 				{error !== null && <P className='text-error text-center'>{error}</P>}
 				<div className='text-left w-full mt-4'>
-					<a href={routesConst.login}>Already have an account?</a>
+					<Link to={routesConst.login}>Already have an account?</Link>
 				</div>
 			</Form>
 		</Page>
