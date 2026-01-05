@@ -24,7 +24,7 @@ function Login() {
 						return
 					}
 					// todo make the request to the server
-					window.location.href = '/login/verify'
+					window.location.href = routesConst.verifyLogin
 				}}
 			>
 				<Title className='mb-4'>Login</Title>

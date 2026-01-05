@@ -1,9 +1,11 @@
 import z from 'zod'
 import createValidator from '../components/utils/helpers/createValidator'
+import passwordSchema from './pwdSchema'
 
 const schema = z.object({
-	account: z.string().email('introduce a valid email'),
-	pwd: z.string('invalid pwd'),
+	fullName: z.string('fullName is required'),
+	pwd: passwordSchema,
+	nickName: z.string('nickname is required'),
 })
 
 const validator = createValidator(schema)
