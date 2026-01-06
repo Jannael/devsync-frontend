@@ -1,6 +1,16 @@
-function ColorPicker({ className }: { className?: string }) {
+function ColorPicker({
+	className,
+	name,
+}: {
+	className?: string
+	name?: string
+}) {
 	return (
-		<input className={`${className} w-full cursor-pointer h-12`} type='color' />
+		<input
+			className={`${className} w-full cursor-pointer h-12`}
+			name={name}
+			type='color'
+		/>
 	)
 }
 

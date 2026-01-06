@@ -1,14 +1,24 @@
+import { useRef } from 'react'
+import Button from '../components/ui/Button'
 import ColorPicker from '../components/ui/ColorPicker'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
 import Label from '../components/ui/Label'
+import Option from '../components/ui/Option'
 import Page from '../components/ui/Page'
+import Select from '../components/ui/Select'
 import Title from '../components/ui/Title'
 import Wrapper, { WrapperItem } from '../components/Wrapper'
 import { CircleMinus } from '../icons'
 
 function CreateGroup() {
+	const members = useRef<{ account: string; role: string }[]>([
+		{ account: 'example@gmail.com', role: 'role' },
+		{ account: 'example@gmail.com', role: 'role' },
+		{ account: 'example@gmail.com', role: 'role' },
+	])
+
 	return (
 		<Page
 			className='
@@ -18,6 +28,7 @@ function CreateGroup() {
 		>
 			<Form>
 				<Title>Create group</Title>
+
 				<Label>
 					Group name
 					<InputText
@@ -40,22 +51,40 @@ function CreateGroup() {
 					Color
 					<ColorPicker />
 				</Label>
-				<Label
-					className='
-						h-fit
-					'
-				>
-					Members
+
+				<div className='w-full'>
+					<Label className='mb-4'>
+						Members
+						<div className='flex justify-between gap-3 flex-wrap'>
+							<InputText placeholder='@gmail.com' />
+							<Select className='cursor-pointer'>
+								<Option value='developer'>Developer</Option>
+								<Option value='documenter'>Documenter</Option>
+							</Select>
+							<Button className='w-full' onClick={() => {
+
+							}}>
+								Save
+							</Button>
+						</div>
+					</Label>
+
 					<Wrapper>
-						<WrapperItem>
-							<MemberItem
-								account='example@gmail.com'
-								memberRole='developer'
-								onDelete={() => console.log('del')}
-							/>
-						</WrapperItem>
+						{members.current.map((member) => {
+							const { account, role } = member
+							return (
+								<WrapperItem key={account}>
+									<MemberItem
+										account={account}
+										memberRole={role}
+										onDelete={() => console.log('del')}
+									/>
+								</WrapperItem>
+							)
+						})}
 					</Wrapper>
-				</Label>
+				</div>
+
 				<Label>TechLeads</Label>
 
 				<FormButton>Create</FormButton>

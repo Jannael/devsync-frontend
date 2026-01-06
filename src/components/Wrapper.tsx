@@ -2,7 +2,7 @@ import { Children, type ReactNode, useState } from 'react'
 import { CaretDown, CaretUp } from '../icons'
 
 function Wrapper({ children }: { children: ReactNode }) {
-	const [hidden, setHidden] = useState(false)
+	const [hidden, setHidden] = useState(true)
 	const childrenCount = Children.count(children)
 
 	return (
