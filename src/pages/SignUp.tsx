@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
+import Label from '../components/ui/Label'
 import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
@@ -42,24 +43,33 @@ function Signup() {
 				}}
 			>
 				<Title className='mb-4'>Signup</Title>
-				<InputText
-					className='w-full'
-					name='fullName'
-					placeholder='Jon Doe Ramirez'
-					required
-				/>
-				<InputText
-					className='w-full'
-					name='pwd'
-					placeholder='password'
-					required
-				/>
-				<InputText
-					className='w-full'
-					name='nickName'
-					placeholder='nickname'
-					required
-				/>
+				<Label>
+					FullName
+					<InputText
+						className='w-full'
+						name='fullName'
+						placeholder='Jon Doe Ramirez'
+						required
+					/>
+				</Label>
+				<Label>
+					Password
+					<InputText
+						className='w-full'
+						name='pwd'
+						placeholder='my secret password'
+						required
+					/>
+				</Label>
+				<Label>
+					NickName
+					<InputText
+						className='w-full'
+						name='nickName'
+						placeholder='nickname'
+						required
+					/>
+				</Label>
 				<FormButton className='mt-4'>Signup</FormButton>
 				{error !== null && <P className='text-error text-center'>{error}</P>}
 				<div className='text-left w-full mt-4'>

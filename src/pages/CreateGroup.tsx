@@ -22,6 +22,8 @@ function CreateGroup() {
 					Color
 					<ColorPicker />
 				</Label>
+				<Label>Members</Label>
+				<Label>TechLeads</Label>
 			</Form>
 		</Page>
 	)

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
+import Label from '../components/ui/Label'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
 import VerifyCodeModal from '../components/VerifyCodeModal'
@@ -35,7 +36,10 @@ function ForgotPwd() {
 					}}
 				>
 					<Title>Account</Title>
-					<InputText name='account' placeholder='example@gmail.com' />
+					<Label>
+						Account
+						<InputText name='account' placeholder='example@gmail.com' />
+					</Label>
 					<FormButton>Request code</FormButton>
 				</Form>
 			)}
@@ -48,7 +52,10 @@ function ForgotPwd() {
 					}}
 				>
 					<Title>New password</Title>
-					<InputText name='newPwd' placeholder='new password' />
+					<Label>
+						New password
+						<InputText name='newPwd' placeholder='new password' />
+					</Label>
 					<FormButton>Change</FormButton>
 				</Form>
 			)}

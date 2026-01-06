@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
+import Label from '../components/ui/Label'
 import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
@@ -29,24 +30,32 @@ function Login() {
 				}}
 			>
 				<Title className='mb-4'>Login</Title>
-				<InputText
-					className='w-full'
-					name='account'
-					placeholder='example@gmail.com'
-					required
-				/>
-				<InputText
-					className='w-full'
-					name='pwd'
-					placeholder='password'
-					required
-				/>
+				<Label>
+					Account
+					<InputText
+						className='w-full'
+						name='account'
+						placeholder='example@gmail.com'
+						required
+					/>
+				</Label>
+				<Label>
+					Password
+					<InputText
+						className='w-full'
+						name='pwd'
+						placeholder='my secret password'
+						required
+					/>
+				</Label>
 				<FormButton className='mt-4 w-5/10'>Login</FormButton>
 				{error !== null && (
 					<P className='text-error w-full text-center'>{error}</P>
 				)}
 				<div className='flex flex-col text-md w-full gap-2 text-left'>
-					<Link to={`${routesConst.verifyCode}?redirect=${routesConst.signup}`}>New user?</Link>
+					<Link to={`${routesConst.verifyCode}?redirect=${routesConst.signup}`}>
+						New user?
+					</Link>
 					<Link to={routesConst.forgotPwd}>Forgot password?</Link>
 				</div>
 			</Form>
