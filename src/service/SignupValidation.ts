@@ -1,5 +1,5 @@
 import z from 'zod'
-import createValidator from '../components/utils/helpers/createValidator'
+import createValidator from '../utils/helpers/createValidator'
 import passwordSchema from './pwdSchema'
 
 const schema = z.object({

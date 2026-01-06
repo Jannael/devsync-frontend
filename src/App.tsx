@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import CreateGroup from './pages/CreateGroup'
 import ForgotPwd from './pages/ForgotPwd'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -17,7 +18,7 @@ function App() {
 			></Route>
 			<Route element={<Signup />} path={routesConst.signup}></Route>
 			<Route path={routesConst.changeAccount}></Route>
-			<Route path={routesConst.createGroup}></Route>
+			<Route element={<CreateGroup />} path={routesConst.createGroup}></Route>
 			<Route element={<ForgotPwd />} path={routesConst.forgotPwd}></Route>
 			<Route path={routesConst.groupInfo}></Route>
 			<Route element={<VerifyCode />} path={routesConst.verifyCode}></Route>
