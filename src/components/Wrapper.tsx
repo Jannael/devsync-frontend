@@ -6,7 +6,7 @@ function Wrapper({ children }: { children: ReactNode }) {
 	const childrenCount = Children.count(children)
 
 	return (
-		<div className={`${!hidden && 'mb-4'} h-fit`}>
+		<div className='h-fit'>
 			<button
 				className='w-full border-contrast/80 border-2 p-2 rounded-sm flex justify-end cursor-pointer'
 				onClick={() => setHidden(!hidden)}
@@ -18,8 +18,8 @@ function Wrapper({ children }: { children: ReactNode }) {
 				className='transition-all duration-500 '
 				style={{
 					height: hidden ? '0px' : `${childrenCount * 48}px`,
-					maxHeight: '144px',
-					overflowY: childrenCount * 48 > 144 ? 'scroll' : 'hidden',
+					maxHeight: '120px',
+					overflowY: childrenCount * 48 > 120 ? 'scroll' : 'hidden',
 				}}
 			>
 				{!hidden && children}
