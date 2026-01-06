@@ -13,6 +13,7 @@ import Title from '../components/ui/Title'
 import Wrapper, { WrapperItem } from '../components/Wrapper'
 import { CircleMinus } from '../icons'
 import AccountValidation from '../service/AccountValidation'
+import GroupValidator from '../service/GroupValidation'
 
 function CreateGroup() {
 	const [error, setError] = useState<string | null>(null)
@@ -32,7 +33,25 @@ function CreateGroup() {
 				justify-center items-center
 			'
 		>
-			<Form>
+			<Form
+				onSubmit={(e) => {
+					e.preventDefault()
+					const formData = new FormData(e.currentTarget)
+					const data = Object.fromEntries(formData.entries())
+					const isValid = GroupValidator({
+						...data,
+						member: members,
+						techLead: techLeads,
+					} as unknown as Record<string, string>)
+
+					if (typeof isValid === 'string') {
+						setError(isValid)
+						return
+					}
+
+					// todo make the request
+				}}
+			>
 				<Title>Create group</Title>
 
 				<Label>
@@ -41,6 +60,7 @@ function CreateGroup() {
 						className='
 							w-full
 						'
+						name='name'
 						placeholder='my group'
 					/>
 				</Label>
@@ -50,12 +70,13 @@ function CreateGroup() {
 						className='
 							w-full
 						'
+						name='repository'
 						placeholder='https://github...'
 					/>
 				</Label>
 				<Label>
 					Color
-					<ColorPicker />
+					<ColorPicker name='color' />
 				</Label>
 				<div className='w-full'>
 					<div className='flex justify-between gap-3 flex-wrap mb-4'>
@@ -133,7 +154,6 @@ function CreateGroup() {
 						})}
 					</Wrapper>
 				</div>
-
 				<div className='w-full'>
 					<div className='w-full flex justify-between items-end gap-3 mb-4'>
 						<Label>
@@ -149,7 +169,7 @@ function CreateGroup() {
 									setError(isValid)
 									return
 								}
-								if (techLeads.includes(account)){
+								if (techLeads.includes(account)) {
 									setError('account in techLead list')
 									return
 								}
@@ -178,9 +198,7 @@ function CreateGroup() {
 						})}
 					</Wrapper>
 				</div>
-
 				{error !== null && <P className='text-error'>{error}</P>}
-
 				<FormButton>Create</FormButton>
 			</Form>
 		</Page>
