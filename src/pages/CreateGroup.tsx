@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Button from '../components/ui/Button'
 import ColorPicker from '../components/ui/ColorPicker'
 import Form from '../components/ui/Form'
@@ -13,11 +13,12 @@ import Wrapper, { WrapperItem } from '../components/Wrapper'
 import { CircleMinus } from '../icons'
 
 function CreateGroup() {
-	const members = useRef<{ account: string; role: string }[]>([
-		{ account: 'example@gmail.com', role: 'role' },
-		{ account: 'example@gmail.com', role: 'role' },
-		{ account: 'example@gmail.com', role: 'role' },
-	])
+	const [members, setMembers] = useState<{ account: string; role: string }[]>(
+		[],
+	)
+
+	const membersInputAccount = useRef<HTMLInputElement | null>(null)
+	const membersInputRole = useRef<HTMLSelectElement | null>(null)
 
 	return (
 		<Page
@@ -56,28 +57,51 @@ function CreateGroup() {
 					<Label className='mb-4'>
 						Members
 						<div className='flex justify-between gap-3 flex-wrap'>
-							<InputText placeholder='@gmail.com' />
-							<Select className='cursor-pointer'>
+							<InputText placeholder='@gmail.com' ref={membersInputAccount} />
+							<Select className='cursor-pointer' ref={membersInputRole}>
 								<Option value='developer'>Developer</Option>
 								<Option value='documenter'>Documenter</Option>
 							</Select>
-							<Button className='w-full' onClick={() => {
+							<Button
+								className='w-full'
+								onClick={() => {
+									const account = membersInputAccount.current!.value
+									const role = membersInputRole.current!.value
+									const isMember = members.find(
+										(member) => member.account === account,
+									)
 
-							}}>
+									if (isMember !== undefined) return
+									membersInputAccount.current!.value = ''
+
+									setMembers([
+										...members,
+										{
+											account,
+											role,
+										},
+									])
+								}}
+							>
 								Save
 							</Button>
 						</div>
 					</Label>
 
 					<Wrapper>
-						{members.current.map((member) => {
+						{members.map((member) => {
 							const { account, role } = member
 							return (
 								<WrapperItem key={account}>
 									<MemberItem
 										account={account}
 										memberRole={role}
-										onDelete={() => console.log('del')}
+										onDelete={() => {
+											const newMembers = members.filter(
+												(member) => member.account !== account,
+											)
+											setMembers(newMembers)
+										}}
 									/>
 								</WrapperItem>
 							)
