@@ -10,7 +10,7 @@ function VerifyCodeModal() {
 			<P className='w-full text-center mb-2'>
 				We have send you a code to your email please verify it
 			</P>
-			<InputText className='w-full' placeholder='1234' />
+			<InputText className='w-full' name='code' placeholder='1234' />
 			<FormButton className='w-5/10 mt-4'>Verify</FormButton>
 		</>
 	)

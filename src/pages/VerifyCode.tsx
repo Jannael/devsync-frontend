@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { redirect, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import EnterCodeModal from '../components/EnterCodeModal'
 import Form from '../components/ui/Form'
 import Page from '../components/ui/Page'
