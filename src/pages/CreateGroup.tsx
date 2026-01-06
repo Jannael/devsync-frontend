@@ -6,19 +6,24 @@ import FormButton from '../components/ui/FormButton'
 import InputText from '../components/ui/InputText'
 import Label from '../components/ui/Label'
 import Option from '../components/ui/Option'
+import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Select from '../components/ui/Select'
 import Title from '../components/ui/Title'
 import Wrapper, { WrapperItem } from '../components/Wrapper'
 import { CircleMinus } from '../icons'
+import AccountValidation from '../service/AccountValidation'
 
 function CreateGroup() {
-	const [members, setMembers] = useState<{ account: string; role: string }[]>(
-		[],
-	)
+	const [error, setError] = useState<string | null>(null)
+	const [members, setMembers] = useState<
+		Array<{ account: string; role: string }>
+	>([])
+	const [techLeads, setTechLeads] = useState<string[]>([])
 
 	const membersInputAccount = useRef<HTMLInputElement | null>(null)
 	const membersInputRole = useRef<HTMLSelectElement | null>(null)
+	const techLeadInput = useRef<HTMLInputElement | null>(null)
 
 	return (
 		<Page
@@ -52,44 +57,63 @@ function CreateGroup() {
 					Color
 					<ColorPicker />
 				</Label>
-
 				<div className='w-full'>
-					<Label className='mb-4'>
-						Members
-						<div className='flex justify-between gap-3 flex-wrap'>
-							<InputText placeholder='@gmail.com' ref={membersInputAccount} />
-							<Select className='cursor-pointer' ref={membersInputRole}>
-								<Option value='developer'>Developer</Option>
-								<Option value='documenter'>Documenter</Option>
-							</Select>
-							<Button
-								className='w-full'
-								onClick={() => {
-									const account = membersInputAccount.current!.value
-									const role = membersInputRole.current!.value
-									const isMember = members.find(
-										(member) => member.account === account,
-									)
-
-									if (isMember !== undefined) return
-									if (!account || !role) return
-									membersInputAccount.current!.value = ''
-
-									setMembers([
-										...members,
-										{
-											account,
-											role,
-										},
-									])
-								}}
-							>
-								Save
-							</Button>
+					<div className='flex justify-between gap-3 flex-wrap mb-4'>
+						<div className='flex w-full justify-between gap-3'>
+							<Label className=' w-2/3'>
+								Member account
+								<InputText
+									placeholder='example@gmail.com'
+									ref={membersInputAccount}
+								/>
+							</Label>
+							<Label>
+								Member role
+								<Select
+									className='cursor-pointer flex-2/5'
+									ref={membersInputRole}
+								>
+									<Option value='developer'>Developer</Option>
+									<Option value='documenter'>Documenter</Option>
+								</Select>
+							</Label>
 						</div>
-					</Label>
+						<Button
+							className='w-full'
+							onClick={() => {
+								const account = membersInputAccount.current!.value
+								const role = membersInputRole.current!.value
+								const isMember = members.find(
+									(member) => member.account === account,
+								)
 
-					<Wrapper>
+								if (isMember !== undefined) {
+									setError('User in member list')
+									return
+								}
+
+								if (!account || !role) return
+								membersInputAccount.current!.value = ''
+
+								const isValidAccount = AccountValidation({ account })
+								if (typeof isValidAccount === 'string') {
+									setError(isValidAccount)
+									return
+								}
+
+								setMembers([
+									...members,
+									{
+										account,
+										role,
+									},
+								])
+							}}
+						>
+							Add
+						</Button>
+					</div>
+					<Wrapper title='Members'>
 						{members.map((member) => {
 							const { account, role } = member
 							return (
@@ -110,7 +134,52 @@ function CreateGroup() {
 					</Wrapper>
 				</div>
 
-				<Label>TechLeads</Label>
+				<div className='w-full'>
+					<div className='w-full flex justify-between items-end gap-3 mb-4'>
+						<Label>
+							TechLead account
+							<InputText placeholder='example@gmail.com' ref={techLeadInput} />
+						</Label>
+						<Button
+							className=''
+							onClick={() => {
+								const account = techLeadInput.current!.value
+								const isValid = AccountValidation({ account })
+								if (typeof isValid === 'string') {
+									setError(isValid)
+									return
+								}
+								if (techLeads.includes(account)){
+									setError('account in techLead list')
+									return
+								}
+
+								setTechLeads([...techLeads, account])
+							}}
+						>
+							Add
+						</Button>
+					</div>
+					<Wrapper title='TechLeads'>
+						{techLeads.map((techLead) => {
+							return (
+								<WrapperItem key={techLead}>
+									<TechLeadItem
+										account={techLead}
+										onDelete={() => {
+											const newTechLeads = techLeads.filter(
+												(current) => current !== techLead,
+											)
+											setTechLeads(newTechLeads)
+										}}
+									/>
+								</WrapperItem>
+							)
+						})}
+					</Wrapper>
+				</div>
+
+				{error !== null && <P className='text-error'>{error}</P>}
 
 				<FormButton>Create</FormButton>
 			</Form>
@@ -158,6 +227,27 @@ export function MemberItem({
 					cursor-pointer
 					justify-center items-center
 				'
+				onClick={onDelete}
+				type='button'
+			>
+				<CircleMinus />
+			</button>
+		</output>
+	)
+}
+
+export function TechLeadItem({
+	account,
+	onDelete,
+}: {
+	account: string
+	onDelete?: () => void
+}) {
+	return (
+		<output className='flex justify-around items-center'>
+			<span className='flex-3 truncate'>{account}</span>
+			<button
+				className='border-l-2 flex-1 flex justify-center cursor-pointer'
 				onClick={onDelete}
 				type='button'
 			>
