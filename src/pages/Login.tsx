@@ -48,7 +48,7 @@ function Login() {
 						required
 					/>
 				</Label>
-				<FormButton className='mt-4 w-5/10'>Login</FormButton>
+				<FormButton className='mt-4'>Login</FormButton>
 				{error !== null && (
 					<P className='text-error w-full text-center'>{error}</P>
 				)}

@@ -15,7 +15,7 @@ function VerifyCodeModal() {
 				Code
 				<InputText className='w-full' name='code' placeholder='1234' />
 			</Label>
-			<FormButton className='w-5/10 mt-4'>Verify</FormButton>
+			<FormButton className='mt-4'>Verify</FormButton>
 		</>
 	)
 }

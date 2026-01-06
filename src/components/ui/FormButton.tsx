@@ -13,6 +13,7 @@ function Button({
 		<button
 			className={`
 				${className} border-contrast/50 border-2 py-3 px-6 rounded-full cursor-pointer
+				w-full
 			`}
 			onClick={onClick}
 			type='submit'
