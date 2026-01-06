@@ -72,6 +72,7 @@ function CreateGroup() {
 									)
 
 									if (isMember !== undefined) return
+									if (!account || !role) return
 									membersInputAccount.current!.value = ''
 
 									setMembers([
