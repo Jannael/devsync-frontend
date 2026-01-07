@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router'
+import ChangeAccount from './pages/ChangeAccount'
 import CreateGroup from './pages/CreateGroup'
 import ForgotPwd from './pages/ForgotPwd'
 import Login from './pages/Login'
@@ -11,16 +12,21 @@ function App() {
 	return (
 		<Routes>
 			<Route index></Route>
+			<Route path={routesConst.groupInfo}></Route>
+
+			{/* Forms */}
 			<Route element={<Login />} path={routesConst.login}></Route>
 			<Route
 				element={<ValidateLoginCode />}
 				path={routesConst.verifyLogin}
 			></Route>
+			<Route
+				element={<ChangeAccount />}
+				path={routesConst.changeAccount}
+			></Route>
 			<Route element={<Signup />} path={routesConst.signup}></Route>
-			<Route path={routesConst.changeAccount}></Route>
 			<Route element={<CreateGroup />} path={routesConst.createGroup}></Route>
 			<Route element={<ForgotPwd />} path={routesConst.forgotPwd}></Route>
-			<Route path={routesConst.groupInfo}></Route>
 			<Route element={<VerifyCode />} path={routesConst.verifyCode}></Route>
 		</Routes>
 	)
