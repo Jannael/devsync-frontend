@@ -3,6 +3,7 @@ import ChangeAccount from './pages/ChangeAccount'
 import CreateGroup from './pages/CreateGroup'
 import ForgotPwd from './pages/ForgotPwd'
 import Login from './pages/Login'
+import Main from './pages/Main'
 import Signup from './pages/Signup'
 import VerifyCode from './pages/VerifyCode'
 import ValidateLoginCode from './pages/VerifyLoginCode'
@@ -11,7 +12,7 @@ import { routesConst } from './routes.constants'
 function App() {
 	return (
 		<Routes>
-			<Route index></Route>
+			<Route element={<Main />} index></Route>
 			<Route path={routesConst.groupInfo}></Route>
 
 			{/* Forms */}
