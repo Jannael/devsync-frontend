@@ -14,7 +14,7 @@ function VerifyCodeModal({
 	return (
 		<>
 			<Title className=''>Verify code</Title>
-			<P className='w-full text-center mb-2'>
+			<P className='w-full mb-2 text-center'>
 				{description !== undefined
 					? description
 					: 'We have send you a code to your email please verify it'}

@@ -2,7 +2,9 @@ export function CaretDown() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-filled icon-tabler-caret-down'
+			className='
+				icon icon-tabler icons-tabler-filled icon-tabler-caret-down
+			'
 			fill='currentColor'
 			height='24'
 			viewBox='0 0 24 24'
@@ -19,7 +21,9 @@ export function CaretUp() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-filled icon-tabler-caret-up'
+			className='
+				icon icon-tabler icons-tabler-filled icon-tabler-caret-up
+			'
 			fill='currentColor'
 			height='24'
 			viewBox='0 0 24 24'
@@ -36,7 +40,9 @@ export function CircleMinus() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-outline icon-tabler-circle-minus'
+			className='
+				icon icon-tabler icons-tabler-outline icon-tabler-circle-minus
+			'
 			fill='none'
 			height='24'
 			stroke='currentColor'
@@ -58,7 +64,9 @@ export function DotsVertical() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical'
+			className='
+				icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical
+			'
 			fill='none'
 			height='24'
 			stroke='currentColor'
@@ -81,7 +89,9 @@ export function MenuIcon() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-outline icon-tabler-menu-2 size-full'
+			className='
+				icon icon-tabler icons-tabler-outline icon-tabler-menu-2 size-full
+			'
 			fill='none'
 			height='24'
 			stroke='currentColor'
@@ -104,7 +114,9 @@ export function CubePlus() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-outline icon-tabler-cube-plus size-full'
+			className='
+				icon icon-tabler icons-tabler-outline icon-tabler-cube-plus size-full
+			'
 			fill='none'
 			height='24'
 			stroke='currentColor'
@@ -130,7 +142,9 @@ export function X() {
 	return (
 		<svg
 			aria-hidden='true'
-			className='icon icon-tabler icons-tabler-outline icon-tabler-x'
+			className='
+				icon icon-tabler icons-tabler-outline icon-tabler-x
+			'
 			fill='none'
 			height='24'
 			stroke='currentColor'

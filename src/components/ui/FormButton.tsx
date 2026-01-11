@@ -12,8 +12,7 @@ function Button({
 	return (
 		<button
 			className={`
-				${className} border-contrast/50 border-2 py-3 px-6 rounded-full cursor-pointer
-				w-full
+				${className} w-full cursor-pointer rounded-full border-2 border-contrast/50 px-6 py-3
 			`}
 			onClick={onClick}
 			type='submit'

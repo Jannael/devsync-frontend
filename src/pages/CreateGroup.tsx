@@ -27,12 +27,7 @@ function CreateGroup() {
 	const techLeadInput = useRef<HTMLInputElement | null>(null)
 
 	return (
-		<Page
-			className='
-				flex
-				justify-center items-center
-			'
-		>
+		<Page className='flex justify-center items-center'>
 			<Form
 				onSubmit={(e) => {
 					e.preventDefault()
@@ -56,20 +51,12 @@ function CreateGroup() {
 
 				<Label>
 					Group name
-					<InputText
-						className='
-							w-full
-						'
-						name='name'
-						placeholder='my group'
-					/>
+					<InputText className='w-full' name='name' placeholder='my group' />
 				</Label>
 				<Label>
 					Repository
 					<InputText
-						className='
-							w-full
-						'
+						className='w-full'
 						name='repository'
 						placeholder='https://github...'
 					/>
@@ -79,9 +66,15 @@ function CreateGroup() {
 					<ColorPicker name='color' />
 				</Label>
 				<div className='w-full'>
-					<div className='flex justify-between gap-3 flex-wrap mb-4'>
+					<div
+						className='
+							flex flex-wrap
+							mb-4
+							justify-between gap-3
+						'
+					>
 						<div className='flex w-full justify-between gap-3'>
-							<Label className=' w-2/3'>
+							<Label className='w-2/3'>
 								Member account
 								<InputText
 									placeholder='example@gmail.com'
@@ -91,7 +84,7 @@ function CreateGroup() {
 							<Label>
 								Member role
 								<Select
-									className='cursor-pointer flex-2/5'
+									className='flex-2/5 cursor-pointer'
 									ref={membersInputRole}
 								>
 									<Option value='developer'>Developer</Option>
@@ -155,7 +148,14 @@ function CreateGroup() {
 					</Wrapper>
 				</div>
 				<div className='w-full'>
-					<div className='w-full flex justify-between items-end gap-3 mb-4'>
+					<div
+						className='
+							flex
+							w-full
+							mb-4
+							justify-between items-end gap-3
+						'
+					>
 						<Label>
 							TechLead account
 							<InputText placeholder='example@gmail.com' ref={techLeadInput} />
@@ -215,29 +215,9 @@ export function MemberItem({
 	onDelete: () => void
 }) {
 	return (
-		<i
-			className='
-				flex
-				justify-around items-center gap-3
-			'
-		>
-			<p
-				className='
-					flex-3/5
-					border-r-2
-					truncate
-				'
-			>
-				{account}
-			</p>
-			<p
-				className='
-					flex-1/5
-					text-center
-				'
-			>
-				{memberRole}
-			</p>
+		<i className='flex justify-around items-center gap-3'>
+			<p className='flex-3/5 border-r-2 truncate'>{account}</p>
+			<p className='flex-1/5 text-center'>{memberRole}</p>
 			<button
 				className='
 					flex-1/5 flex
@@ -262,10 +242,15 @@ export function TechLeadItem({
 	onDelete?: () => void
 }) {
 	return (
-		<i className='flex justify-around items-center'>
+		<i className='fbex justify-around items-center'>
 			<span className='flex-3 truncate'>{account}</span>
 			<button
-				className='border-l-2 flex-1 flex justify-center cursor-pointer'
+				className='
+					flex-1 flex
+					border-l-2
+					cursor-pointer
+					justify-center
+				'
 				onClick={onDelete}
 				type='button'
 			>

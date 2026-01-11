@@ -12,17 +12,8 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>(
 		return (
 			<input
 				className={`
-				${className}
-				p-3
-				border-contrast/30 border-2 rounded-sm
-				transition-border
-				outline-none focus:border-contrast/80 placeholder:text-sm
-				focus:text-contrast
-        placeholder:text-contrast/60
-        font-main
-				placeholder-shown:bg-primary
-				text-contrast
-			`}
+					${className}p-3 rounded-sm border-2 border-contrast/30 font-main text-contrast outline-none transition-border placeholder:text-contrast/60 placeholder:text-sm placeholder-shown:bg-primary focus:border-contrast/80 focus:text-contrast
+				`}
 				name={name}
 				placeholder={placeholder}
 				ref={ref}

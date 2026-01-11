@@ -7,7 +7,7 @@ function ColorPicker({
 }) {
 	return (
 		<input
-			className={`${className} w-full cursor-pointer h-12`}
+			className={`${className} h-12 w-full cursor-pointer`}
 			name={name}
 			type='color'
 		/>

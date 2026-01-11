@@ -1,3 +1,3 @@
-export const localStorageKeys=  {
-  verifyCode: 'verifyCode'
+export const localStorageKeys = {
+	verifyCode: 'verifyCode',
 }

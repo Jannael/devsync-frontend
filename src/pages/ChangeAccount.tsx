@@ -63,7 +63,7 @@ function ChangeAccount() {
 					}}
 				>
 					<Title className=''>Verify code</Title>
-					<P className='w-full text-center mb-2'>
+					<P className='w-full mb-2 text-center'>
 						We have send an email to your current and new account
 					</P>
 					<Label>

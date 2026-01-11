@@ -51,9 +51,16 @@ function Login() {
 				</Label>
 				<FormButton className='mt-4'>Login</FormButton>
 				{error !== null && (
-					<P className='text-error w-full text-center'>{error}</P>
+					<P className='w-full text-error text-center'>{error}</P>
 				)}
-				<div className='flex flex-col text-md w-full gap-2 text-left'>
+				<div
+					className='
+						flex flex-col
+						w-full
+						text-md text-left
+						gap-2
+					'
+				>
 					<Link to={`${routesConst.verifyCode}?redirect=${routesConst.signup}`}>
 						New user?
 					</Link>

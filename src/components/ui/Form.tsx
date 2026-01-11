@@ -13,7 +13,7 @@ function Form({
 		<form
 			action=''
 			className={`
-				${className} shadow-contrast shadow-sm rounded-sm p-8 flex flex-col justify-center items-center gap-6
+				${className} flex flex-col items-center justify-center gap-6 rounded-sm p-8 shadow-contrast shadow-sm
 			`}
 			onSubmit={onSubmit}
 		>

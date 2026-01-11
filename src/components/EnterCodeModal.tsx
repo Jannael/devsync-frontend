@@ -13,7 +13,7 @@ function EnterCodeModal({ error }: { error: string | null }) {
 				Account
 				<InputText name='account' placeholder='example@gmail.com' />
 			</Label>
-			{error !== null && <P className='text-error text-center'>{error}</P>}
+			{error !== null && <P className='text-center text-error'>{error}</P>}
 			<FormButton>Send code</FormButton>
 		</>
 	)

@@ -6,11 +6,7 @@ function Wrapper({ children, title }: { children: ReactNode; title?: string }) {
 	const childrenCount = Children.count(children)
 
 	return (
-		<div
-			className='
-				h-fit
-			'
-		>
+		<div className='h-fit'>
 			<button
 				className={`
 					flex
@@ -27,10 +23,7 @@ function Wrapper({ children, title }: { children: ReactNode; title?: string }) {
 				{hidden ? <CaretDown /> : <CaretUp />}
 			</button>
 			<ul
-				className='
-					transition-all
-					duration-500
-				'
+				className='transition-all duration-500'
 				style={{
 					height: hidden ? '0px' : `${childrenCount * 48}px`,
 					maxHeight: '120px',
@@ -44,17 +37,7 @@ function Wrapper({ children, title }: { children: ReactNode; title?: string }) {
 }
 
 export function WrapperItem({ children }: { children?: ReactNode }) {
-	return (
-		<li
-			className='
-			h-12
-			p-3
-			border-2 border-contrast/30
-		'
-		>
-			{children}
-		</li>
-	)
+	return <li className='h-12 p-3 border-2 border-contrast/30'>{children}</li>
 }
 
 export default Wrapper

@@ -73,7 +73,7 @@ function Signup() {
 				</Label>
 				<FormButton className='mt-4'>Signup</FormButton>
 				{error !== null && <P className='text-error text-center'>{error}</P>}
-				<div className='text-left w-full mt-4'>
+				<div className='w-full mt-4 text-left'>
 					<Link to={routesConst.login}>Already have an account?</Link>
 				</div>
 			</Form>

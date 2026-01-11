@@ -5,11 +5,7 @@ import { CubePlus, DotsVertical, MenuIcon } from '../icons'
 function Main() {
 	return (
 		<>
-			<Page
-				className='
-					p-10
-				'
-			>
+			<Page className='p-10'>
 				<GroupContainer>
 					<GroupItem color='#f21' name='insane group' />
 					<GroupItem color='#f21' name='insane group' />
@@ -110,12 +106,7 @@ export function ButtonsScreen() {
 				fixed top-0 justify-center
 			'
 		>
-			<div
-				className='
-					max-w-7xl min-h-dvh w-full
-					fixed
-				'
-			>
+			<div className='max-w-7xl min-h-dvh w-full fixed'>
 				<button
 					className='
 						w-10

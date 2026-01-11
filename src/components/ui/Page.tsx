@@ -8,8 +8,16 @@ function Page({
 	children?: ReactNode
 }) {
 	return (
-		<div className='bg-primary w-full min-h-dvh text-txt flex justify-center items-center font-main'>
-			<div className={`${className} w-full min-h-dvh max-w-7xl`}>
+		<div
+			className='
+				flex
+				min-h-dvh w-full
+				font-main text-txt
+				bg-primary
+				items-center justify-center
+			'
+		>
+			<div className={`${className} min-h-dvh w-full max-w-7xl`}>
 				{children}
 			</div>
 		</div>

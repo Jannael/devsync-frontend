@@ -7,7 +7,15 @@ function Label({
 	children: ReactNode
 	className?: string
 }) {
-	return <label className={`${className} text-sm w-full flex flex-col gap-3`}>{children}</label>
+	return (
+		<label
+			className={`
+				${className} flex w-full flex-col gap-3 text-sm
+			`}
+		>
+			{children}
+		</label>
+	)
 }
 
 export default Label
