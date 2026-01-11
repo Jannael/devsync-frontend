@@ -91,7 +91,7 @@ function GroupInfo() {
 							<Button>Add</Button>
 						</PeopleHeader>
 
-						<ul>
+						<ul className='overflow-x-auto'>
 							{data.techLeads.map((techLead) => {
 								return (
 									<TechLeadItem
@@ -109,7 +109,7 @@ function GroupInfo() {
 							<h2 className='text-xl'>Members</h2>
 							<Button>Add</Button>
 						</PeopleHeader>
-						<ul>
+						<ul className='overflow-x-auto'>
 							{data.member.map((member) => {
 								return (
 									<MemberItem
@@ -122,6 +122,8 @@ function GroupInfo() {
 						</ul>
 					</PeopleSection>
 				</div>
+				<Button className='w-full'>Quit</Button>
+				<Button className='w-full'>Delete</Button>
 			</Form>
 		</Page>
 	)
@@ -172,8 +174,8 @@ function TechLeadItem({
 }) {
 	return (
 		<li className='flex justify-around p-2 items-center border-b-2'>
-			<p className='truncate w-1/3 border-r-2 pr-2'>{fullName}</p>
-			<p className='truncate w-1/3 border-r-2 pr-2'>{account}</p>
+			<p className='truncate w-1/3 border-r-2 pr-2 min-w-16'>{fullName}</p>
+			<p className='truncate w-1/3 border-r-2 pr-2 min-w-16'>{account}</p>
 			<button
 				className='border-red-500 border-2 text-red-500 cursor-pointer'
 				onClick={onDelete}
@@ -198,7 +200,7 @@ function MemberItem({
 }) {
 	return (
 		<li className='flex justify-around p-2 items-center border-b-2'>
-			<p className='truncate w-1/3 border-r-2 pr-2'>{account}</p>
+			<p className='truncate w-1/3 border-r-2 pr-2 min-w-23'>{account}</p>
 
 			<Select value={role}>
 				<Option value='developer'>Developer</Option>
