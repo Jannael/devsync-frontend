@@ -215,7 +215,7 @@ export function MemberItem({
 	onDelete: () => void
 }) {
 	return (
-		<output
+		<i
 			className='
 				flex
 				justify-around items-center gap-3
@@ -250,7 +250,7 @@ export function MemberItem({
 			>
 				<CircleMinus />
 			</button>
-		</output>
+		</i>
 	)
 }
 
@@ -262,7 +262,7 @@ export function TechLeadItem({
 	onDelete?: () => void
 }) {
 	return (
-		<output className='flex justify-around items-center'>
+		<i className='flex justify-around items-center'>
 			<span className='flex-3 truncate'>{account}</span>
 			<button
 				className='border-l-2 flex-1 flex justify-center cursor-pointer'
@@ -271,7 +271,7 @@ export function TechLeadItem({
 			>
 				<CircleMinus />
 			</button>
-		</output>
+		</i>
 	)
 }
 
