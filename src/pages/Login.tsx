@@ -16,6 +16,7 @@ function Login() {
 	return (
 		<Page className='flex justify-center items-center'>
 			<Form
+				className='w-6/10 max-w-96'
 				onSubmit={(e) => {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)

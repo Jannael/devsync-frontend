@@ -17,6 +17,7 @@ function Signup() {
 	return (
 		<Page className='flex items-center justify-center'>
 			<Form
+				className='w-6/10 max-w-96'
 				onSubmit={(e) => {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)

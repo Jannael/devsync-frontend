@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router'
 import ChangeAccount from './pages/ChangeAccount'
 import CreateGroup from './pages/CreateGroup'
 import ForgotPwd from './pages/ForgotPwd'
+import GroupInfo from './pages/GroupInfo'
 import Login from './pages/Login'
 import Main from './pages/Main'
 import Signup from './pages/Signup'
@@ -13,7 +14,7 @@ function App() {
 	return (
 		<Routes>
 			<Route element={<Main />} index></Route>
-			<Route path={routesConst.groupInfo}></Route>
+			<Route element={<GroupInfo />} path={routesConst.groupInfo}></Route>
 
 			{/* Forms */}
 			<Route element={<Login />} path={routesConst.login}></Route>

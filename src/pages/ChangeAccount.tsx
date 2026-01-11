@@ -15,6 +15,7 @@ function ChangeAccount() {
 		<Page className='flex items-center justify-center'>
 			{!verifyCode && (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						setError(null)
@@ -44,6 +45,7 @@ function ChangeAccount() {
 			)}
 			{verifyCode && (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						setError(null)

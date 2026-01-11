@@ -5,7 +5,7 @@ import VerifyCodeModal from '../components/VerifyCodeModal'
 function ValidateLoginCode() {
 	return (
 		<Page className='flex justify-center items-center'>
-			<Form>
+			<Form className='w-6/10 max-w-96'>
 				<VerifyCodeModal />
 			</Form>
 		</Page>

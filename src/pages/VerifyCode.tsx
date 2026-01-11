@@ -16,6 +16,7 @@ function VerifyCode() {
 		<Page className='flex justify-center items-center'>
 			{verifyCode ? (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						// todo validate code error, etc
@@ -29,6 +30,7 @@ function VerifyCode() {
 				</Form>
 			) : (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						const formData = new FormData(e.currentTarget)

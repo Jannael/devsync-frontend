@@ -15,6 +15,7 @@ function ForgotPwd() {
 		<Page className='flex justify-center items-center'>
 			{verifyCode && !newPwd && (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						// todo verify code
@@ -29,6 +30,7 @@ function ForgotPwd() {
 
 			{!verifyCode && !newPwd && (
 				<Form
+					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
 						// todo request code
