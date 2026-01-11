@@ -2,7 +2,9 @@ import type { ReactNode } from 'react'
 import Button from '../components/ui/Button'
 import Form from '../components/ui/Form'
 import FormButton from '../components/ui/FormButton'
+import Option from '../components/ui/Option'
 import Page from '../components/ui/Page'
+import Select from '../components/ui/Select'
 import Title from '../components/ui/Title'
 import { X } from '../icons'
 
@@ -42,7 +44,12 @@ const data = {
 		{
 			account: 'insane account',
 			fullName: 'insane fullName',
-			role: 'developer',
+			role: 'documenter',
+		},
+			{
+			account: 'insane account',
+			fullName: 'insane fullName',
+			role: 'documenter',
 		},
 	],
 	techLeads: [
@@ -60,7 +67,7 @@ const data = {
 function GroupInfo() {
 	return (
 		<Page className='flex justify-center items-center'>
-			<Form className='w-6/10 max-w-xl'>
+			<Form className='w-7/10 max-w-xl'>
 				<Title className='mb-3'>Insane Group</Title>
 				<div className='w-full flex flex-col gap-2 border-b-2 p-2 pb-7'>
 					<GroupInfoField field='id' fieldValue={data._id} />
@@ -81,7 +88,7 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>TechLeads</h2>
-							<Button>Save</Button>
+							<Button>Add</Button>
 						</PeopleHeader>
 
 						<ul>
@@ -100,9 +107,19 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>Members</h2>
-							<Button>Save</Button>
+							<Button>Add</Button>
 						</PeopleHeader>
-						<article></article>
+						<ul>
+							{data.member.map((member) => {
+								return (
+									<MemberItem
+										account={member.account}
+										key={member.account}
+										role={member.role}
+									/>
+								)
+							})}
+						</ul>
 					</PeopleSection>
 				</div>
 			</Form>
@@ -147,9 +164,11 @@ function GroupInfoField({
 function TechLeadItem({
 	account,
 	fullName,
+	onDelete,
 }: {
 	account: string
 	fullName: string
+	onDelete?: () => void
 }) {
 	return (
 		<li className='flex justify-around p-2 items-center border-b-2'>
@@ -157,10 +176,54 @@ function TechLeadItem({
 			<p className='truncate w-1/3 border-r-2 pr-2'>{account}</p>
 			<button
 				className='border-red-500 border-2 text-red-500 cursor-pointer'
+				onClick={onDelete}
 				type='button'
 			>
 				<X />
 			</button>
+		</li>
+	)
+}
+
+function MemberItem({
+	account,
+	role,
+	onSave,
+	onDelete,
+}: {
+	account: string
+	role: string
+	onSave?: () => void
+	onDelete?: () => void
+}) {
+	return (
+		<li className='flex justify-around p-2 items-center border-b-2'>
+			<p className='truncate w-1/3 border-r-2 pr-2'>{account}</p>
+
+			<Select value={role}>
+				<Option value='developer'>Developer</Option>
+				<Option value='documenter'>Documenter</Option>
+			</Select>
+
+			<div className='flex justify-between items-center gap-3 border-l-2 pl-2'>
+				<div className='border-r-2 pr-2'>
+					<button
+						className='border-l-2 px-2 border-r-2 border-2 cursor-pointer rounded-full'
+						onClick={onSave}
+						type='button'
+					>
+						Save
+					</button>
+				</div>
+
+				<button
+					className='border-red-500 border-2 text-red-500 cursor-pointer'
+					onClick={onDelete}
+					type='button'
+				>
+					<X />
+				</button>
+			</div>
 		</li>
 	)
 }
