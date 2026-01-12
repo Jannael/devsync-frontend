@@ -9,5 +9,6 @@ export const routesConst = {
 	groupInfo: '/groupInfo',
 	main: '/',
 	group: '/group',
-	solveTask: '/solveTask'
+	solveTask: '/solveTask',
+	createTask: '/createTask'
 }

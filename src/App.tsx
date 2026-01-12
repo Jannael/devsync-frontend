@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router'
 import ChangeAccount from './pages/ChangeAccount'
 import CreateGroup from './pages/CreateGroup'
+import CreateTask from './pages/CreateTask'
 import ForgotPwd from './pages/ForgotPwd'
 import Group from './pages/Group'
 import GroupInfo from './pages/GroupInfo'
 import Login from './pages/Login'
 import Main from './pages/Main'
 import Signup from './pages/Signup'
-import SolveTask from './pages/solveTask'
+import SolveTask from './pages/SolveTask'
 import VerifyCode from './pages/VerifyCode'
 import ValidateLoginCode from './pages/VerifyLoginCode'
 import { routesConst } from './routes.constants'
@@ -34,6 +35,7 @@ function App() {
 			<Route element={<ForgotPwd />} path={routesConst.forgotPwd}></Route>
 			<Route element={<VerifyCode />} path={routesConst.verifyCode}></Route>
 			<Route element={<SolveTask />} path={routesConst.solveTask}></Route>
+			<Route element={<CreateTask />} path={routesConst.createTask}></Route>
 		</Routes>
 	)
 }
