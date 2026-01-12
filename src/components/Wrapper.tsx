@@ -1,12 +1,20 @@
 import { Children, type ReactNode, useState } from 'react'
 import { CaretDown, CaretUp } from '../icons'
 
-function Wrapper({ children, title }: { children: ReactNode; title?: string }) {
+function Wrapper({
+	children,
+	title,
+	className,
+}: {
+	children: ReactNode
+	title?: string
+	className?: string
+}) {
 	const [hidden, setHidden] = useState(false)
 	const childrenCount = Children.count(children)
 
 	return (
-		<div className='h-fit'>
+		<div className={`${className} h-fit`}>
 			<button
 				className={`
 					flex
@@ -36,8 +44,18 @@ function Wrapper({ children, title }: { children: ReactNode; title?: string }) {
 	)
 }
 
-export function WrapperItem({ children }: { children?: ReactNode }) {
-	return <li className='h-12 p-3 border-2 border-contrast/30'>{children}</li>
+export function WrapperItem({
+	children,
+	className,
+}: {
+	children?: ReactNode
+	className?: string
+}) {
+	return (
+		<li className={`${className} h-12 p-3 border-2 border-contrast/30`}>
+			{children}
+		</li>
+	)
 }
 
 export default Wrapper

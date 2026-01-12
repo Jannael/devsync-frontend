@@ -8,4 +8,6 @@ export const routesConst = {
 	forgotPwd: '/forgotPwd',
 	groupInfo: '/groupInfo',
 	main: '/',
+	group: '/group',
+	solveTask: '/solveTask'
 }
