@@ -9,12 +9,12 @@ import Page from '../components/ui/Page'
 import Textarea from '../components/ui/Textarea'
 import Title from '../components/ui/Title'
 import Wrapper, { WrapperItem } from '../components/Wrapper'
-import { Check } from '../icons'
+import { Check, X } from '../icons'
 
 function SolveTask() {
 	// cspell:disable-next-line
 	const taskId = 'ransoajsdnadbiad'
-	const [feature, setFeature] = useState<string[]>()
+	const [feature, setFeature] = useState<string[]>(['feat'])
 	const featureRef = useRef<HTMLInputElement>(null)
 
 	return (
@@ -26,7 +26,7 @@ function SolveTask() {
 					Description
 					<Textarea></Textarea>
 				</Label>
-				<div className='flex gap-3 flex-wrap w-full'>
+				<div className='flex flex-wrap w-full gap-3'>
 					<Label className='flex-3'>
 						Features
 						<InputText placeholder='1. register user...' ref={featureRef} />
@@ -48,8 +48,28 @@ function SolveTask() {
 						{/* WrapperItem => this is a li keep it in mind */}
 						{feature?.map((feat) => {
 							return (
-								<WrapperItem className='truncate' key={feat}>
+								<WrapperItem
+									className='
+										flex
+										truncate items-center justify-between
+									'
+									key={feat}
+								>
 									{feat}
+									<button
+										className='
+											text-red-500
+											border-red-500 border-2
+											cursor-pointer
+										'
+										onClick={() => {
+											const newFeatures = feature.filter(current => current !== feat)
+											setFeature(newFeatures)
+										}}
+										type='button'
+									>
+										<X />
+									</button>
 								</WrapperItem>
 							)
 						})}
