@@ -17,7 +17,7 @@ function Page({
 				items-center justify-center
 			'
 		>
-			<div className={`${className} min-h-dvh w-full max-w-7xl`}>
+			<div className={`${className} min-h-dvh w-full`}>
 				{children}
 			</div>
 		</div>
