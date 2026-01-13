@@ -97,7 +97,7 @@ function CreateTask() {
 						Description
 						<Textarea className='min-h-24' />
 					</Label>
-					<div className='flex w-full'>
+					<div className='flex w-full gap-3'>
 						<div className='flex flex-wrap w-4/10 gap-3 items-center'>
 							<div className='flex w-full gap-3'>
 								<Label className='flex-3'>
@@ -154,6 +154,10 @@ function CreateTask() {
 								})}
 							</Wrapper>
 						</div>
+						<Label className='w-6/10'>
+							Code
+							<Textarea className='h-full'></Textarea>
+						</Label>
 					</div>
 				</div>
 			</Form>
