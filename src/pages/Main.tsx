@@ -106,7 +106,7 @@ export function ButtonsScreen() {
 				fixed top-0 justify-center
 			'
 		>
-			<div className='max-w-7xl min-h-dvh w-full fixed'>
+			<div className='min-h-dvh w-full fixed'>
 				<button
 					className='
 						w-10

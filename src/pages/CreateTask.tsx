@@ -22,7 +22,7 @@ function CreateTask() {
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
-			<Form className='flex flex-row flex-wrap w-full'>
+			<Form className='flex flex-row flex-wrap w-full max-w-7xl'>
 				<Title className='w-full'>Create Task</Title>
 				<div
 					className='

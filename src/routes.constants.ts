@@ -3,12 +3,12 @@ export const routesConst = {
 	verifyLogin: '/login/verify',
 	verifyCode: '/verify/code',
 	signup: '/signup',
-	changeAccount: '/changeAccount',
-	createGroup: '/createGroup',
-	forgotPwd: '/forgotPwd',
-	groupInfo: '/groupInfo',
+	changeAccount: '/change/account',
+	createGroup: '/create/group',
+	forgotPwd: '/forgot/pwd',
+	groupInfo: '/group/info',
 	main: '/',
 	group: '/group',
-	solveTask: '/solveTask',
-	createTask: '/createTask'
+	solveTask: '/solve/task',
+	createTask: '/create/task'
 }
