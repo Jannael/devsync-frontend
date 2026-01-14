@@ -1,5 +1,5 @@
 import config from '../../config/config'
-import createModel, { createGetModel } from '../../utils/helpers/createModel'
+import createModel from '../../utils/helpers/createModel'
 
 const api = `${config.host}/group/v1`
 
