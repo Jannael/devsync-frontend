@@ -1,5 +1,5 @@
-import config from '../../config/config.ts'
-import createModel, { createGetModel } from '../../utils/helpers/createModel.ts'
+import config from '../../../../config/config.ts'
+import createModel, { createGetModel } from '../../../../utils/helpers/createModel.ts'
 
 const api = `${config.host}/auth/v1`
 

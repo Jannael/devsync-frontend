@@ -1,5 +1,5 @@
-import config from '../../config/config'
-import createModel from '../../utils/helpers/createModel'
+import config from '../../../../config/config'
+import createModel from '../../../../utils/helpers/createModel'
 
 const api = `${config.host}/solution/v1`
 
