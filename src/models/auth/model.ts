@@ -1,25 +1,16 @@
 import config from '../../config/config.ts'
+import createModel from '../../utils/helpers/createModel.ts'
 
 const api = `${config.host}/auth/v1`
 
 const model = {
-	requestCode: async ({ account }: { account: string }) => {
-		try {
-			const request = await fetch(`${api}/request/code`, {
-				method: 'POST',
-				headers: { 'content-type': 'application/json' },
-				credentials: 'include',
-				body: JSON.stringify({
-					account,
-				}),
-			})
-			const response = await request.json()
-			if (!request.ok && response.body.success === false) return response.msg
-			return response
-		} catch (e) {
-			console.log(e)
-		}
-	},
+	requestCode: createModel({ account: '' }, api, '/request/code', 'POST'),
+	verifyCode: createModel(
+		{ account: '', code: null as unknown as number },
+		api,
+		'/verify/code',
+		'POST',
+	),
 }
 
 export default model
