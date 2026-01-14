@@ -2,7 +2,7 @@ function createModel<T extends Record<string, any>>(
 	_initialProps: T,
 	api: string,
 	endpoint: string,
-	method: 'POST' | 'DELETE' | 'PATCH',
+	method: 'POST' | 'DELETE' | 'PATCH' | 'PUT',
 ) {
 	return async (data: T) => {
 		try {
