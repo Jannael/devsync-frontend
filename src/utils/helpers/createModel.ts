@@ -15,10 +15,37 @@ function createModel<T extends Record<string, any>>(
 
 			const response = await request.json()
 
-			if (!request.ok) {
+			if (!request.ok || response.success === false) {
 				throw {
 					msg: response.msg || 'Something went wrong please try again',
-					description: response.description,
+					description: response.description || 'Something went wrong',
+				}
+			}
+
+			return response
+		} catch (e) {
+			console.error('Model Error:', e)
+			throw e
+		}
+	}
+}
+
+export function createGetModel(
+	api: string,
+	endpoint: string,
+) {
+	return async () => {
+		try {
+			const request = await fetch(`${api}${endpoint}`, {
+				credentials: 'include',
+			})
+
+			const response = await request.json()
+
+			if (!request.ok || response.success === false) {
+				throw {
+					msg: response.msg || 'Something went wrong please try again',
+					description: response.description || 'Something went wrong',
 				}
 			}
 
