@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../components/ui/Form'
@@ -13,6 +14,13 @@ import FormValidator from '../service/LoginValidation'
 
 function Login() {
 	const [error, setError] = useState<string | null>(null)
+	const requestRefreshTokenCode = useMutation({
+		mutationFn: authModel.requestRefreshTokenCode,
+		onSuccess: () => {
+			// only move to the next section if there is no error
+			window.location.href = routesConst.verifyLogin
+		},
+	})
 
 	return (
 		<Page className='flex justify-center items-center'>
@@ -27,17 +35,11 @@ function Login() {
 						setError(isValid)
 						return
 					}
-					try {
-						await authModel.requestRefreshTokenCode({
-							account: isValid.account,
-							pwd: isValid.pwd,
-						})
-						// only move to the next section if there is no error
-						window.location.href = routesConst.verifyLogin
-					} catch (e) {
-						setError((e as Record<string, string>).description)
-					}
 
+					requestRefreshTokenCode.mutate({
+						account: data.account.toString(),
+						pwd: data.pwd.toString(),
+					})
 				}}
 			>
 				<Title className='mb-4'>Login</Title>
@@ -62,6 +64,9 @@ function Login() {
 				<FormButton className='mt-4'>Login</FormButton>
 				{error !== null && (
 					<P className='w-full text-error text-center'>{error}</P>
+				)}
+				{requestRefreshTokenCode.isError && (
+					<P className='w-full text-error text-center'>{requestRefreshTokenCode.error.message}</P>
 				)}
 				<div
 					className='
