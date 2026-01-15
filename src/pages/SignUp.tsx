@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../components/ui/Form'
@@ -14,6 +15,14 @@ import FormValidator from './../service/SignupValidation'
 
 function Signup() {
 	const [error, setError] = useState<string | null>(null)
+
+	const signUp = useMutation({
+		mutationFn: userModel.create,
+		onSuccess: () => {
+			localStorage.removeItem(localStorageKeys.verifyCode)
+			window.location.href = routesConst.main
+		},
+	})
 
 	return (
 		<Page className='flex items-center justify-center'>
@@ -37,25 +46,18 @@ function Signup() {
 						pwd,
 						nickName,
 					} as Record<string, string>)
+
 					if (typeof isValid === 'string') {
 						setError(isValid)
 						return
 					}
 
-					try {
-						await userModel.create({
-							fullName: fullName.toString(),
-							account,
-							pwd: pwd.toString(),
-							nickName: nickName.toString(),
-						})
-
-						// todo make the request to create the user
-						localStorage.removeItem(localStorageKeys.verifyCode)
-						window.location.href = routesConst.main
-					} catch (e) {
-						setError((e as Record<string, string>).description)
-					}
+					signUp.mutate({
+						fullName: fullName.toString(),
+						account: account.toString(),
+						pwd: pwd.toString(),
+						nickName: nickName.toString(),
+					})
 				}}
 			>
 				<Title className='mb-4'>Signup</Title>
@@ -86,8 +88,13 @@ function Signup() {
 						required
 					/>
 				</Label>
-				<FormButton className='mt-4'>Signup</FormButton>
+				<FormButton block={signUp.isPending} className='mt-4'>
+					Signup
+				</FormButton>
 				{error !== null && <P className='text-error text-center'>{error}</P>}
+				{signUp.isError && (
+					<P className='text-error text-center'>{signUp.error.message}</P>
+				)}
 				<div className='w-full mt-4 text-left'>
 					<Link to={routesConst.login}>Already have an account?</Link>
 				</div>
