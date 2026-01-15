@@ -6,7 +6,7 @@ const api = `${config.host}/auth/v1`
 const model = {
 	requestCode: createModel({ account: '' }, api, '/request/code', 'POST'),
 	verifyCode: createModel(
-		{ account: '', code: null as unknown as number },
+		{ account: '', code: '' },
 		api,
 		'/verify/code',
 		'POST',

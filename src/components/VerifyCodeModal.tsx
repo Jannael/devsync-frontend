@@ -7,9 +7,11 @@ import Title from './ui/Title'
 function VerifyCodeModal({
 	name,
 	description,
+	error
 }: {
 	name?: string
 	description?: string
+	error: string | null
 }) {
 	return (
 		<>
@@ -27,6 +29,7 @@ function VerifyCodeModal({
 					placeholder='1234'
 				/>
 			</Label>
+			{error !== null && <P className='text-center text-error'>{error}</P>}
 			<FormButton className='mt-4'>Verify</FormButton>
 		</>
 	)
