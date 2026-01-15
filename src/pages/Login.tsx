@@ -8,6 +8,7 @@ import P from '../components/ui/P'
 import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
 import { routesConst } from '../routes.constants'
+import authModel from './../service/api/models/auth/model'
 import FormValidator from '../service/LoginValidation'
 
 function Login() {
@@ -17,7 +18,7 @@ function Login() {
 		<Page className='flex justify-center items-center'>
 			<Form
 				className='w-6/10 max-w-96'
-				onSubmit={(e) => {
+				onSubmit={async (e) => {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)
 					const data = Object.fromEntries(formData.entries())
@@ -26,8 +27,17 @@ function Login() {
 						setError(isValid)
 						return
 					}
-					// todo make the request to the server
-					window.location.href = routesConst.verifyLogin
+					try {
+						await authModel.requestRefreshTokenCode({
+							account: isValid.account,
+							pwd: isValid.pwd,
+						})
+						// only move to the next section if there is no error
+						window.location.href = routesConst.verifyLogin
+					} catch (e) {
+						setError((e as Record<string, string>).description)
+					}
+
 				}}
 			>
 				<Title className='mb-4'>Login</Title>

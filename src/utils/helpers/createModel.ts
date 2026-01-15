@@ -30,10 +30,7 @@ function createModel<T extends Record<string, any>>(
 	}
 }
 
-export function createGetModel(
-	api: string,
-	endpoint: string,
-) {
+export function createGetModel(api: string, endpoint: string) {
 	return async () => {
 		try {
 			const request = await fetch(`${api}${endpoint}`, {
