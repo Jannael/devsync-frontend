@@ -18,7 +18,7 @@ const model = {
 		'POST',
 	),
 	requestRefreshToken: createModel(
-		{ code: null as unknown as number },
+		{ code: '' },
 		api,
 		'/request/refreshToken',
 		'POST',
