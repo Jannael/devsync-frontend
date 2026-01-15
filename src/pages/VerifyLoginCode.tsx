@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import Form from '../components/ui/Form'
 import Page from '../components/ui/Page'
@@ -7,6 +8,12 @@ import authModel from './../service/api/models/auth/model'
 
 function ValidateLoginCode() {
 	const [error, setError] = useState<string | null>(null)
+	const requestRefreshToken = useMutation({
+		mutationFn: authModel.requestRefreshToken,
+		onSuccess: () => {
+			window.location.href = routesConst.main
+		},
+	})
 	return (
 		<Page className='flex justify-center items-center'>
 			<Form
@@ -15,20 +22,21 @@ function ValidateLoginCode() {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)
 					const data = Object.fromEntries(formData.entries())
-
-					try {
-						const res = await authModel.requestRefreshToken({
-							code: data.code.toString(),
-						})
-						if (res.success !== true)
-							throw { description: 'Something went wrong please try again' }
-						window.location.href = routesConst.main
-					} catch (e) {
-						setError((e as Record<string, string>).description)
+					if (typeof Number(data.code) !== 'number') {
+						setError('invalid code')
 					}
+
+					requestRefreshToken.mutate({ code: data.code.toString() })
 				}}
 			>
-				<VerifyCodeModal error={error} />
+				<VerifyCodeModal
+					blockSubmit={requestRefreshToken.isPending}
+					error={
+						requestRefreshToken.isError
+							? requestRefreshToken.error.message
+							: error
+					}
+				/>
 			</Form>
 		</Page>
 	)
