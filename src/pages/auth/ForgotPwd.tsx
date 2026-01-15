@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import Form from '../components/ui/Form'
-import FormButton from '../components/ui/FormButton'
-import InputText from '../components/ui/InputText'
-import Label from '../components/ui/Label'
-import Page from '../components/ui/Page'
-import Title from '../components/ui/Title'
-import VerifyCodeModal from '../components/VerifyCodeModal'
+import Form from '../../components/ui/Form'
+import FormButton from '../../components/ui/FormButton'
+import InputText from '../../components/ui/InputText'
+import Label from '../../components/ui/Label'
+import Page from '../../components/ui/Page'
+import Title from '../../components/ui/Title'
+import VerifyCodeModal from '../../components/VerifyCodeModal'
 
 function ForgotPwd() {
 	const [verifyCode, setVerifyCode] = useState(false)
@@ -24,7 +24,7 @@ function ForgotPwd() {
 						setNewPwd(true)
 					}}
 				>
-					<VerifyCodeModal />
+					<VerifyCodeModal blockSubmit={false} error={''} />
 				</Form>
 			)}
 

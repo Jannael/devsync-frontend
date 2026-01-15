@@ -1,16 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router'
-import Form from '../components/ui/Form'
-import FormButton from '../components/ui/FormButton'
-import InputText from '../components/ui/InputText'
-import Label from '../components/ui/Label'
-import P from '../components/ui/P'
-import Page from '../components/ui/Page'
-import Title from '../components/ui/Title'
-import { routesConst } from '../routes.constants'
-import authModel from './../service/api/models/auth/model'
-import FormValidator from '../service/LoginValidation'
+import Form from '../../components/ui/Form'
+import FormButton from '../../components/ui/FormButton'
+import InputText from '../../components/ui/InputText'
+import Label from '../../components/ui/Label'
+import P from '../../components/ui/P'
+import Page from '../../components/ui/Page'
+import Title from '../../components/ui/Title'
+import { routesConst } from '../../routes.constants'
+import authModel from '../../service/api/models/auth/model'
+import FormValidator from '../../service/LoginValidation'
 
 function Login() {
 	const [error, setError] = useState<string | null>(null)
@@ -66,7 +66,9 @@ function Login() {
 					<P className='w-full text-error text-center'>{error}</P>
 				)}
 				{requestRefreshTokenCode.isError && (
-					<P className='w-full text-error text-center'>{requestRefreshTokenCode.error.message}</P>
+					<P className='w-full text-error text-center'>
+						{requestRefreshTokenCode.error.message}
+					</P>
 				)}
 				<div
 					className='

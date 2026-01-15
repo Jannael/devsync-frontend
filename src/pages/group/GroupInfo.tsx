@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
-import Button from '../components/ui/Button'
-import Form from '../components/ui/Form'
-import Option from '../components/ui/Option'
-import Page from '../components/ui/Page'
-import Select from '../components/ui/Select'
-import Title from '../components/ui/Title'
-import { X } from '../icons'
+import Button from '../../components/ui/Button'
+import Form from '../../components/ui/Form'
+import Option from '../../components/ui/Option'
+import Page from '../../components/ui/Page'
+import Select from '../../components/ui/Select'
+import Title from '../../components/ui/Title'
+import { X } from '../../icons'
 
 // display next info
 // "_id": "",

@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import Button from '../components/ui/Button'
-import P from '../components/ui/P'
-import Page from '../components/ui/Page'
-import Title from '../components/ui/Title'
-import { Check, DotsVertical, X } from '../icons'
+import Button from '../../components/ui/Button'
+import P from '../../components/ui/P'
+import Page from '../../components/ui/Page'
+import Title from '../../components/ui/Title'
+import { Check, DotsVertical, X } from '../../icons'
 
 const task = [
 	{

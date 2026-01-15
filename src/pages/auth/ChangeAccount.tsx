@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import Form from '../components/ui/Form'
-import FormButton from '../components/ui/FormButton'
-import InputText from '../components/ui/InputText'
-import Label from '../components/ui/Label'
-import P from '../components/ui/P'
-import Page from '../components/ui/Page'
-import Title from '../components/ui/Title'
-import AccountValidator from '../service/AccountValidation'
+import Form from '../../components/ui/Form'
+import FormButton from '../../components/ui/FormButton'
+import InputText from '../../components/ui/InputText'
+import Label from '../../components/ui/Label'
+import P from '../../components/ui/P'
+import Page from '../../components/ui/Page'
+import Title from '../../components/ui/Title'
+import AccountValidator from '../../service/AccountValidation'
 
 function ChangeAccount() {
 	const [verifyCode, setVerifyCode] = useState(false)

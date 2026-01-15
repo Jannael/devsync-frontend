@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
-import Form from '../components/ui/Form'
-import Page from '../components/ui/Page'
-import VerifyCodeModal from '../components/VerifyCodeModal'
-import { routesConst } from '../routes.constants'
-import authModel from './../service/api/models/auth/model'
+import Form from '../../components/ui/Form'
+import Page from '../../components/ui/Page'
+import VerifyCodeModal from '../../components/VerifyCodeModal'
+import { routesConst } from '../../routes.constants'
+import authModel from '../../service/api/models/auth/model'
 
 function ValidateLoginCode() {
 	const [error, setError] = useState<string | null>(null)

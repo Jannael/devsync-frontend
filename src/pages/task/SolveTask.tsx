@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react'
-import Button from '../components/ui/Button'
-import Form from '../components/ui/Form'
-import FormButton from '../components/ui/FormButton'
-import InputText from '../components/ui/InputText'
-import Label from '../components/ui/Label'
-import P from '../components/ui/P'
-import Page from '../components/ui/Page'
-import Textarea from '../components/ui/Textarea'
-import Title from '../components/ui/Title'
-import Wrapper, { WrapperItem } from '../components/Wrapper'
-import { Check, X } from '../icons'
+import Button from '../../components/ui/Button'
+import Form from '../../components/ui/Form'
+import FormButton from '../../components/ui/FormButton'
+import InputText from '../../components/ui/InputText'
+import Label from '../../components/ui/Label'
+import P from '../../components/ui/P'
+import Page from '../../components/ui/Page'
+import Textarea from '../../components/ui/Textarea'
+import Title from '../../components/ui/Title'
+import Wrapper, { WrapperItem } from '../../components/Wrapper'
+import { Check, X } from '../../icons'
 
 function SolveTask() {
 	// cspell:disable-next-line
@@ -63,7 +63,9 @@ function SolveTask() {
 											cursor-pointer
 										'
 										onClick={() => {
-											const newFeatures = feature.filter(current => current !== feat)
+											const newFeatures = feature.filter(
+												(current) => current !== feat,
+											)
 											setFeature(newFeatures)
 										}}
 										type='button'

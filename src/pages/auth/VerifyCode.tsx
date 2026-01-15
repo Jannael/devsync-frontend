@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-import EnterCodeModal from '../components/EnterCodeModal'
-import Form from '../components/ui/Form'
-import Page from '../components/ui/Page'
-import VerifyCodeModal from '../components/VerifyCodeModal'
-import { localStorageKeys } from '../localStorageKeys'
-import AccountValidator from '../service/AccountValidation'
-import authModel from './../service/api/models/auth/model'
+import EnterCodeModal from '../../components/EnterCodeModal'
+import Form from '../../components/ui/Form'
+import Page from '../../components/ui/Page'
+import VerifyCodeModal from '../../components/VerifyCodeModal'
+import { localStorageKeys } from '../../localStorageKeys'
+import AccountValidator from '../../service/AccountValidation'
+import authModel from '../../service/api/models/auth/model'
 
 function VerifyCode() {
 	const [verifyCode, setVerifyCode] = useState(false)
