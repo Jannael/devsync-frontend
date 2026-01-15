@@ -9,6 +9,7 @@ import Page from '../components/ui/Page'
 import Title from '../components/ui/Title'
 import { localStorageKeys } from '../localStorageKeys'
 import { routesConst } from '../routes.constants'
+import userModel from './../service/api/models/user/model'
 import FormValidator from './../service/SignupValidation'
 
 function Signup() {
@@ -18,11 +19,14 @@ function Signup() {
 		<Page className='flex items-center justify-center'>
 			<Form
 				className='w-6/10 max-w-96'
-				onSubmit={(e) => {
+				onSubmit={async (e) => {
 					e.preventDefault()
 					const formData = new FormData(e.currentTarget)
 					const account = localStorage.getItem(localStorageKeys.verifyCode)
-
+					if (account === null) {
+						setError('Missing account')
+						return
+					}
 					const { fullName, pwd, nickName } = Object.fromEntries(
 						formData.entries(),
 					)
@@ -38,9 +42,20 @@ function Signup() {
 						return
 					}
 
-					// todo make the request to create the user
-					localStorage.removeItem(localStorageKeys.verifyCode)
-					window.location.href = routesConst.main
+					try {
+						await userModel.create({
+							fullName: fullName.toString(),
+							account,
+							pwd: pwd.toString(),
+							nickName: nickName.toString(),
+						})
+
+						// todo make the request to create the user
+						localStorage.removeItem(localStorageKeys.verifyCode)
+						window.location.href = routesConst.main
+					} catch (e) {
+						setError((e as Record<string, string>).description)
+					}
 				}}
 			>
 				<Title className='mb-4'>Signup</Title>
