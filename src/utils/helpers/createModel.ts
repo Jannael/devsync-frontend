@@ -16,10 +16,7 @@ function createModel<T extends Record<string, any>>(
 			const response = await request.json()
 
 			if (!request.ok || response.success === false) {
-				throw {
-					msg: response.msg || 'Something went wrong please try again',
-					description: response.description || 'Something went wrong',
-				}
+				throw new Error(response.description || 'Something went wrong')
 			}
 
 			return response
@@ -40,10 +37,7 @@ export function createGetModel(api: string, endpoint: string) {
 			const response = await request.json()
 
 			if (!request.ok || response.success === false) {
-				throw {
-					msg: response.msg || 'Something went wrong please try again',
-					description: response.description || 'Something went wrong',
-				}
+				throw new Error(response.description || 'Something went wrong',)
 			}
 
 			return response

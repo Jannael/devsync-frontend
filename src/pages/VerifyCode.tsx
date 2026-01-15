@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import EnterCodeModal from '../components/EnterCodeModal'
@@ -13,40 +14,50 @@ function VerifyCode() {
 	const [error, setError] = useState<string | null>(null)
 	const [searchParams] = useSearchParams()
 
+	const requestCode = useMutation({
+		mutationFn: authModel.requestCode,
+		onSuccess: (_, variables) => {
+			localStorage.setItem(localStorageKeys.verifyCode, variables.account)
+			setVerifyCode(true)
+		},
+	})
+
+	const verifyCodeMutation = useMutation({
+		mutationFn: authModel.verifyCode,
+		onSuccess: () => {
+			const redirect = searchParams.get('redirect')
+			window.location.href = redirect !== null ? redirect : ''
+		},
+	})
+
 	return (
 		<Page className='flex justify-center items-center'>
 			{verifyCode ? (
 				<Form
 					className='w-6/10 max-w-96'
-					onSubmit={async (e) => {
+					onSubmit={(e) => {
 						e.preventDefault()
 						const formData = new FormData(e.currentTarget)
 						const data = Object.fromEntries(formData.entries())
 						const account = localStorage.getItem(localStorageKeys.verifyCode)
 						if (account === null) return
-
-						try {
-							const res = await authModel.verifyCode({
-								account,
-								code: data.code.toString(),
-							})
-							if (res.success !== true)
-								throw { description: 'Something went wrong please try again' }
-
-							// we get the redirect as queryParam
-							const redirect = searchParams.get('redirect')
-							window.location.href = redirect !== null ? redirect : ''
-						} catch (e) {
-							setError((e as Record<string, string>).description)
-						}
+						if (typeof Number(data.code) !== 'number') return
+						verifyCodeMutation.mutate({ account, code: data.code.toString() })
 					}}
 				>
-					<VerifyCodeModal error={error} />
+					<VerifyCodeModal
+						blockSubmit={verifyCodeMutation.isPending}
+						error={
+							verifyCodeMutation.isError
+								? verifyCodeMutation.error.message
+								: error
+						}
+					/>
 				</Form>
 			) : (
 				<Form
 					className='w-6/10 max-w-96'
-					onSubmit={async (e) => {
+					onSubmit={(e) => {
 						e.preventDefault()
 						const formData = new FormData(e.currentTarget)
 						const data = Object.fromEntries(formData.entries())
@@ -57,17 +68,13 @@ function VerifyCode() {
 							return
 						}
 
-						localStorage.setItem(localStorageKeys.verifyCode, isValid.account)
-
-						try {
-							await authModel.requestCode({ account: isValid.account })
-							setVerifyCode(true)
-						} catch (e) {
-							setError((e as Record<string, string>).description)
-						}
+						requestCode.mutate({ account: data.account.toString() })
 					}}
 				>
-					<EnterCodeModal error={error} />
+					<EnterCodeModal
+						blockSubmit={requestCode.isPending}
+						error={requestCode.isError ? requestCode.error.message : error}
+					/>
 				</Form>
 			)}
 		</Page>
