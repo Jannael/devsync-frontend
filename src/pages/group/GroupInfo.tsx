@@ -7,25 +7,6 @@ import Select from '../../components/ui/Select'
 import Title from '../../components/ui/Title'
 import { X } from '../../icons'
 
-// display next info
-// "_id": "",
-//     "techLead": [
-//       {
-//         "account": "",
-//         "fullName": ""
-//       }
-//     ], // Optional
-//     "name": "",
-//     "color": "",
-//     "repository": "", // Optional
-//     "member": [
-//       {
-//         "account": "",
-//         "fullName": "",
-//         "role": ""
-//       }
-//     ] // Optional
-
 //Features
 // 1.change roles
 // 2.quit

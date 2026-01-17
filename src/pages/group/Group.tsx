@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useSearchParams } from 'react-router'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import Button from '../../components/ui/Button'
@@ -6,7 +7,7 @@ import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import { Check, DotsVertical, X } from '../../icons'
-
+import { routesConst } from '../../routes.constants'
 const task = [
 	{
 		_id: '1',
@@ -20,78 +21,6 @@ const task = [
 		priority: 7,
 		isComplete: false,
 	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	},
-	{
-		_id: '1',
-		name: 'insane name',
-		priority: 7,
-		isComplete: false,
-	}
 ]
 
 const currentTask = {
@@ -160,6 +89,7 @@ function Group() {
 
 function Group() {
 	const orderedTask = task.sort((task) => task.priority)
+	const [searchParams] = useSearchParams()
 
 	return (
 		<Page className='flex justify-center items-center'>
@@ -176,7 +106,9 @@ function Group() {
 						)
 					})}
 				</ul>
-				<Button className='mt-5'>Create</Button>
+				<Button className='mt-5' onClick={() => {
+					window.location.href = `${routesConst.createTask}?groupId=${searchParams.get('groupId')}`
+				}}>Create</Button>
 			</section>
 			<section className='w-8/10 max-h-dvh overflow-auto flex flex-wrap items-center px-20 gap-10'>
 				<article className='w-full'>
