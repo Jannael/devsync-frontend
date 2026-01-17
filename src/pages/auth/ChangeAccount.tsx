@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -6,11 +7,38 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
+import { routesConst } from '../../routes.constants'
 import AccountValidator from '../../service/AccountValidation'
+import authModel from './../../service/api/models/auth/model'
+import userModel from './../../service/api/models/user/model'
 
 function ChangeAccount() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
+
+	const requestCode = useMutation({
+		mutationFn: authModel.accountRequestCode,
+		onSuccess: () => {
+			setVerifyCode(true)
+		},
+	})
+
+	const verifyCodeMutation = useMutation({
+		mutationFn: async ({
+			codeCurrentAccount,
+			codeNewAccount,
+		}: {
+			codeCurrentAccount: string
+			codeNewAccount: string
+		}) => {
+			await authModel.accountVerifyCode({ codeCurrentAccount, codeNewAccount })
+			await userModel.updateAccount({})
+		},
+		onSuccess: () => {
+			window.location.href = routesConst.login
+		},
+	})
+
 	return (
 		<Page className='flex items-center justify-center'>
 			{!verifyCode && (
@@ -29,8 +57,7 @@ function ChangeAccount() {
 							setError(isValid)
 							return
 						}
-
-						setVerifyCode(true)
+						requestCode.mutate({ newAccount: data.newAccount.toString() })
 					}}
 				>
 					<Title>Change account</Title>
@@ -40,7 +67,10 @@ function ChangeAccount() {
 					</Label>
 
 					{error !== null && <P className='text-error'>{error}</P>}
-					<FormButton>Next</FormButton>
+					{requestCode.isError && (
+						<P className='text-error'>{requestCode.error.message}</P>
+					)}
+					<FormButton block={requestCode.isPending}>Next</FormButton>
 				</Form>
 			)}
 			{verifyCode && (
@@ -59,7 +89,11 @@ function ChangeAccount() {
 							setError('Invalid code new account')
 							return
 						}
-						// todo => request
+
+						verifyCodeMutation.mutate({
+							codeCurrentAccount: data.codeCurrentAccount.toString(),
+							codeNewAccount: data.codeNewAccount.toString(),
+						})
 					}}
 				>
 					<Title className=''>Verify code</Title>
@@ -74,7 +108,6 @@ function ChangeAccount() {
 							placeholder='1234'
 						/>
 					</Label>
-
 					<Label>
 						Code new account
 						<InputText
@@ -84,7 +117,12 @@ function ChangeAccount() {
 						/>
 					</Label>
 					{error !== null && <P className='text-error'>{error}</P>}
-					<FormButton className='mt-4'>Verify</FormButton>
+					{verifyCodeMutation.isError && (
+						<P className='text-error'>{verifyCodeMutation.error.message}</P>
+					)}
+					<FormButton block={verifyCodeMutation.isPending} className='mt-4'>
+						Verify
+					</FormButton>
 				</Form>
 			)}
 		</Page>
