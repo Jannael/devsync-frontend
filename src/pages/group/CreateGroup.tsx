@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import Button from '../../components/ui/Button'
 import ColorPicker from '../../components/ui/ColorPicker'
@@ -12,7 +13,9 @@ import Select from '../../components/ui/Select'
 import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
 import { CircleMinus } from '../../icons'
+import { routesConst } from '../../routes.constants'
 import AccountValidation from '../../service/AccountValidation'
+import groupModel from '../../service/api/models/group/model'
 import GroupValidator from '../../service/GroupValidation'
 
 function CreateGroup() {
@@ -25,6 +28,13 @@ function CreateGroup() {
 	const membersInputAccount = useRef<HTMLInputElement | null>(null)
 	const membersInputRole = useRef<HTMLSelectElement | null>(null)
 	const techLeadInput = useRef<HTMLInputElement | null>(null)
+
+	const createGroup = useMutation({
+		mutationFn: groupModel.create,
+		onSuccess: () => {
+			window.location.href = routesConst.main
+		},
+	})
 
 	return (
 		<Page className='flex justify-center items-center'>
@@ -44,7 +54,7 @@ function CreateGroup() {
 						return
 					}
 
-					// todo make the request
+					createGroup.mutate(isValid)
 				}}
 			>
 				<Title>Create group</Title>
@@ -199,7 +209,8 @@ function CreateGroup() {
 					</Wrapper>
 				</div>
 				{error !== null && <P className='text-error'>{error}</P>}
-				<FormButton>Create</FormButton>
+				{createGroup.isError && <P className='text-error'>{createGroup.error.message}</P>}
+				<FormButton block={createGroup.isPending}>Create</FormButton>
 			</Form>
 		</Page>
 	)
