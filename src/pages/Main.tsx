@@ -1,25 +1,38 @@
+import { useQuery } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
+import { toast } from 'sonner'
 import Page from '../components/ui/Page'
 import { CubePlus, DotsVertical, MenuIcon } from '../icons'
+import { routesConst } from '../routes.constants'
+import userModel from './../service/api/models/user/model'
 
 function Main() {
+	const { data, isError, error } = useQuery({
+		queryFn: userModel.getGroup,
+		queryKey: ['getGroup'],
+		retry: 1,
+	})
+
+	if (isError) toast.error(error.message)
+
 	return (
 		<>
 			<Page className='p-10'>
 				<GroupContainer>
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
-					<GroupItem color='#f21' name='insane group' />
+					{data?.result?.map(
+						(group: { color: string; name: string; _id: string }) => {
+							return (
+								<GroupItem
+									color={group.color}
+									key={group._id}
+									name={group.name}
+									onClick={() => {
+										window.location.href = `${routesConst.group}?groupId=${group._id}`
+									}}
+								/>
+							)
+						},
+					)}
 				</GroupContainer>
 			</Page>
 			<ButtonsScreen />
@@ -44,7 +57,15 @@ export function GroupContainer({ children }: { children: ReactNode }) {
 	)
 }
 
-export function GroupItem({ name, color }: { name: string; color: string }) {
+export function GroupItem({
+	name,
+	color,
+	onClick,
+}: {
+	name: string
+	color: string
+	onClick: () => void
+}) {
 	return (
 		<div
 			className='
@@ -62,6 +83,7 @@ export function GroupItem({ name, color }: { name: string; color: string }) {
 					min-w-2xs h-24 w-full
 					cursor-pointer
 				'
+				onClick={onClick}
 				type='button'
 			>
 				<div
@@ -81,6 +103,7 @@ export function GroupItem({ name, color }: { name: string; color: string }) {
 					<p>{name}</p>
 				</div>
 			</button>
+			{/* Vertical dots */}
 			<button
 				className='
 					p-1 m-1
@@ -98,40 +121,35 @@ export function GroupItem({ name, color }: { name: string; color: string }) {
 
 export function ButtonsScreen() {
 	return (
-		<div
-			className='
-				flex
-				w-full min-h-dvh
-				text-contrast
-				fixed top-0 justify-center
-			'
-		>
-			<div className='min-h-dvh w-full fixed'>
-				<button
-					className='
-						w-10
-						m-2 p-1
-						border-contrast border-2 rounded-full
-						cursor-pointer
-						absolute right-0
-					'
-					type='button'
-				>
-					<MenuIcon />
-				</button>
-				<button
-					className='
-						w-10
-						m-2 p-1
-						border-contrast border-2 rounded-full
-						cursor-pointer
-						absolute right-0 bottom-0
-					'
-					type='button'
-				>
-					<CubePlus />
-				</button>
-			</div>
-		</div>
+		<>
+			<button
+				className='
+					w-10
+					m-2 p-1
+					border-contrast border-2 rounded-full
+					cursor-pointer
+					fixed top-0
+					text-contrast
+					right-0
+					
+				'
+				type='button'
+			>
+				<MenuIcon />
+			</button>
+			<button
+				className='
+					w-10
+					m-2 p-1
+					border-contrast border-2 rounded-full
+					cursor-pointer
+					right-0 bottom-0 fixed
+					text-contrast
+				'
+				type='button'
+			>
+				<CubePlus />
+			</button>
+		</>
 	)
 }
