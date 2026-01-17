@@ -61,7 +61,9 @@ function Login() {
 						required
 					/>
 				</Label>
-				<FormButton className='mt-4'>Login</FormButton>
+				<FormButton block={requestRefreshTokenCode.isPending} className='mt-4'>
+					Login
+				</FormButton>
 				{error !== null && (
 					<P className='w-full text-error text-center'>{error}</P>
 				)}

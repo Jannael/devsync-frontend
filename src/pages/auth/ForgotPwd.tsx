@@ -1,40 +1,126 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
 import InputText from '../../components/ui/InputText'
 import Label from '../../components/ui/Label'
+import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import VerifyCodeModal from '../../components/VerifyCodeModal'
+import { localStorageKeys } from '../../localStorageKeys'
+import { routesConst } from '../../routes.constants'
+import AccountValidator from './../../service/AccountValidation'
+import authModel from './../../service/api/models/auth/model'
+import userModel from './../../service/api/models/user/model'
+import { validator as PasswordValidator } from './../../service/pwdSchema'
 
 function ForgotPwd() {
 	const [verifyCode, setVerifyCode] = useState(false)
-	const [newPwd, setNewPwd] = useState(false)
+	const [error, setError] = useState<string | null>(null)
+
+	const passwordRequestCode = useMutation({
+		mutationFn: authModel.passwordRequestCode,
+		onSuccess: (_, variables) => {
+			localStorage.setItem(
+				localStorageKeys.passwordVerifyCode,
+				variables.account,
+			)
+			setVerifyCode(true)
+		},
+	})
+
+	const passwordVerifyCode = useMutation({
+		mutationFn: async ({
+			code,
+			account,
+			newPwd,
+		}: {
+			code: string
+			account: string
+			newPwd: string
+		}) => {
+			await authModel.passwordVerifyCode({ code, account, newPwd })
+			await userModel.updatePassword({})
+		},
+		onSuccess: async () => {
+			window.location.href = routesConst.login
+		},
+	})
 
 	return (
 		<Page className='flex justify-center items-center'>
-			{verifyCode && !newPwd && (
+			{verifyCode && (
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
-						// todo verify code
-						// inputName => code
-						setVerifyCode(true)
-						setNewPwd(true)
+						const formData = new FormData(e.currentTarget)
+						const data = Object.fromEntries(formData.entries())
+						if (typeof Number(data.code) !== 'number') {
+							setError('Invalid code')
+							return
+						}
+
+						const account = localStorage.getItem(
+							localStorageKeys.passwordVerifyCode,
+						)
+
+						if (account === null) return
+						const isValidPwd = PasswordValidator({
+							password: data.newPwd.toString(),
+						})
+
+						if (typeof isValidPwd === 'string') {
+							setError(isValidPwd)
+							return
+						}
+
+						passwordVerifyCode.mutate({
+							code: data.code.toString(),
+							account,
+							newPwd: data.newPwd.toString(),
+						})
 					}}
 				>
-					<VerifyCodeModal blockSubmit={false} error={''} />
+					<Title>Change password</Title>
+					<Label>
+						Code
+						<InputText className='w-full' name='code' placeholder='1234' />
+					</Label>
+					<Label>
+						New password
+						<InputText name='newPwd' placeholder='new password' />
+					</Label>
+					{error !== null && (
+						<P className='w-full text-error text-center'>{error}</P>
+					)}
+					{passwordRequestCode.isError && (
+						<P className='w-full text-error text-center'>
+							{passwordRequestCode.error.message}
+						</P>
+					)}
+
+					<FormButton block={passwordVerifyCode.isPending}>Change</FormButton>
 				</Form>
 			)}
 
-			{!verifyCode && !newPwd && (
+			{!verifyCode && (
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
 						e.preventDefault()
-						// todo request code
-						setVerifyCode(true)
+						const formData = new FormData(e.currentTarget)
+						const data = Object.fromEntries(formData.entries())
+						const isValid = AccountValidator({
+							account: data.account.toString(),
+						})
+
+						if (typeof isValid === 'string') {
+							setError(isValid)
+							return
+						}
+
+						passwordRequestCode.mutate({ account: data.account.toString() })
 					}}
 				>
 					<Title>Account</Title>
@@ -42,23 +128,17 @@ function ForgotPwd() {
 						Account
 						<InputText name='account' placeholder='example@gmail.com' />
 					</Label>
-					<FormButton>Request code</FormButton>
-				</Form>
-			)}
-
-			{verifyCode && newPwd && (
-				<Form
-					onSubmit={(e) => {
-						e.preventDefault()
-						// todo request change the password
-					}}
-				>
-					<Title>New password</Title>
-					<Label>
-						New password
-						<InputText name='newPwd' placeholder='new password' />
-					</Label>
-					<FormButton>Change</FormButton>
+					{error !== null && (
+						<P className='w-full text-error text-center'>{error}</P>
+					)}
+					{passwordRequestCode.isError && (
+						<P className='w-full text-error text-center'>
+							{passwordRequestCode.error.message}
+						</P>
+					)}
+					<FormButton block={passwordRequestCode.isPending}>
+						Request code
+					</FormButton>
 				</Form>
 			)}
 		</Page>

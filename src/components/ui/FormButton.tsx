@@ -9,7 +9,7 @@ function Button({
 	children?: ReactNode
 	className?: string
 	onClick?: MouseEventHandler<HTMLButtonElement>
-	block?: boolean
+	block: boolean
 }) {
 	return (
 		<button

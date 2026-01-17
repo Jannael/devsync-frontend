@@ -44,7 +44,7 @@ const model = {
 	),
 	passwordVerifyCode: createModel(
 		{
-			code: null as unknown as number,
+			code: '',
 			account: '',
 			newPwd: '',
 		},
