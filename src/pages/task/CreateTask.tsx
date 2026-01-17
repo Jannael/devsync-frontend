@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import Button from '../../components/ui/Button'
 import Form from '../../components/ui/Form'
@@ -11,6 +12,8 @@ import Textarea from '../../components/ui/Textarea'
 import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
 import { Check, X } from '../../icons'
+import { routesConst } from '../../routes.constants'
+import taskModel from './../../service/api/models/task/model'
 
 const accounts = ['1', '2', '3']
 function CreateTask() {
@@ -19,6 +22,13 @@ function CreateTask() {
 
 	const [users, setUsers] = useState<string[]>()
 	const [features, setFeatures] = useState<string[]>()
+
+	const createTask = useMutation({
+		mutationFn: taskModel.create,
+		onSuccess: () => {
+			window.location.href = routesConst.group
+		},
+	})
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
@@ -86,16 +96,22 @@ function CreateTask() {
 							<Option value='10'>10</Option>
 						</Select>
 					</Label>
-					<FormButton className='mt-3'>Create task</FormButton>
+					<FormButton block={createTask.isPending} className='mt-3'>
+						Create task
+					</FormButton>
 				</div>
 				<div className='flex-3 flex flex-col gap-3'>
 					<Label>
 						Name
-						<InputText />
+						<InputText placeholder='validate inputs' />
 					</Label>
 					<Label>
 						Description
-						<Textarea className='min-h-24' />
+						<Textarea
+							className='min-h-24'
+							name='description'
+							placeholder='there is an use when ...'
+						/>
 					</Label>
 					<div className='flex w-full gap-3'>
 						<div className='flex flex-wrap w-4/10 gap-3 items-center'>
@@ -156,7 +172,11 @@ function CreateTask() {
 						</div>
 						<Label className='w-6/10'>
 							Code
-							<Textarea className='h-full'></Textarea>
+							<Textarea
+								className='h-full'
+								name='code'
+								placeholder='function hello() {}'
+							></Textarea>
 						</Label>
 					</div>
 				</div>

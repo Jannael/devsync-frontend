@@ -24,7 +24,10 @@ function SolveTask() {
 				<P>{`taskId = ${taskId}`}</P>
 				<Label>
 					Description
-					<Textarea></Textarea>
+					<Textarea
+						name='description'
+						placeholder='i fix the issue using ...'
+					/>
 				</Label>
 				<div className='flex flex-wrap w-full gap-3'>
 					<Label className='flex-3'>
@@ -81,7 +84,11 @@ function SolveTask() {
 				<div className='w-full'>
 					<Label>
 						Code
-						<Textarea className='min-h-50'></Textarea>
+						<Textarea
+							className='min-h-50'
+							name='code'
+							placeholder='function hello() {}'
+						/>
 					</Label>
 				</div>
 
