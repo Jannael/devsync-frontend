@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { Toaster, toast } from 'sonner'
 import Button from '../../components/ui/Button'
@@ -15,15 +15,11 @@ import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
 import { Check, X } from '../../icons'
 import { routesConst } from '../../routes.constants'
-import AuthModel from '../../service/api/models/auth/model'
 import GroupModel from '../../service/api/models/group/model'
 import taskModel from './../../service/api/models/task/model'
 import TaskValidation from '../../service/TaskValidation'
 
-const accounts = ['1', '2', '3']
 function CreateTask() {
-	AuthModel.requestAccessToken()
-
 	const UserSelectRef = useRef<HTMLSelectElement>(null)
 	const FeaturesRef = useRef<HTMLInputElement>(null)
 
@@ -46,6 +42,7 @@ function CreateTask() {
 			`group=${searchParams.get('groupId')}`,
 			searchParams.get('groupId'),
 		],
+		retry: 1
 	})
 
 	const memberAndTechLeadAccount = [
@@ -62,6 +59,8 @@ function CreateTask() {
 			window.location.href = `${routesConst.group}?groupId=${searchParams.get('groupId')}`
 		},
 	})
+
+	if (isError) toast.error(error.message)
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
