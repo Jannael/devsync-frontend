@@ -3,13 +3,14 @@ import type { ReactNode } from 'react'
 import { Toaster, toast } from 'sonner'
 import Page from '../components/ui/Page'
 import { CubePlus, DotsVertical, MenuIcon } from '../icons'
+import queryKeys from '../queryKeys'
 import { routesConst } from '../routes.constants'
 import userModel from './../service/api/models/user/model'
 
 function Main() {
 	const { data, isError, error } = useQuery({
 		queryFn: userModel.getGroup,
-		queryKey: ['getGroup'],
+		queryKey: [queryKeys.groupsList],
 		retry: 1,
 	})
 

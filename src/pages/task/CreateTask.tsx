@@ -18,6 +18,7 @@ import { routesConst } from '../../routes.constants'
 import GroupModel from '../../service/api/models/group/model'
 import taskModel from './../../service/api/models/task/model'
 import TaskValidation from '../../service/TaskValidation'
+import queryKeys from '../../queryKeys'
 
 function CreateTask() {
 	const UserSelectRef = useRef<HTMLSelectElement>(null)
@@ -39,7 +40,7 @@ function CreateTask() {
 			return GroupModel.get({ signal, _id: groupId })
 		},
 		queryKey: [
-			`group=${searchParams.get('groupId')}`,
+			queryKeys.groupDetail(searchParams.get('groupId') || ''),
 			searchParams.get('groupId'),
 		],
 		retry: 1
