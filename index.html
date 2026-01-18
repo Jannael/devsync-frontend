@@ -9,5 +9,18 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module"> 
+    import { routesConst } from './src/routes.constants.ts';
+
+      const worker = new Worker(new URL('/refreshToken.ts', import.meta.url), { type: 'module' })
+      worker.postMessage('start')
+
+      worker.onmessage = (message) => {
+        if (message.data === 'login') {
+          window.location.href = routesConst.login
+        }
+      }
+
+    </script>
   </body>
 </html>
