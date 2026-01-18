@@ -31,6 +31,9 @@ function Main() {
 									onClick={() => {
 										window.location.href = `${routesConst.group}?groupId=${group._id}`
 									}}
+									onMenuClick={() => {
+										window.location.href = `${routesConst.groupInfo}?groupId=${group._id}`
+									}}
 								/>
 							)
 						},
@@ -63,10 +66,12 @@ export function GroupItem({
 	name,
 	color,
 	onClick,
+	onMenuClick,
 }: {
 	name: string
 	color: string
 	onClick: () => void
+	onMenuClick: () => void
 }) {
 	return (
 		<div
@@ -112,7 +117,9 @@ export function GroupItem({
 					border-contrast border-2 rounded-full
 					cursor-pointer
 					absolute left-0 top-0
+					bg-primary
 				'
+				onClick={onMenuClick}
 				type='button'
 			>
 				<DotsVertical />
