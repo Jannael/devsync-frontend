@@ -1,7 +1,7 @@
 import type z from 'zod'
 
 function createValidator(schema: z.ZodObject<z.ZodRawShape>) {
-	return (obj: Record<string, string>) => {
+	return (obj: Record<string, any>) => {
 		try {
 			const result = schema.parse(obj)
 			return result

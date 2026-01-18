@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReactNode } from 'react'
-import { toast } from 'sonner'
+import { Toaster, toast } from 'sonner'
 import Page from '../components/ui/Page'
 import { CubePlus, DotsVertical, MenuIcon } from '../icons'
 import { routesConst } from '../routes.constants'
@@ -18,6 +18,7 @@ function Main() {
 	return (
 		<>
 			<Page className='p-10'>
+				<Toaster />
 				<GroupContainer>
 					{data?.result?.map(
 						(group: { color: string; name: string; _id: string }) => {

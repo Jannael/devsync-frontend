@@ -1,5 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router'
+import { Toaster, toast } from 'sonner'
 import Button from '../../components/ui/Button'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -13,26 +15,88 @@ import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
 import { Check, X } from '../../icons'
 import { routesConst } from '../../routes.constants'
+import AuthModel from '../../service/api/models/auth/model'
+import GroupModel from '../../service/api/models/group/model'
 import taskModel from './../../service/api/models/task/model'
+import TaskValidation from '../../service/TaskValidation'
 
 const accounts = ['1', '2', '3']
 function CreateTask() {
+	AuthModel.requestAccessToken()
+
 	const UserSelectRef = useRef<HTMLSelectElement>(null)
 	const FeaturesRef = useRef<HTMLInputElement>(null)
 
 	const [users, setUsers] = useState<string[]>()
 	const [features, setFeatures] = useState<string[]>()
 
+	const [searchParams] = useSearchParams()
+
+	const {
+		data: groupQuery,
+		isError,
+		error,
+	} = useQuery({
+		queryFn: ({ signal, queryKey }) => {
+			const [_, groupId] = queryKey
+			if (groupId === null) return
+			return GroupModel.get({ signal, _id: groupId })
+		},
+		queryKey: [
+			`group=${searchParams.get('groupId')}`,
+			searchParams.get('groupId'),
+		],
+	})
+
+	const memberAndTechLeadAccount = [
+		...(groupQuery?.result.techLead?.map(
+			(tl: { account: string }) => tl.account,
+		) || []),
+		...(groupQuery?.result.member?.map((m: { account: string }) => m.account) ||
+			[]),
+	]
+
 	const createTask = useMutation({
 		mutationFn: taskModel.create,
 		onSuccess: () => {
-			window.location.href = routesConst.group
+			window.location.href = `${routesConst.group}?groupId=${searchParams.get('groupId')}`
 		},
 	})
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
-			<Form className='flex flex-row flex-wrap w-full max-w-7xl'>
+			<Toaster />
+			<Form
+				className='flex flex-row flex-wrap w-full max-w-7xl'
+				onSubmit={(e) => {
+					e.preventDefault()
+					const formData = new FormData(e.currentTarget)
+					const data = Object.fromEntries(formData.entries())
+
+					const isValid = TaskValidation({
+						groupId: searchParams.get('groupId')!,
+						user: users || undefined,
+						name: data.name?.toString(),
+						code:
+							data.code
+								? {
+										language: 'js',
+										content: data.code,
+									}
+								: undefined,
+						feature: features,
+						description: data.description?.toString(),
+						isComplete: Boolean(data.isComplete?.toString()),
+						priority: Number(data.priority?.toString()),
+					})
+					if (typeof isValid === 'string') {
+						toast.error(isValid)
+						return
+					}
+
+					createTask.mutate(isValid)
+				}}
+			>
 				<Title className='w-full'>Create Task</Title>
 				<div
 					className='
@@ -52,7 +116,7 @@ function CreateTask() {
 						<Label className='flex-3'>
 							Users
 							<Select className='p-2' ref={UserSelectRef}>
-								{accounts.map((account) => {
+								{memberAndTechLeadAccount.map((account) => {
 									return <Option key={account}>{account}</Option>
 								})}
 							</Select>
@@ -76,14 +140,14 @@ function CreateTask() {
 					</div>
 					<Label>
 						IsComplete
-						<Select>
-							<Option value='true'>Yes</Option>
+						<Select name='isComplete'>
 							<Option value='false'>No</Option>
+							<Option value='true'>Yes</Option>
 						</Select>
 					</Label>
 					<Label>
 						Priority
-						<Select>
+						<Select name='priority'>
 							<Option value='1'>1</Option>
 							<Option value='2'>2</Option>
 							<Option value='3'>3</Option>
@@ -103,7 +167,7 @@ function CreateTask() {
 				<div className='flex-3 flex flex-col gap-3'>
 					<Label>
 						Name
-						<InputText placeholder='validate inputs' />
+						<InputText name='name' placeholder='validate inputs' />
 					</Label>
 					<Label>
 						Description

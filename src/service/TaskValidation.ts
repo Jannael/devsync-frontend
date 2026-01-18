@@ -1,10 +1,14 @@
 import z from 'zod'
+import createValidator from '../utils/helpers/createValidator'
 
 const codeSchema = z.object({
 	language: z.enum(['js'], {
 		message: 'code.language must be one of: js',
 	}),
-	content: z.string('code.content must be str'),
+	content: z
+		.string('code.content must be str')
+		.min(1, { message: 'code is invalid' })
+		.max(500, { message: 'code is invalid' }),
 })
 
 const baseSchema = z.object({
@@ -13,13 +17,13 @@ const baseSchema = z.object({
 		.array(
 			z
 				.string('user array must be account[]')
-				.email('Invalid account at user array'),
+				.email('Invalid account at users'),
 		)
 		.refine((arr) => new Set(arr).size === arr.length, {
 			message:
 				'The user array must contain only unique elements (no duplicates).',
 		}),
-	name: z.string('name must be a string'),
+	name: z.string('name is required').min(1, { message: 'name is required' }),
 	code: codeSchema,
 	feature: z
 		.array(z.string('feature array must be string[]'))
@@ -30,8 +34,11 @@ const baseSchema = z.object({
 	description: z
 		.string('description must be a string, and must be < 500 length')
 		.max(500),
-	isComplete: z.boolean('isComplete must be bool'),
-	priority: z.number('Priority must be a number between 0-10').min(0).max(10),
+	isComplete: z.boolean(),
+	priority: z
+		.number()
+		.min(0, { message: 'priority must be between 0-10' })
+		.max(10, { message: 'priority must be between 0-10' }),
 })
 
 const creationSchema = baseSchema.extend({
@@ -42,3 +49,7 @@ const creationSchema = baseSchema.extend({
 	code: baseSchema.shape.code.optional(),
 	feature: baseSchema.shape.feature.optional(),
 })
+
+const validator = createValidator(creationSchema)
+
+export default validator
