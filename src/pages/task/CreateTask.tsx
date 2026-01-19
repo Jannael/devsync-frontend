@@ -1,4 +1,3 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { Toaster, toast } from 'sonner'
@@ -13,55 +12,34 @@ import Select from '../../components/ui/Select'
 import Textarea from '../../components/ui/Textarea'
 import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
+import useGetGroup from '../../hooks/group/useGetGroup'
+import useCreateTask from '../../hooks/task/useCreateTask'
 import { Check, X } from '../../icons'
 import { routesConst } from '../../routes.constants'
-import GroupModel from '../../service/api/models/group/model'
-import taskModel from './../../service/api/models/task/model'
 import TaskValidation from '../../service/TaskValidation'
-import queryKeys from '../../queryKeys'
 
 function CreateTask() {
 	const UserSelectRef = useRef<HTMLSelectElement>(null)
 	const FeaturesRef = useRef<HTMLInputElement>(null)
-
 	const [users, setUsers] = useState<string[]>()
 	const [features, setFeatures] = useState<string[]>()
 
 	const [searchParams] = useSearchParams()
-
-	const {
-		data: groupQuery,
-		isError,
-		error,
-	} = useQuery({
-		queryFn: ({ signal, queryKey }) => {
-			const [_, groupId] = queryKey
-			if (groupId === null) return
-			return GroupModel.get({ signal, _id: groupId })
-		},
-		queryKey: [
-			queryKeys.groupDetail(searchParams.get('groupId') || ''),
-			searchParams.get('groupId'),
-		],
-		retry: 1
+	const groupId = searchParams.get('groupId') || null
+	const { createTask } = useCreateTask(() => {
+		window.location.href = `${routesConst.group}?groupId=${groupId}`
 	})
+	const { group } = useGetGroup({ groupId })
 
 	const memberAndTechLeadAccount = [
-		...(groupQuery?.result.techLead?.map(
+		...(group.data?.result.techLead?.map(
 			(tl: { account: string }) => tl.account,
 		) || []),
-		...(groupQuery?.result.member?.map((m: { account: string }) => m.account) ||
+		...(group.data?.result.member?.map((m: { account: string }) => m.account) ||
 			[]),
 	]
 
-	const createTask = useMutation({
-		mutationFn: taskModel.create,
-		onSuccess: () => {
-			window.location.href = `${routesConst.group}?groupId=${searchParams.get('groupId')}`
-		},
-	})
-
-	if (isError) toast.error(error.message)
+	if (group.isError) toast.error(group.error.message)
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
@@ -74,16 +52,15 @@ function CreateTask() {
 					const data = Object.fromEntries(formData.entries())
 
 					const isValid = TaskValidation({
-						groupId: searchParams.get('groupId')!,
+						groupId,
 						user: users || undefined,
 						name: data.name?.toString(),
-						code:
-							data.code
-								? {
-										language: 'js',
-										content: data.code,
-									}
-								: undefined,
+						code: data.code
+							? {
+									language: 'js',
+									content: data.code,
+								}
+							: undefined,
 						feature: features,
 						description: data.description?.toString(),
 						isComplete: Boolean(data.isComplete?.toString()),
