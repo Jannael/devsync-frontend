@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
-import queryKeys from '../queryKeys'
-import TaskModel from '../service/api/models/task/model'
+import queryKeys from '../../queryKeys'
+import TaskModel from '../../service/api/models/task/model'
 
 function useTaskList({ taskPage }: { taskPage: number }) {
 	const [searchParams] = useSearchParams()

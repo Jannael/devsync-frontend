@@ -4,7 +4,7 @@ import CurrentTask from '../../components/group/CurrentTask'
 import TaskItem from '../../components/group/TaskItem'
 import Button from '../../components/ui/Button'
 import Page from '../../components/ui/Page'
-import useTaskList from '../../hooks/useTaskList'
+import useTaskList from '../../hooks/auth/useTaskList'
 import { routesConst } from '../../routes.constants'
 
 function Group() {

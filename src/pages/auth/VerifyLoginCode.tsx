@@ -1,19 +1,17 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import VerifyCodeModal from '../../components/VerifyCodeModal'
+import useRequestRefreshToken from '../../hooks/auth/useRequestRefreshToken'
 import { routesConst } from '../../routes.constants'
-import authModel from '../../service/api/models/auth/model'
 
 function ValidateLoginCode() {
 	const [error, setError] = useState<string | null>(null)
-	const requestRefreshToken = useMutation({
-		mutationFn: authModel.requestRefreshToken,
-		onSuccess: () => {
-			window.location.href = routesConst.main
-		},
+
+	const { requestRefreshToken } = useRequestRefreshToken(() => {
+		window.location.href = routesConst.main
 	})
+
 	return (
 		<Page className='flex justify-center items-center'>
 			<Form

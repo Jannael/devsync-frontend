@@ -7,7 +7,7 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import useRefreshTokenCode from '../../hooks/useRefreshTokenCode'
+import useRefreshTokenCode from '../../hooks/auth/useRefreshTokenCode'
 import { routesConst } from '../../routes.constants'
 import FormValidator from '../../service/LoginValidation'
 

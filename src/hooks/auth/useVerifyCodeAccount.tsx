@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
-import { routesConst } from '../routes.constants'
-import authModel from '../service/api/models/auth/model'
-import userModel from '../service/api/models/user/model'
+import { routesConst } from '../../routes.constants'
+import authModel from '../../service/api/models/auth/model'
+import userModel from '../../service/api/models/user/model'
 
 function useVerifyCodeAccount() {
 	const verifyCodeAccount = useMutation({

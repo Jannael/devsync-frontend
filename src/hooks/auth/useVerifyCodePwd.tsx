@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import authModel from '../service/api/models/auth/model'
-import userModel from '../service/api/models/user/model'
+import authModel from '../../service/api/models/auth/model'
+import userModel from '../../service/api/models/user/model'
 
 function useVerifyCodePwd(onSuccess: () => void) {
 	const passwordVerifyCode = useMutation({

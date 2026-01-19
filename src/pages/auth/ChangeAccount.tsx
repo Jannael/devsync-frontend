@@ -6,8 +6,8 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import useRequestCodeAccount from '../../hooks/useRequestCodeAccount'
-import useVerifyCodeAccount from '../../hooks/useVerifyCodeAccount'
+import useRequestCodeAccount from '../../hooks/auth/useRequestCodeAccount'
+import useVerifyCodeAccount from '../../hooks/auth/useVerifyCodeAccount'
 import AccountValidator from '../../service/AccountValidation'
 
 function ChangeAccount() {

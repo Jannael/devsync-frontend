@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import authModel from '../service/api/models/auth/model'
+import authModel from '../../service/api/models/auth/model'
 
 function useRefreshTokenCode(onSuccess: () => void) {
 	const requestRefreshTokenCode = useMutation({
