@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../../components/ui/Form'
@@ -8,20 +7,17 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
+import useCreateUser from '../../hooks/useCreateUser'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
-import userModel from '../../service/api/models/user/model'
 import FormValidator from '../../service/SignupValidation'
 
 function Signup() {
 	const [error, setError] = useState<string | null>(null)
 
-	const signUp = useMutation({
-		mutationFn: userModel.create,
-		onSuccess: () => {
-			localStorage.removeItem(localStorageKeys.verifyCode)
-			window.location.href = routesConst.main
-		},
+	const { create: signUp } = useCreateUser(() => {
+		localStorage.removeItem(localStorageKeys.verifyCode)
+		window.location.href = routesConst.main
 	})
 
 	return (
