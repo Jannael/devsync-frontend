@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../../components/ui/Form'
@@ -8,18 +7,15 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
+import useRefreshTokenCode from '../../hooks/useRefreshTokenCode'
 import { routesConst } from '../../routes.constants'
-import authModel from '../../service/api/models/auth/model'
 import FormValidator from '../../service/LoginValidation'
 
 function Login() {
 	const [error, setError] = useState<string | null>(null)
-	const requestRefreshTokenCode = useMutation({
-		mutationFn: authModel.requestRefreshTokenCode,
-		onSuccess: () => {
-			// only move to the next section if there is no error
-			window.location.href = routesConst.verifyLogin
-		},
+
+	const { requestRefreshTokenCode } = useRefreshTokenCode(() => {
+		window.location.href = routesConst.verifyLogin
 	})
 
 	return (
