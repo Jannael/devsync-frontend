@@ -7,44 +7,23 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
+import useRequestCodePwd from './../../hooks/useRequestCodePwd'
+import useVerifyCodePwd from '../../hooks/useVerifyCodePwd'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
 import AccountValidator from './../../service/AccountValidation'
-import authModel from './../../service/api/models/auth/model'
-import userModel from './../../service/api/models/user/model'
 import { validator as PasswordValidator } from './../../service/pwdSchema'
 
 function ForgotPwd() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
-	const passwordRequestCode = useMutation({
-		mutationFn: authModel.passwordRequestCode,
-		onSuccess: (_, variables) => {
-			localStorage.setItem(
-				localStorageKeys.passwordVerifyCode,
-				variables.account,
-			)
-			setVerifyCode(true)
-		},
+	const { passwordVerifyCode } = useVerifyCodePwd(() => {
+		window.location.href = routesConst.login
 	})
 
-	const passwordVerifyCode = useMutation({
-		mutationFn: async ({
-			code,
-			account,
-			newPwd,
-		}: {
-			code: string
-			account: string
-			newPwd: string
-		}) => {
-			await authModel.passwordVerifyCode({ code, account, newPwd })
-			await userModel.updatePassword({})
-		},
-		onSuccess: async () => {
-			window.location.href = routesConst.login
-		},
+	const { passwordRequestCode } = useRequestCodePwd(() => {
+		setVerifyCode(true)
 	})
 
 	return (
@@ -119,6 +98,11 @@ function ForgotPwd() {
 							setError(isValid)
 							return
 						}
+
+						localStorage.setItem(
+							localStorageKeys.passwordVerifyCode,
+							data.account.toString(),
+						)
 
 						passwordRequestCode.mutate({ account: data.account.toString() })
 					}}
