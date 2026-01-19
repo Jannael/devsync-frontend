@@ -1,5 +1,6 @@
-import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
+import { MemberItem } from '../../components/group/MemberItem'
+import { TechLeadItem } from '../../components/group/TechLeadItem'
 import Button from '../../components/ui/Button'
 import ColorPicker from '../../components/ui/ColorPicker'
 import Form from '../../components/ui/Form'
@@ -12,10 +13,9 @@ import Page from '../../components/ui/Page'
 import Select from '../../components/ui/Select'
 import Title from '../../components/ui/Title'
 import Wrapper, { WrapperItem } from '../../components/Wrapper'
-import { CircleMinus } from '../../icons'
+import useCreateGroup from '../../hooks/group/useCreateGroup'
 import { routesConst } from '../../routes.constants'
 import AccountValidation from '../../service/AccountValidation'
-import groupModel from '../../service/api/models/group/model'
 import GroupValidator from '../../service/GroupValidation'
 
 function CreateGroup() {
@@ -29,11 +29,8 @@ function CreateGroup() {
 	const membersInputRole = useRef<HTMLSelectElement | null>(null)
 	const techLeadInput = useRef<HTMLInputElement | null>(null)
 
-	const createGroup = useMutation({
-		mutationFn: groupModel.create,
-		onSuccess: () => {
-			window.location.href = routesConst.main
-		},
+	const { createGroup } = useCreateGroup(() => {
+		window.location.href = routesConst.main
 	})
 
 	return (
@@ -209,65 +206,12 @@ function CreateGroup() {
 					</Wrapper>
 				</div>
 				{error !== null && <P className='text-error'>{error}</P>}
-				{createGroup.isError && <P className='text-error'>{createGroup.error.message}</P>}
+				{createGroup.isError && (
+					<P className='text-error'>{createGroup.error.message}</P>
+				)}
 				<FormButton block={createGroup.isPending}>Create</FormButton>
 			</Form>
 		</Page>
-	)
-}
-
-export function MemberItem({
-	account,
-	memberRole,
-	onDelete,
-}: {
-	account: string
-	memberRole: string
-	onDelete: () => void
-}) {
-	return (
-		<div className='flex justify-around items-center gap-3'>
-			<p className='flex-3/5 border-r-2 truncate'>{account}</p>
-			<p className='flex-1/5 text-center'>{memberRole}</p>
-			<button
-				className='
-					flex-1/5 flex
-					border-l-2
-					cursor-pointer
-					justify-center items-center
-				'
-				onClick={onDelete}
-				type='button'
-			>
-				<CircleMinus />
-			</button>
-		</div>
-	)
-}
-
-export function TechLeadItem({
-	account,
-	onDelete,
-}: {
-	account: string
-	onDelete?: () => void
-}) {
-	return (
-		<div className='flex justify-around items-center'>
-			<span className='flex-3 truncate'>{account}</span>
-			<button
-				className='
-					flex-1 flex
-					border-l-2
-					cursor-pointer
-					justify-center
-				'
-				onClick={onDelete}
-				type='button'
-			>
-				<CircleMinus />
-			</button>
-		</div>
 	)
 }
 
