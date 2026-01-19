@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -7,36 +6,16 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import { routesConst } from '../../routes.constants'
+import useRequestCodeAccount from '../../hooks/useRequestCodeAccount'
+import useVerifyCodeAccount from '../../hooks/useVerifyCodeAccount'
 import AccountValidator from '../../service/AccountValidation'
-import authModel from './../../service/api/models/auth/model'
-import userModel from './../../service/api/models/user/model'
 
 function ChangeAccount() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
-
-	const requestCode = useMutation({
-		mutationFn: authModel.accountRequestCode,
-		onSuccess: () => {
-			setVerifyCode(true)
-		},
-	})
-
-	const verifyCodeMutation = useMutation({
-		mutationFn: async ({
-			codeCurrentAccount,
-			codeNewAccount,
-		}: {
-			codeCurrentAccount: string
-			codeNewAccount: string
-		}) => {
-			await authModel.accountVerifyCode({ codeCurrentAccount, codeNewAccount })
-			await userModel.updateAccount({})
-		},
-		onSuccess: () => {
-			window.location.href = routesConst.login
-		},
+	const { verifyCodeAccount } = useVerifyCodeAccount()
+	const { requestCodeAccount: requestCode } = useRequestCodeAccount(() => {
+		setVerifyCode(true)
 	})
 
 	return (
@@ -90,7 +69,7 @@ function ChangeAccount() {
 							return
 						}
 
-						verifyCodeMutation.mutate({
+						verifyCodeAccount.mutate({
 							codeCurrentAccount: data.codeCurrentAccount.toString(),
 							codeNewAccount: data.codeNewAccount.toString(),
 						})
@@ -117,10 +96,10 @@ function ChangeAccount() {
 						/>
 					</Label>
 					{error !== null && <P className='text-error'>{error}</P>}
-					{verifyCodeMutation.isError && (
-						<P className='text-error'>{verifyCodeMutation.error.message}</P>
+					{verifyCodeAccount.isError && (
+						<P className='text-error'>{verifyCodeAccount.error.message}</P>
 					)}
-					<FormButton block={verifyCodeMutation.isPending} className='mt-4'>
+					<FormButton block={verifyCodeAccount.isPending} className='mt-4'>
 						Verify
 					</FormButton>
 				</Form>
