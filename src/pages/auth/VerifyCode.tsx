@@ -1,33 +1,26 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import EnterCodeModal from '../../components/EnterCodeModal'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import VerifyCodeModal from '../../components/VerifyCodeModal'
+import useRequestCode from '../../hooks/useRequestCode'
+import useVerifyCode from '../../hooks/useVerifyCode'
 import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
-import authModel from '../../service/api/models/auth/model'
 
 function VerifyCode() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [searchParams] = useSearchParams()
 
-	const requestCode = useMutation({
-		mutationFn: authModel.requestCode,
-		onSuccess: (_, variables) => {
-			localStorage.setItem(localStorageKeys.verifyCode, variables.account)
-			setVerifyCode(true)
-		},
+	const { requestCode } = useRequestCode(() => {
+		setVerifyCode(true)
 	})
 
-	const verifyCodeMutation = useMutation({
-		mutationFn: authModel.verifyCode,
-		onSuccess: () => {
-			const redirect = searchParams.get('redirect')
-			window.location.href = redirect !== null ? redirect : ''
-		},
+	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
+		const redirect = searchParams.get('redirect')
+		window.location.href = redirect !== null ? redirect : ''
 	})
 
 	return (
@@ -68,6 +61,10 @@ function VerifyCode() {
 							return
 						}
 
+						localStorage.setItem(
+							localStorageKeys.verifyCode,
+							data.account.toString(),
+						)
 						requestCode.mutate({ account: data.account.toString() })
 					}}
 				>
