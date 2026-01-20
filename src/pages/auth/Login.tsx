@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { Toaster } from 'sonner'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
 import InputText from '../../components/ui/InputText'
@@ -14,6 +15,7 @@ function Login() {
 
 	return (
 		<Page className='flex justify-center items-center'>
+			<Toaster />
 			<Form className='w-6/10 max-w-96' onSubmit={handleSubmit}>
 				<Title className='mb-4'>Login</Title>
 				<Label>
@@ -39,11 +41,6 @@ function Login() {
 				</FormButton>
 				{error !== null && (
 					<P className='w-full text-error text-center'>{error}</P>
-				)}
-				{requestRefreshTokenCode.isError && (
-					<P className='w-full text-error text-center'>
-						{requestRefreshTokenCode.error.message}
-					</P>
 				)}
 				<article
 					className='
