@@ -7,7 +7,12 @@ const schema = z.object({
 	groupId: z.string('groupId is required'),
 	code: codeSchema.optional(),
 	feature: z
-		.array(z.string('feature must be valid'))
+		.array(
+			z
+				.string('feature must be valid')
+				.min(1, { message: 'feature must be at least 1 character' })
+				.max(255, { message: 'feature must be at most 255 characters' }),
+		)
 		.refine((arr) => new Set(arr).size === arr.length, {
 			message:
 				'The user array must contain only unique elements (no duplicates).',

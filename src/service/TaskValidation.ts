@@ -12,7 +12,7 @@ export const codeSchema = z.object({
 })
 
 const baseSchema = z.object({
-	groupId: z.string(),
+	groupId: z.string('groupId is required'),
 	user: z
 		.array(
 			z
@@ -23,17 +23,25 @@ const baseSchema = z.object({
 			message:
 				'The user array must contain only unique elements (no duplicates).',
 		}),
-	name: z.string('name is required').min(1, { message: 'name is required' }),
+	name: z
+		.string('name is required')
+		.min(1, { message: 'name is required' })
+		.max(255, { message: 'name must be at most 255 characters' }),
 	code: codeSchema,
 	feature: z
-		.array(z.string('feature array must be string[]'))
+		.array(
+			z
+				.string('feature array must be string[]')
+				.min(1, { message: 'feature must be at least 1 character' })
+				.max(255, { message: 'feature must be at most 255 characters' }),
+		)
 		.refine((arr) => new Set(arr).size === arr.length, {
 			message:
 				'The feature array must contain only unique elements (no duplicates).',
 		}),
 	description: z
 		.string('description must be a string, and must be < 500 length')
-		.max(500),
+		.max(500, { message: 'description must be at most 500 characters' }),
 	isComplete: z.boolean(),
 	priority: z
 		.number()
