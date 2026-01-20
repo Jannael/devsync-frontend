@@ -33,12 +33,6 @@ function ForgotPwd() {
 					{error !== null && (
 						<P className='w-full text-error text-center'>{error}</P>
 					)}
-					{passwordRequestCode.isError && (
-						<P className='w-full text-error text-center'>
-							{passwordRequestCode.error.message}
-						</P>
-					)}
-
 					<FormButton block={passwordVerifyCode.isPending}>Change</FormButton>
 				</Form>
 			)}
@@ -51,11 +45,6 @@ function ForgotPwd() {
 					</Label>
 					{error !== null && (
 						<P className='w-full text-error text-center'>{error}</P>
-					)}
-					{passwordRequestCode.isError && (
-						<P className='w-full text-error text-center'>
-							{passwordRequestCode.error.message}
-						</P>
 					)}
 					<FormButton block={passwordRequestCode.isPending}>
 						Request code
