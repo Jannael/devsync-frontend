@@ -53,7 +53,7 @@ function useSolveTaskComponent() {
 		})
 	}
 
-	return { handleSubmit, taskId, error, feature, setFeature }
+	return { handleSubmit, taskId, error, feature, setFeature, solveTask }
 }
 
 export default useSolveTaskComponent

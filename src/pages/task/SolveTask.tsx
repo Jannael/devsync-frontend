@@ -10,7 +10,7 @@ import Title from '../../components/ui/Title'
 import useSolveTaskComponent from '../../hooks/components/useSolveTaskComponent'
 
 function SolveTask() {
-	const { handleSubmit, taskId, error, feature, setFeature } =
+	const { handleSubmit, taskId, error, feature, setFeature, solveTask } =
 		useSolveTaskComponent()
 
 	return (
@@ -42,7 +42,7 @@ function SolveTask() {
 					</Label>
 				</div>
 				{error && <P className='text-red-500'>{error}</P>}
-				<FormButton block={false}>Solve task</FormButton>
+				<FormButton block={solveTask.isPending}>Solve task</FormButton>
 			</Form>
 		</Page>
 	)
