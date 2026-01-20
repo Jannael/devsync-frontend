@@ -8,12 +8,14 @@ import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useRequestCodeAccount from '../../hooks/auth/useRequestCodeAccount'
 import useVerifyCodeAccount from '../../hooks/auth/useVerifyCodeAccount'
-import AccountValidator from '../../service/AccountValidation'
+import ChangeAccountCode from '../../service/FormValidations/auth/ChangeAccountCode'
+import VerifyAccount from '../../service/FormValidations/auth/VerifyAccount'
 
 function ChangeAccount() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const { verifyCodeAccount } = useVerifyCodeAccount()
+
 	const { requestCodeAccount: requestCode } = useRequestCodeAccount(() => {
 		setVerifyCode(true)
 	})
@@ -24,18 +26,9 @@ function ChangeAccount() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						setError(null)
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
-						const isValid = AccountValidator({
-							account: data.newAccount,
-						} as Record<string, string>)
+						const data = VerifyAccount(e, setError)
+						if (!data) return
 
-						if (typeof isValid === 'string') {
-							setError(isValid)
-							return
-						}
 						requestCode.mutate({ newAccount: data.newAccount.toString() })
 					}}
 				>
@@ -56,18 +49,8 @@ function ChangeAccount() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						setError(null)
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
-						if (Number.isNaN(Number(data.codeCurrentAccount))) {
-							setError('Invalid code current account')
-							return
-						}
-						if (Number.isNaN(Number(data.codeNewAccount))) {
-							setError('Invalid code new account')
-							return
-						}
+						const data = ChangeAccountCode(e, setError)
+						if (!data) return
 
 						verifyCodeAccount.mutate({
 							codeCurrentAccount: data.codeCurrentAccount.toString(),
