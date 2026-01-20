@@ -8,8 +8,10 @@ import Wrapper, { WrapperItem } from '../Wrapper'
 function FeaturesInput({
 	features,
 	setFeatures,
+	className,
 }: {
 	features: string[] | undefined
+	className?: string
 	setFeatures: React.Dispatch<React.SetStateAction<string[] | undefined>>
 }) {
 	const FeaturesRef = useRef<HTMLInputElement>(null)
@@ -38,9 +40,9 @@ function FeaturesInput({
 	})
 
 	return (
-		<div className='flex flex-wrap w-4/10 gap-3 items-center'>
+		<div className={`${className} flex flex-wrap gap-3 items-center`}>
 			<div className='flex w-full gap-3'>
-				<Label className='flex-3'>
+				<Label className='flex-4'>
 					Feature
 					<InputText
 						className='w-full'
@@ -51,8 +53,9 @@ function FeaturesInput({
 				<Label className='flex-1'>
 					Save
 					<Button
-						className='w-min'
+						className='w-full flex justify-center items-center'
 						onClick={() => {
+							if (FeaturesRef.current!.value === '') return
 							if (features?.includes(FeaturesRef.current!.value)) return
 							setFeatures([...(features || []), FeaturesRef.current!.value])
 						}}

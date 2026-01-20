@@ -1,7 +1,7 @@
 import z from 'zod'
 import createValidator from '../utils/helpers/createValidator'
 
-const codeSchema = z.object({
+export const codeSchema = z.object({
 	language: z.enum(['js'], {
 		message: 'code.language must be one of: js',
 	}),

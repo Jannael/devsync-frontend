@@ -60,7 +60,7 @@ function Group() {
 				<Button
 					className='mt-5'
 					onClick={() => {
-						window.location.href = `${routesConst.solveTask}?groupId=${groupId}?taskId=${currentTaskId}`
+						window.location.href = `${routesConst.solveTask}?groupId=${groupId}&taskId=${currentTaskId || taskList?.[0]?._id}`
 					}}
 				>
 					Solve
