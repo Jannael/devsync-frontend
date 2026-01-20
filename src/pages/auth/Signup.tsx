@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -7,46 +6,15 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import useCreateUser from '../../hooks/auth/useCreateUser'
-import { localStorageKeys } from '../../localStorageKeys'
+import useSignUpComponent from '../../hooks/components/useSignupComponent'
 import { routesConst } from '../../routes.constants'
-import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
-import signupValidator from '../../service/SignupValidation'
 
 function Signup() {
-	const [error, setError] = useState<string | null>(null)
-
-	const { create: signUp } = useCreateUser(() => {
-		localStorage.removeItem(localStorageKeys.verifyCode)
-		window.location.href = routesConst.main
-	})
+	const { handleSubmit, signUp, error } = useSignUpComponent()
 
 	return (
 		<Page className='flex items-center justify-center'>
-			<Form
-				className='w-6/10 max-w-96'
-				onSubmit={async (e) => {
-					const data = ValidateFromSchema({
-						formEvent: e,
-						validator: signupValidator,
-						setError,
-					})
-					if (!data) return
-
-					const account = localStorage.getItem(localStorageKeys.verifyCode)
-					if (account === null) {
-						setError('Missing account')
-						return
-					}
-
-					signUp.mutate({
-						fullName: data.fullName.toString(),
-						account: account,
-						pwd: data.pwd.toString(),
-						nickName: data.nickName.toString(),
-					})
-				}}
-			>
+			<Form className='w-6/10 max-w-96' onSubmit={handleSubmit}>
 				<Title className='mb-4'>Signup</Title>
 				<Label>
 					FullName
