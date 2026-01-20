@@ -12,6 +12,7 @@ function ChangeAccountCode(
 		setError('Invalid code current account')
 		return
 	}
+
 	if (Number.isNaN(Number(data.codeNewAccount))) {
 		setError('Invalid code new account')
 		return

@@ -8,6 +8,7 @@ import useRequestCode from '../../hooks/auth/useRequestCode'
 import useVerifyCode from '../../hooks/auth/useVerifyCode'
 import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
+import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 
 function VerifyCode() {
@@ -30,12 +31,11 @@ function VerifyCode() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
+						const data = VerifyCodeForm(e, setError)
+						if (!data) return
+
 						const account = localStorage.getItem(localStorageKeys.verifyCode)
 						if (account === null) return
-						if (typeof Number(data.code) !== 'number') return
 						verifyCodeMutation.mutate({ account, code: data.code.toString() })
 					}}
 				>
@@ -52,7 +52,11 @@ function VerifyCode() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						const data = ValidateFromSchema({formEvent: e, validator: AccountValidator, setError})
+						const data = ValidateFromSchema({
+							formEvent: e,
+							validator: AccountValidator,
+							setError,
+						})
 						if (!data) return
 
 						localStorage.setItem(

@@ -4,6 +4,7 @@ import Page from '../../components/ui/Page'
 import VerifyCodeModal from '../../components/VerifyCodeModal'
 import useRequestRefreshToken from '../../hooks/auth/useRequestRefreshToken'
 import { routesConst } from '../../routes.constants'
+import VerifyCode from '../../service/FormValidations/auth/VerifyCodeForm'
 
 function ValidateLoginCode() {
 	const [error, setError] = useState<string | null>(null)
@@ -17,12 +18,8 @@ function ValidateLoginCode() {
 			<Form
 				className='w-6/10 max-w-96'
 				onSubmit={async (e) => {
-					e.preventDefault()
-					const formData = new FormData(e.currentTarget)
-					const data = Object.fromEntries(formData.entries())
-					if (typeof Number(data.code) !== 'number') {
-						setError('invalid code')
-					}
+					const data = VerifyCode(e, setError)
+					if (!data) return
 
 					requestRefreshToken.mutate({ code: data.code.toString() })
 				}}
