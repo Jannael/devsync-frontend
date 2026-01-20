@@ -10,8 +10,8 @@ import useRequestCodePwd from '../../hooks/auth/useRequestCodePwd'
 import useVerifyCodePwd from '../../hooks/auth/useVerifyCodePwd'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
-import AccountValidator from './../../service/AccountValidation'
-import { validator as PasswordValidator } from './../../service/pwdSchema'
+import VerifyAccount from '../../service/FormValidations/auth/VerifyAccount'
+import VerifyCodePassword from '../../service/FormValidations/auth/VerifyCodePassword'
 
 function ForgotPwd() {
 	const [verifyCode, setVerifyCode] = useState(false)
@@ -31,27 +31,13 @@ function ForgotPwd() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
-						if (typeof Number(data.code) !== 'number') {
-							setError('Invalid code')
-							return
-						}
+						const data = VerifyCodePassword(e, setError)
+						if (!data) return
 
 						const account = localStorage.getItem(
 							localStorageKeys.passwordVerifyCode,
 						)
-
 						if (account === null) return
-						const isValidPwd = PasswordValidator({
-							password: data.newPwd.toString(),
-						})
-
-						if (typeof isValidPwd === 'string') {
-							setError(isValidPwd)
-							return
-						}
 
 						passwordVerifyCode.mutate({
 							code: data.code.toString(),
@@ -81,22 +67,12 @@ function ForgotPwd() {
 					<FormButton block={passwordVerifyCode.isPending}>Change</FormButton>
 				</Form>
 			)}
-
 			{!verifyCode && (
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
-						const isValid = AccountValidator({
-							account: data.account.toString(),
-						})
-
-						if (typeof isValid === 'string') {
-							setError(isValid)
-							return
-						}
+						const data = VerifyAccount(e, setError)
+						if (!data) return
 
 						localStorage.setItem(
 							localStorageKeys.passwordVerifyCode,
