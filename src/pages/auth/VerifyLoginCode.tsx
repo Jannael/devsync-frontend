@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import VerifyCodeModal from '../../components/VerifyCodeModal'
@@ -13,8 +14,12 @@ function ValidateLoginCode() {
 		window.location.href = routesConst.main
 	})
 
+	if (requestRefreshToken.isError)
+		toast.error(requestRefreshToken.error.message)
+
 	return (
 		<Page className='flex justify-center items-center'>
+			<Toaster />
 			<Form
 				className='w-6/10 max-w-96'
 				onSubmit={async (e) => {
@@ -26,11 +31,7 @@ function ValidateLoginCode() {
 			>
 				<VerifyCodeModal
 					blockSubmit={requestRefreshToken.isPending}
-					error={
-						requestRefreshToken.isError
-							? requestRefreshToken.error.message
-							: error
-					}
+					error={error}
 				/>
 			</Form>
 		</Page>
