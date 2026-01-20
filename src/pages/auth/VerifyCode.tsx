@@ -1,29 +1,16 @@
-import { useState } from 'react'
-import { useSearchParams } from 'react-router'
 import EnterCodeModal from '../../components/EnterCodeModal'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import VerifyCodeModal from '../../components/VerifyCodeModal'
-import useRequestCode from '../../hooks/auth/useRequestCode'
-import useVerifyCode from '../../hooks/auth/useVerifyCode'
+import useVerifyCodeComponent from '../../hooks/components/useVerifyCodeComponent'
 import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
 import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 
 function VerifyCode() {
-	const [verifyCode, setVerifyCode] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-	const [searchParams] = useSearchParams()
-
-	const { requestCode } = useRequestCode(() => {
-		setVerifyCode(true)
-	})
-
-	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
-		const redirect = searchParams.get('redirect')
-		window.location.href = redirect !== null ? redirect : ''
-	})
+	const { verifyCode, setError, error, requestCode, verifyCodeMutation } =
+		useVerifyCodeComponent()
 
 	return (
 		<Page className='flex justify-center items-center'>
