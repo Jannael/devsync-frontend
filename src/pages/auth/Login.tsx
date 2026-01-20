@@ -24,7 +24,11 @@ function Login() {
 			<Form
 				className='w-6/10 max-w-96'
 				onSubmit={async (e) => {
-					const data = ValidateFromSchema(e, LoginValidator, setError)
+					const data = ValidateFromSchema({
+						formEvent: e,
+						validator: LoginValidator,
+						setError,
+					})
 					if (!data) return
 
 					requestRefreshTokenCode.mutate({

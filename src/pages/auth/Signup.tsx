@@ -10,7 +10,8 @@ import Title from '../../components/ui/Title'
 import useCreateUser from '../../hooks/auth/useCreateUser'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
-import FormValidator from '../../service/SignupValidation'
+import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
+import signupValidator from '../../service/SignupValidation'
 
 function Signup() {
 	const [error, setError] = useState<string | null>(null)
@@ -25,34 +26,24 @@ function Signup() {
 			<Form
 				className='w-6/10 max-w-96'
 				onSubmit={async (e) => {
-					e.preventDefault()
-					const formData = new FormData(e.currentTarget)
+					const data = ValidateFromSchema({
+						formEvent: e,
+						validator: signupValidator,
+						setError,
+					})
+					if (!data) return
+
 					const account = localStorage.getItem(localStorageKeys.verifyCode)
 					if (account === null) {
 						setError('Missing account')
 						return
 					}
-					const { fullName, pwd, nickName } = Object.fromEntries(
-						formData.entries(),
-					)
-
-					const isValid = FormValidator({
-						account,
-						fullName,
-						pwd,
-						nickName,
-					} as Record<string, string>)
-
-					if (typeof isValid === 'string') {
-						setError(isValid)
-						return
-					}
 
 					signUp.mutate({
-						fullName: fullName.toString(),
-						account: account.toString(),
-						pwd: pwd.toString(),
-						nickName: nickName.toString(),
+						fullName: data.fullName.toString(),
+						account: account,
+						pwd: data.pwd.toString(),
+						nickName: data.nickName.toString(),
 					})
 				}}
 			>
