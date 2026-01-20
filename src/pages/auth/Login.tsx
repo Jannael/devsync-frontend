@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -7,36 +6,15 @@ import Label from '../../components/ui/Label'
 import P from '../../components/ui/P'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import useRefreshTokenCode from '../../hooks/auth/useRefreshTokenCode'
+import useLoginComponent from '../../hooks/components/useLoginComponent'
 import { routesConst } from '../../routes.constants'
-import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
-import LoginValidator from '../../service/LoginValidation'
 
 function Login() {
-	const [error, setError] = useState<string | null>(null)
-
-	const { requestRefreshTokenCode } = useRefreshTokenCode(() => {
-		window.location.href = routesConst.verifyLogin
-	})
+	const { handleSubmit, error, requestRefreshTokenCode } = useLoginComponent()
 
 	return (
 		<Page className='flex justify-center items-center'>
-			<Form
-				className='w-6/10 max-w-96'
-				onSubmit={async (e) => {
-					const data = ValidateFromSchema({
-						formEvent: e,
-						validator: LoginValidator,
-						setError,
-					})
-					if (!data) return
-
-					requestRefreshTokenCode.mutate({
-						account: data.account.toString(),
-						pwd: data.pwd.toString(),
-					})
-				}}
-			>
+			<Form className='w-6/10 max-w-96' onSubmit={handleSubmit}>
 				<Title className='mb-4'>Login</Title>
 				<Label>
 					Account
@@ -67,7 +45,7 @@ function Login() {
 						{requestRefreshTokenCode.error.message}
 					</P>
 				)}
-				<div
+				<article
 					className='
 						flex flex-col
 						w-full
@@ -79,7 +57,7 @@ function Login() {
 						New user?
 					</Link>
 					<Link to={routesConst.forgotPwd}>Forgot password?</Link>
-				</div>
+				</article>
 			</Form>
 		</Page>
 	)
