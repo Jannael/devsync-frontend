@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { routesConst } from '../../routes.constants'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 import GroupValidator from '../../service/GroupValidation'
@@ -14,6 +15,8 @@ function useCreateGroupComponent() {
 	const { createGroup } = useCreateGroup(() => {
 		window.location.href = routesConst.main
 	})
+
+	if (createGroup.isError) toast.error(createGroup.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()

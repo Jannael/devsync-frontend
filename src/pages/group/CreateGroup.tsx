@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner'
 import MemberInput from '../../components/group/MemberInput'
 import TechLeadInput from '../../components/group/TechLeadInput'
 import ColorPicker from '../../components/ui/ColorPicker'
@@ -24,6 +25,7 @@ function CreateGroup() {
 
 	return (
 		<Page className='flex justify-center items-center'>
+			<Toaster />
 			<Form onSubmit={handleSubmit}>
 				<Title>Create group</Title>
 
@@ -54,9 +56,6 @@ function CreateGroup() {
 					techLeads={techLeads}
 				/>
 				{error !== null && <P className='text-error'>{error}</P>}
-				{createGroup.isError && (
-					<P className='text-error'>{createGroup.error.message}</P>
-				)}
 				<FormButton block={createGroup.isPending}>Create</FormButton>
 			</Form>
 		</Page>
