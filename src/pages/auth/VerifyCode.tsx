@@ -8,6 +8,7 @@ import useRequestCode from '../../hooks/auth/useRequestCode'
 import useVerifyCode from '../../hooks/auth/useVerifyCode'
 import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
+import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 
 function VerifyCode() {
 	const [verifyCode, setVerifyCode] = useState(false)
@@ -51,15 +52,8 @@ function VerifyCode() {
 				<Form
 					className='w-6/10 max-w-96'
 					onSubmit={(e) => {
-						e.preventDefault()
-						const formData = new FormData(e.currentTarget)
-						const data = Object.fromEntries(formData.entries())
-						const isValid = AccountValidator(data as Record<string, string>)
-
-						if (typeof isValid === 'string') {
-							setError(isValid)
-							return
-						}
+						const data = ValidateFromSchema({formEvent: e, validator: AccountValidator, setError})
+						if (!data) return
 
 						localStorage.setItem(
 							localStorageKeys.verifyCode,
