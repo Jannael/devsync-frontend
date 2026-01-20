@@ -22,11 +22,7 @@ function VerifyCode() {
 				<Form className='w-6/10 max-w-96' onSubmit={handleVerifyCodeSubmit}>
 					<VerifyCodeModal
 						blockSubmit={verifyCodeMutation.isPending}
-						error={
-							verifyCodeMutation.isError
-								? verifyCodeMutation.error.message
-								: error
-						}
+						error={error}
 					/>
 				</Form>
 			) : (

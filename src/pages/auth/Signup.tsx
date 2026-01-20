@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { Toaster } from 'sonner'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
 import InputText from '../../components/ui/InputText'
@@ -14,6 +15,7 @@ function Signup() {
 
 	return (
 		<Page className='flex items-center justify-center'>
+			<Toaster />
 			<Form className='w-6/10 max-w-96' onSubmit={handleSubmit}>
 				<Title className='mb-4'>Signup</Title>
 				<Label>
@@ -47,9 +49,6 @@ function Signup() {
 					Signup
 				</FormButton>
 				{error !== null && <P className='text-error text-center'>{error}</P>}
-				{signUp.isError && (
-					<P className='text-error text-center'>{signUp.error.message}</P>
-				)}
 				<div className='w-full mt-4 text-left'>
 					<Link to={routesConst.login}>Already have an account?</Link>
 				</div>
