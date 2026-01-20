@@ -1,7 +1,7 @@
-import FeaturesInput from '../../group/FeaturesInput'
-import InputText from '../../ui/InputText'
-import Label from '../../ui/Label'
-import Textarea from '../../ui/Textarea'
+import FeaturesInput from '../group/FeaturesInput'
+import InputText from '../ui/InputText'
+import Label from '../ui/Label'
+import Textarea from '../ui/Textarea'
 
 function CreateTaskRightSide({
 	features,

@@ -1,6 +1,6 @@
 import { Toaster } from 'sonner'
-import CreateTaskLeftSide from '../../components/pages/task/CreateTaskLeftSide'
-import CreateTaskRightSide from '../../components/pages/task/CreateTaskRightSIde'
+import CreateTaskLeftSide from '../../components/task/CreateTaskLeftSide'
+import CreateTaskRightSide from '../../components/task/CreateTaskRightSIde'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'

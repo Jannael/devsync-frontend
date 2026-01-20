@@ -1,9 +1,9 @@
 import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query'
-import UserInput from '../../group/UserInputWrapper'
-import FormButton from '../../ui/FormButton'
-import Label from '../../ui/Label'
-import Option from '../../ui/Option'
-import Select from '../../ui/Select'
+import UserInput from '../group/UserInputWrapper'
+import FormButton from '../ui/FormButton'
+import Label from '../ui/Label'
+import Option from '../ui/Option'
+import Select from '../ui/Select'
 
 function CreateTaskLeftSide({
 	setUsers,
