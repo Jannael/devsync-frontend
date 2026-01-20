@@ -8,9 +8,10 @@ import useTaskList from '../../hooks/auth/useTaskList'
 import { routesConst } from '../../routes.constants'
 
 function Group() {
-	const scrollRef = useRef<HTMLUListElement>(null)
 	const [searchParams] = useSearchParams()
 	const groupId = searchParams.get('groupId')
+
+	const scrollRef = useRef<HTMLUListElement>(null)
 
 	const [taskPage, setTaskPage] = useState(0)
 	const [currentTaskId, setCurrentTaskId] = useState<string>()
@@ -29,7 +30,6 @@ function Group() {
 	const taskList = taskListQuery?.data?.pages.flatMap(
 		(page) => page.result.task,
 	)
-
 	const taskElements = taskList?.map(
 		(task: {
 			_id: string

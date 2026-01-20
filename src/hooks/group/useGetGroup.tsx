@@ -3,8 +3,7 @@ import GroupModel from '../../service/api/models/group/model'
 
 function useGetGroup({ groupId }: { groupId: string | null }) {
 	const group = useQuery({
-		queryFn: ({ signal, queryKey }) => {
-			const [_, groupId] = queryKey
+		queryFn: ({ signal }) => {
 			if (groupId === null) return
 			return GroupModel.get({ signal, _id: groupId })
 		},
