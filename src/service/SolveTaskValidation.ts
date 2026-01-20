@@ -11,8 +11,13 @@ const schema = z.object({
 		.refine((arr) => new Set(arr).size === arr.length, {
 			message:
 				'The user array must contain only unique elements (no duplicates).',
-		}),
-	description: z.string('Description must be valid'),
+		})
+		.optional(),
+	description: z
+		.string('Description is required')
+		.min(1, { message: 'Description is required' })
+		.max(500, { message: 'Description must be at most 500 characters' })
+		.optional(),
 })
 
 const validator = createValidator(schema)

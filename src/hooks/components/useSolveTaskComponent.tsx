@@ -39,6 +39,7 @@ function useSolveTaskComponent() {
 		}
 
 		const isValid = SolveTaskValidation(solution)
+		console.log(isValid)
 
 		if (typeof isValid === 'string') return setError(isValid)
 

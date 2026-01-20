@@ -4,14 +4,14 @@ function createModel<T extends Record<string, any>>(
 	endpoint: string,
 	method: 'POST' | 'DELETE' | 'PATCH' | 'PUT',
 ) {
-	return async (data:T &{signal?: AbortSignal}) => {
+	return async (data: T & { signal?: AbortSignal }) => {
 		try {
 			const request = await fetch(`${api}${endpoint}`, {
 				method,
 				headers: { 'content-type': 'application/json' },
 				credentials: 'include',
 				body: JSON.stringify(data),
-				signal: data.signal
+				signal: data.signal,
 			})
 
 			const response = await request.json()

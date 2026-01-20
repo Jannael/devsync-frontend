@@ -1,0 +1,3 @@
+- server error are show with toast component
+- form validations are done with zod
+- form errors are show with P component
