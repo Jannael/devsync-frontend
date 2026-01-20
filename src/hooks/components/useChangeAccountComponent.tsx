@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 import useRequestCodeAccount from '../../hooks/auth/useRequestCodeAccount'
 import useVerifyCodeAccount from '../../hooks/auth/useVerifyCodeAccount'
 import ChangeAccountCode from '../../service/FormValidations/auth/ChangeAccountCode'
@@ -8,10 +9,12 @@ function useChangeAccountComponent() {
 	const [verifyCode, setVerifyCode] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const { verifyCodeAccount } = useVerifyCodeAccount()
+	if (verifyCodeAccount.isError) toast.error(verifyCodeAccount.error.message)
 
 	const { requestCodeAccount: requestCode } = useRequestCodeAccount(() => {
 		setVerifyCode(true)
 	})
+	if (requestCode.isError) toast.error(requestCode.error.message)
 
 	const handleRequestCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const data = VerifyAccount(e, setError)

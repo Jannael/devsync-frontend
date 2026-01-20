@@ -28,9 +28,6 @@ function ChangeAccount() {
 					</Label>
 
 					{error !== null && <P className='text-error'>{error}</P>}
-					{requestCode.isError && (
-						<P className='text-error'>{requestCode.error.message}</P>
-					)}
 					<FormButton block={requestCode.isPending}>Next</FormButton>
 				</Form>
 			)}
@@ -57,9 +54,6 @@ function ChangeAccount() {
 						/>
 					</Label>
 					{error !== null && <P className='text-error'>{error}</P>}
-					{verifyCodeAccount.isError && (
-						<P className='text-error'>{verifyCodeAccount.error.message}</P>
-					)}
 					<FormButton block={verifyCodeAccount.isPending} className='mt-4'>
 						Verify
 					</FormButton>
