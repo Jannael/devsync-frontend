@@ -1,35 +1,20 @@
-import { useRef, useState } from 'react'
-import { useSearchParams } from 'react-router'
 import CurrentTask from '../../components/group/CurrentTask'
 import TaskItem from '../../components/group/TaskItem'
 import Button from '../../components/ui/Button'
 import Page from '../../components/ui/Page'
-import useTaskList from '../../hooks/auth/useTaskList'
+import useGroupComponent from '../../hooks/components/useGroupComponent'
 import { routesConst } from '../../routes.constants'
 
 function Group() {
-	const [searchParams] = useSearchParams()
-	const groupId = searchParams.get('groupId')
+	const {
+		handleScroll,
+		scrollRef,
+		groupId,
+		currentTaskId,
+		taskList,
+		setCurrentTaskId,
+	} = useGroupComponent()
 
-	const scrollRef = useRef<HTMLUListElement>(null)
-
-	const [taskPage, setTaskPage] = useState(0)
-	const [currentTaskId, setCurrentTaskId] = useState<string>()
-	const { taskListQuery } = useTaskList({ taskPage })
-
-	const handleScroll = () => {
-		if (scrollRef.current) {
-			const { scrollTop, scrollHeight, clientHeight } = scrollRef.current
-
-			if (scrollTop + clientHeight >= scrollHeight - 5) {
-				setTaskPage((prev) => prev + 1)
-			}
-		}
-	}
-
-	const taskList = taskListQuery?.data?.pages.flatMap(
-		(page) => page.result.task,
-	)
 	const taskElements = taskList?.map(
 		(task: {
 			_id: string
