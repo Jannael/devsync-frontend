@@ -16,6 +16,7 @@ import Wrapper, { WrapperItem } from '../../components/Wrapper'
 import useCreateGroup from '../../hooks/group/useCreateGroup'
 import { routesConst } from '../../routes.constants'
 import AccountValidation from '../../service/AccountValidation'
+import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 import GroupValidator from '../../service/GroupValidation'
 
 function CreateGroup() {
@@ -38,20 +39,20 @@ function CreateGroup() {
 			<Form
 				onSubmit={(e) => {
 					e.preventDefault()
+					// adding the members and techLeads to formData so it can be validated
 					const formData = new FormData(e.currentTarget)
-					const data = Object.fromEntries(formData.entries())
-					const isValid = GroupValidator({
-						...data,
-						member: members,
-						techLead: techLeads,
-					} as unknown as Record<string, string>)
+					formData.append('member', JSON.stringify(members))
+					formData.append('techLead', JSON.stringify(techLeads))
 
-					if (typeof isValid === 'string') {
-						setError(isValid)
-						return
-					}
+					const isValid = ValidateFromSchema({
+						formEvent: e,
+						setError,
+						validator: GroupValidator,
+					})
+					if (!isValid) return
+					const { name, repository, color } = isValid
 
-					createGroup.mutate(isValid)
+					createGroup.mutate({ name, repository, color, member: members, techLead: techLeads })
 				}}
 			>
 				<Title>Create group</Title>
