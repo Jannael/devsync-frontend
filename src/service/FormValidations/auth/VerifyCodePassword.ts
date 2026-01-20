@@ -5,6 +5,8 @@ function VerifyCodePassword(
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
 ) {
 	e.preventDefault()
+	setError(null)
+
 	const formData = new FormData(e.currentTarget)
 	const data = Object.fromEntries(formData.entries())
 

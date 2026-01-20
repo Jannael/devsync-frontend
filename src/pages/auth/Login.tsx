@@ -9,7 +9,8 @@ import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useRefreshTokenCode from '../../hooks/auth/useRefreshTokenCode'
 import { routesConst } from '../../routes.constants'
-import FormValidator from '../../service/LoginValidation'
+import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
+import LoginValidator from '../../service/LoginValidation'
 
 function Login() {
 	const [error, setError] = useState<string | null>(null)
@@ -23,14 +24,8 @@ function Login() {
 			<Form
 				className='w-6/10 max-w-96'
 				onSubmit={async (e) => {
-					e.preventDefault()
-					const formData = new FormData(e.currentTarget)
-					const data = Object.fromEntries(formData.entries())
-					const isValid = FormValidator(data as Record<string, string>)
-					if (typeof isValid === 'string') {
-						setError(isValid)
-						return
-					}
+					const data = ValidateFromSchema(e, LoginValidator, setError)
+					if (!data) return
 
 					requestRefreshTokenCode.mutate({
 						account: data.account.toString(),
