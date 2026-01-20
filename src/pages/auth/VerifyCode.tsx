@@ -1,3 +1,4 @@
+import { Toaster } from 'sonner'
 import EnterCodeModal from '../../components/EnterCodeModal'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
@@ -16,6 +17,7 @@ function VerifyCode() {
 
 	return (
 		<Page className='flex justify-center items-center'>
+			<Toaster />
 			{verifyCode ? (
 				<Form className='w-6/10 max-w-96' onSubmit={handleVerifyCodeSubmit}>
 					<VerifyCodeModal
@@ -29,10 +31,7 @@ function VerifyCode() {
 				</Form>
 			) : (
 				<Form className='w-6/10 max-w-96' onSubmit={handleEnterCodeModal}>
-					<EnterCodeModal
-						blockSubmit={requestCode.isPending}
-						error={requestCode.isError ? requestCode.error.message : error}
-					/>
+					<EnterCodeModal blockSubmit={requestCode.isPending} error={error} />
 				</Form>
 			)}
 		</Page>
