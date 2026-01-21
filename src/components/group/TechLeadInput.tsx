@@ -4,7 +4,7 @@ import Button from '../ui/Button'
 import InputText from '../ui/InputText'
 import Label from '../ui/Label'
 import Wrapper, { WrapperItem } from '../Wrapper'
-import { TechLeadItem } from './TechLeadItem'
+import { TechLeadItem } from './TechLeadWrapperItem'
 
 function TechLeadInput({
 	setError,

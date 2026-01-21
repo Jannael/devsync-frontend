@@ -9,7 +9,7 @@ const schema = z.object({
 			message: 'Invalid color',
 		})
 		.default('#000000'),
-	repository: z.string().optional(),
+	repository: z.string('invalid url').optional(),
 	member: z
 		.array(
 			z.object({

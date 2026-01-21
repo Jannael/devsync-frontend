@@ -6,7 +6,7 @@ import Label from '../ui/Label'
 import Option from '../ui/Option'
 import Select from '../ui/Select'
 import Wrapper, { WrapperItem } from '../Wrapper'
-import { MemberItem } from './MemberItem'
+import { MemberItem } from './MemberWrapperItem'
 
 function MemberInput({
 	setError,
