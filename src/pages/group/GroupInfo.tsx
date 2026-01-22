@@ -1,6 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router'
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
 import GroupInfoField from '../../components/group/GroupInfoField'
 import MemberItem from '../../components/group/GroupInfoMemberItems'
 import TechLeadItem from '../../components/group/GroupInfoTechLeadItem'
@@ -9,10 +7,7 @@ import Button from '../../components/ui/Button'
 import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
-import useGetGroup from '../../hooks/group/useGetGroup'
-import GroupModel from '../../service/api/models/group/model'
-import ColorValidator from '../../service/HexColorValidation'
-import urlValidator from '../../service/UrlValidator'
+import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
 
 //Features
 // 1.change roles
@@ -22,13 +17,8 @@ import urlValidator from '../../service/UrlValidator'
 // 5.delete group
 
 function GroupInfo() {
-	const [searchParams] = useSearchParams()
-	const queryClient = useQueryClient()
-	const groupId = searchParams.get('groupId')
-	const { group } = useGetGroup({ groupId })
-	if (group.isError) toast.error(group.error.message)
-
-	const data = group.data?.result
+	const { data, handleColorUpdate, handleRepositoryUpdate } =
+		useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
 		(techLead: { account: string; fullName: string }) => {
@@ -54,15 +44,6 @@ function GroupInfo() {
 		},
 	)
 
-	const updateGroup = useMutation({
-		mutationFn: GroupModel.update,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: [groupId] })
-		},
-	})
-
-	if (updateGroup.isError) toast.error(updateGroup.error.message)
-
 	return (
 		<Page className='flex items-center justify-center'>
 			<Toaster />
@@ -81,39 +62,13 @@ function GroupInfo() {
 					<GroupInfoField
 						field='color'
 						fieldValue={data?.color}
-						onSave={(value) => {
-							if (value === '' || value === undefined) return
-							const isValid = ColorValidator({ color: value })
-							if (typeof isValid === 'string') return toast.error(isValid)
-
-							updateGroup.mutate({
-								_id: data?._id,
-								data: {
-									color: value,
-									name: undefined,
-									repository: undefined,
-								},
-							})
-						}}
+						onSave={handleColorUpdate}
 					/>
 					{data?.repository != null && (
 						<GroupInfoField
 							field='repository'
 							fieldValue={data?.repository}
-							onSave={(value) => {
-								if (value === '' || value === undefined) return
-								const isValid = urlValidator({ repository: value })
-								if (typeof isValid === 'string') return toast.error(isValid)
-
-								updateGroup.mutate({
-									_id: data?._id,
-									data: {
-										repository: value,
-										name: undefined,
-										color: undefined,
-									},
-								})
-							}}
+							onSave={handleRepositoryUpdate}
 						/>
 					)}
 				</div>
