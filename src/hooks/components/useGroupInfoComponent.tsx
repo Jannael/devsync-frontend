@@ -8,6 +8,7 @@ import useDeleteGroup from '../group/useDeleteGroup'
 import useGetGroup from '../group/useGetGroup'
 import useRemoveMember from '../group/useRemoveMember'
 import useUpdateGroup from '../group/useUpdateGroup'
+import useRemoveGroup from '../user/useRemoveGroup'
 
 function useGroupInfoComponent() {
 	const [searchParams] = useSearchParams()
@@ -23,6 +24,10 @@ function useGroupInfoComponent() {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
 	const { deleteGroup } = useDeleteGroup(() => {
+		queryClient.invalidateQueries({ queryKey: [groupId] })
+		window.location.href = routesConst.main
+	})
+	const { removeGroup } = useRemoveGroup(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 		window.location.href = routesConst.main
 	})
@@ -74,10 +79,19 @@ function useGroupInfoComponent() {
 		})
 	}
 
+	const handleRemoveGroup = () => {
+		if (groupId === null) return
+
+		removeGroup.mutate({
+			_id: groupId,
+		})
+	}
+
 	if (group.isError) toast.error(group.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
+	if (removeGroup.isError) toast.error(removeGroup.error.message)
 
 	return {
 		data,
@@ -85,6 +99,7 @@ function useGroupInfoComponent() {
 		handleRepositoryUpdate,
 		handleRemoveMember,
 		handleDeleteGroup,
+		handleRemoveGroup
 	}
 }
 

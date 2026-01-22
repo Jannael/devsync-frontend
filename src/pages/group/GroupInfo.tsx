@@ -1,6 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router'
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
 import GroupInfoField from '../../components/group/GroupInfoField'
 import MemberItem from '../../components/group/GroupInfoMemberItems'
 import TechLeadItem from '../../components/group/GroupInfoTechLeadItem'
@@ -10,7 +8,6 @@ import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
-import GroupModel from '../../service/api/models/group/model'
 
 //Features
 // 1.change roles
@@ -26,6 +23,7 @@ function GroupInfo() {
 		handleRepositoryUpdate,
 		handleRemoveMember,
 		handleDeleteGroup,
+		handleRemoveGroup
 	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
@@ -106,7 +104,7 @@ function GroupInfo() {
 						<ul className='overflow-x-auto'>{memberItems}</ul>
 					</PeopleSection>
 				</div>
-				<Button className='w-full'>Quit</Button>
+				<Button className='w-full' onClick={handleRemoveGroup}>Quit</Button>
 				<Button className='w-full' onClick={handleDeleteGroup}>
 					Delete
 				</Button>
