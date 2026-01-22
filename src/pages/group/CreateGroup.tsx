@@ -39,6 +39,7 @@ function CreateGroup() {
 						className='w-full'
 						name='repository'
 						placeholder='https://github...'
+						value='https://github.com'
 					/>
 				</Label>
 				<Label>

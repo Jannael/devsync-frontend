@@ -25,6 +25,7 @@ function GroupInfo() {
 		handleColorUpdate,
 		handleRepositoryUpdate,
 		handleRemoveMember,
+		handleDeleteGroup,
 	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
@@ -106,7 +107,9 @@ function GroupInfo() {
 					</PeopleSection>
 				</div>
 				<Button className='w-full'>Quit</Button>
-				<Button className='w-full'>Delete</Button>
+				<Button className='w-full' onClick={handleDeleteGroup}>
+					Delete
+				</Button>
 			</Form>
 		</Page>
 	)

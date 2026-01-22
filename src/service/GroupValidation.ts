@@ -6,7 +6,7 @@ import { urlValidator } from './UrlValidator'
 const schema = z.object({
 	name: z.string('Name is required'),
 	color: HexColorSchema,
-	repository: urlValidator.optional(),
+	repository: urlValidator.optional().default('https://github.com'),
 	member: z
 		.array(
 			z.object({

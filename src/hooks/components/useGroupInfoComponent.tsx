@@ -1,8 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
 import { toast } from 'sonner'
+import { routesConst } from '../../routes.constants'
 import ColorValidator from '../../service/HexColorValidation'
 import urlValidator from '../../service/UrlValidator'
+import useDeleteGroup from '../group/useDeleteGroup'
 import useGetGroup from '../group/useGetGroup'
 import useRemoveMember from '../group/useRemoveMember'
 import useUpdateGroup from '../group/useUpdateGroup'
@@ -11,11 +13,18 @@ function useGroupInfoComponent() {
 	const [searchParams] = useSearchParams()
 	const queryClient = useQueryClient()
 	const groupId = searchParams.get('groupId')
-	const { group } = useGetGroup({ groupId })
 
+	const { group } = useGetGroup({ groupId })
 	const data = group.data?.result
+	const { removeMember } = useRemoveMember(() => {
+		queryClient.invalidateQueries({ queryKey: [groupId] })
+	})
 	const { updateGroup } = useUpdateGroup(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
+	})
+	const { deleteGroup } = useDeleteGroup(() => {
+		queryClient.invalidateQueries({ queryKey: [groupId] })
+		window.location.href = routesConst.main
 	})
 
 	const handleColorUpdate = (value: string | undefined) => {
@@ -48,10 +57,6 @@ function useGroupInfoComponent() {
 		})
 	}
 
-	const { removeMember } = useRemoveMember(() => {
-		queryClient.invalidateQueries({ queryKey: [groupId] })
-	})
-
 	const handleRemoveMember = (account: string) => {
 		if (groupId === null) return
 
@@ -61,11 +66,26 @@ function useGroupInfoComponent() {
 		})
 	}
 
+	const handleDeleteGroup = () => {
+		if (groupId === null) return
+
+		deleteGroup.mutate({
+			_id: groupId,
+		})
+	}
+
 	if (group.isError) toast.error(group.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
-	if (updateGroup.isError) toast.error(updateGroup.error.message)
+	if (removeMember.isError) toast.error(removeMember.error.message)
+	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
 
-	return { data, handleColorUpdate, handleRepositoryUpdate, handleRemoveMember }
+	return {
+		data,
+		handleColorUpdate,
+		handleRepositoryUpdate,
+		handleRemoveMember,
+		handleDeleteGroup,
+	}
 }
 
 export default useGroupInfoComponent
