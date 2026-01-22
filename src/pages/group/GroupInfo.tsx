@@ -1,4 +1,6 @@
-import { Toaster } from 'sonner'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router'
+import { Toaster, toast } from 'sonner'
 import GroupInfoField from '../../components/group/GroupInfoField'
 import MemberItem from '../../components/group/GroupInfoMemberItems'
 import TechLeadItem from '../../components/group/GroupInfoTechLeadItem'
@@ -8,6 +10,7 @@ import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
+import GroupModel from '../../service/api/models/group/model'
 
 //Features
 // 1.change roles
@@ -17,8 +20,12 @@ import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
 // 5.delete group
 
 function GroupInfo() {
-	const { data, handleColorUpdate, handleRepositoryUpdate } =
-		useGroupInfoComponent()
+	const {
+		data,
+		handleColorUpdate,
+		handleRepositoryUpdate,
+		handleRemoveMember,
+	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
 		(techLead: { account: string; fullName: string }) => {
@@ -27,6 +34,7 @@ function GroupInfo() {
 					account={techLead.account}
 					fullName={techLead.fullName}
 					key={techLead.account}
+					onDelete={() => handleRemoveMember(techLead.account)}
 				/>
 			)
 		},
@@ -38,6 +46,7 @@ function GroupInfo() {
 				<MemberItem
 					account={member.account}
 					key={member.account}
+					onDelete={() => handleRemoveMember(member.account)}
 					role={member.role}
 				/>
 			)

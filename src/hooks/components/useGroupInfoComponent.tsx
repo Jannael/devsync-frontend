@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import ColorValidator from '../../service/HexColorValidation'
 import urlValidator from '../../service/UrlValidator'
 import useGetGroup from '../group/useGetGroup'
+import useRemoveMember from '../group/useRemoveMember'
 import useUpdateGroup from '../group/useUpdateGroup'
 
 function useGroupInfoComponent() {
@@ -11,7 +12,6 @@ function useGroupInfoComponent() {
 	const queryClient = useQueryClient()
 	const groupId = searchParams.get('groupId')
 	const { group } = useGetGroup({ groupId })
-	if (group.isError) toast.error(group.error.message)
 
 	const data = group.data?.result
 	const { updateGroup } = useUpdateGroup(() => {
@@ -48,9 +48,24 @@ function useGroupInfoComponent() {
 		})
 	}
 
+	const { removeMember } = useRemoveMember(() => {
+		queryClient.invalidateQueries({ queryKey: [groupId] })
+	})
+
+	const handleRemoveMember = (account: string) => {
+		if (groupId === null) return
+
+		removeMember.mutate({
+			_id: groupId,
+			account: account,
+		})
+	}
+
+	if (group.isError) toast.error(group.error.message)
+	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (updateGroup.isError) toast.error(updateGroup.error.message)
 
-	return { data, handleColorUpdate, handleRepositoryUpdate }
+	return { data, handleColorUpdate, handleRepositoryUpdate, handleRemoveMember }
 }
 
 export default useGroupInfoComponent
