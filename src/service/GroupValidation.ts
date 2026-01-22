@@ -1,5 +1,6 @@
 import z from 'zod'
 import createValidator from '../utils/helpers/createValidator'
+import { urlValidator } from './UrlValidator'
 
 const schema = z.object({
 	name: z.string('Name is required'),
@@ -9,7 +10,7 @@ const schema = z.object({
 			message: 'Invalid color',
 		})
 		.default('#000000'),
-	repository: z.string('invalid url').optional(),
+	repository: urlValidator.optional(),
 	member: z
 		.array(
 			z.object({

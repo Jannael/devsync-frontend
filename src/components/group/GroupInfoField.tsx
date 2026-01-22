@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react'
+import { type ReactNode, useRef, useState } from 'react'
 import { Edit } from '../../icons'
 import Button from '../ui/Button'
+import InputText from '../ui/InputText'
 
 function GroupInfoField({
 	children,
@@ -9,10 +10,13 @@ function GroupInfoField({
 	onSave,
 }: {
 	children?: ReactNode
-	onSave?: () => void
+	onSave?: (value: string | undefined) => void
 	field?: string
 	fieldValue?: string
 }) {
+	const [isEditing, setIsEditing] = useState(false)
+	const inputRef = useRef<HTMLInputElement>(null)
+
 	return (
 		<div
 			className='
@@ -22,20 +26,45 @@ function GroupInfoField({
 				justify-between items-center
 			'
 		>
-			<p
-				className={`
+			{isEditing ? (
+				<InputText
+					className='
+						w-7/10
+						text-sm
+						border-r-2
+						focus:outline-none
+					'
+					placeholder='new value...'
+					ref={inputRef}
+				/>
+			) : (
+				<p
+					className={`
 					w-7/10
 					text-sm
 					${onSave !== undefined && 'border-r-2'}
 				`}
-			>{`${field} = ${fieldValue}`}</p>
+				>{`${field} = ${fieldValue}`}</p>
+			)}
 			{children}
 			{onSave !== undefined && (
 				<div className='flex items-center just-center gap-3'>
-					<button className='cursor-pointer' type='button'>
+					<button
+						className='cursor-pointer'
+						onClick={() => setIsEditing(!isEditing)}
+						type='button'
+					>
 						<Edit />
 					</button>
-					<Button onClick={onSave}> Save</Button>
+					<Button
+						onClick={() => {
+							onSave(inputRef.current?.value)
+							setIsEditing(false)
+						}}
+					>
+						{' '}
+						Save
+					</Button>
 				</div>
 			)}
 		</div>
