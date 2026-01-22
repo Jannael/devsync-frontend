@@ -1,15 +1,11 @@
 import z from 'zod'
 import createValidator from '../utils/helpers/createValidator'
+import { HexColorSchema } from './HexColorValidation'
 import { urlValidator } from './UrlValidator'
 
 const schema = z.object({
 	name: z.string('Name is required'),
-	color: z
-		.string('color is required')
-		.regex(/^#([A-Fa-f0-9]{3}){1,2}$/, {
-			message: 'Invalid color',
-		})
-		.default('#000000'),
+	color: HexColorSchema,
 	repository: urlValidator.optional(),
 	member: z
 		.array(

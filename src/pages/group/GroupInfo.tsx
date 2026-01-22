@@ -11,6 +11,7 @@ import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useGetGroup from '../../hooks/group/useGetGroup'
 import GroupModel from '../../service/api/models/group/model'
+import ColorValidator from '../../service/HexColorValidation'
 import urlValidator from '../../service/UrlValidator'
 
 //Features
@@ -60,6 +61,8 @@ function GroupInfo() {
 		},
 	})
 
+	if (updateGroup.isError) toast.error(updateGroup.error.message)
+
 	return (
 		<Page className='flex items-center justify-center'>
 			<Toaster />
@@ -78,7 +81,20 @@ function GroupInfo() {
 					<GroupInfoField
 						field='color'
 						fieldValue={data?.color}
-						onSave={() => console.log('save')}
+						onSave={(value) => {
+							if (value === '' || value === undefined) return
+							const isValid = ColorValidator({ color: value })
+							if (typeof isValid === 'string') return toast.error(isValid)
+
+							updateGroup.mutate({
+								_id: data?._id,
+								data: {
+									color: value,
+									name: undefined,
+									repository: undefined,
+								},
+							})
+						}}
 					/>
 					{data?.repository != null && (
 						<GroupInfoField
