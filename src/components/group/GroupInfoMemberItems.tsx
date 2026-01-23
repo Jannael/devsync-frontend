@@ -1,4 +1,5 @@
 import { X } from '../../icons'
+import { roles } from '../../memberRoles'
 import Option from '../ui/Option'
 import Select from '../ui/Select'
 
@@ -25,8 +26,8 @@ function GroupInfoMemberItem({
 			<p className='w-1/3 min-w-23 pr-2 border-r-2 truncate'>{account}</p>
 
 			<Select value={role}>
-				<Option value='developer'>Developer</Option>
-				<Option value='documenter'>Documenter</Option>
+				<Option value={roles.developer}>Developer</Option>
+				<Option value={roles.documenter}>Documenter</Option>
 			</Select>
 
 			<div

@@ -33,7 +33,7 @@ function useGroupInfoComponent() {
 	})
 
 	const handleColorUpdate = (value: string | undefined) => {
-		if (value === '' || value === undefined) return
+		if (!value) return
 		const isValid = ColorValidator({ color: value })
 		if (typeof isValid === 'string') return toast.error(isValid)
 
@@ -48,7 +48,7 @@ function useGroupInfoComponent() {
 	}
 
 	const handleRepositoryUpdate = (value: string | undefined) => {
-		if (value === '' || value === undefined) return
+		if (!value) return
 		const isValid = urlValidator({ repository: value })
 		if (typeof isValid === 'string') return toast.error(isValid)
 

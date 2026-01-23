@@ -8,11 +8,13 @@ function GroupInfoField({
 	field,
 	fieldValue,
 	onSave,
+	placeholder
 }: {
 	children?: ReactNode
 	onSave?: (value: string | undefined) => void
 	field?: string
 	fieldValue?: string
+	placeholder?: string
 }) {
 	const [isEditing, setIsEditing] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
@@ -34,7 +36,7 @@ function GroupInfoField({
 						border-r-2
 						focus:outline-none
 					'
-					placeholder='new value...'
+					placeholder={placeholder}
 					ref={inputRef}
 				/>
 			) : (

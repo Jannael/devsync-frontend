@@ -23,7 +23,7 @@ function GroupInfo() {
 		handleRepositoryUpdate,
 		handleRemoveMember,
 		handleDeleteGroup,
-		handleRemoveGroup
+		handleRemoveGroup,
 	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
@@ -71,12 +71,14 @@ function GroupInfo() {
 						field='color'
 						fieldValue={data?.color}
 						onSave={handleColorUpdate}
+						placeholder='#000000'
 					/>
 					{data?.repository != null && (
 						<GroupInfoField
 							field='repository'
 							fieldValue={data?.repository}
 							onSave={handleRepositoryUpdate}
+							placeholder='https://github.com'
 						/>
 					)}
 				</div>
@@ -104,7 +106,9 @@ function GroupInfo() {
 						<ul className='overflow-x-auto'>{memberItems}</ul>
 					</PeopleSection>
 				</div>
-				<Button className='w-full' onClick={handleRemoveGroup}>Quit</Button>
+				<Button className='w-full' onClick={handleRemoveGroup}>
+					Quit
+				</Button>
 				<Button className='w-full' onClick={handleDeleteGroup}>
 					Delete
 				</Button>

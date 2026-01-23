@@ -7,6 +7,7 @@ import Option from '../ui/Option'
 import Select from '../ui/Select'
 import Wrapper, { WrapperItem } from '../Wrapper'
 import { MemberItem } from './MemberWrapperItem'
+import { roles } from '../../memberRoles'
 
 function MemberInput({
 	setError,
@@ -88,8 +89,8 @@ function MemberInput({
 					<Label>
 						Member role
 						<Select className='flex-2/5 cursor-pointer' ref={membersInputRole}>
-							<Option value='developer'>Developer</Option>
-							<Option value='documenter'>Documenter</Option>
+							<Option value={roles.developer}>Developer</Option>
+							<Option value={roles.documenter}>Documenter</Option>
 						</Select>
 					</Label>
 				</div>

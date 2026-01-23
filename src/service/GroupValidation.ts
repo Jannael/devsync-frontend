@@ -1,4 +1,5 @@
 import z from 'zod'
+import { roles } from '../memberRoles'
 import createValidator from '../utils/helpers/createValidator'
 import { HexColorSchema } from './HexColorValidation'
 import { urlValidator } from './UrlValidator'
@@ -11,7 +12,7 @@ const schema = z.object({
 		.array(
 			z.object({
 				account: z.string().email('member.account is invalid'),
-				role: z.enum(['documenter', 'developer'], {
+				role: z.enum([roles.documenter, roles.developer], {
 					message: 'member.role must be valid',
 				}),
 			}),
