@@ -17,7 +17,9 @@ function createModel<T extends Record<string, any>>(
 			const response = await request.json()
 
 			if (!request.ok || response.success === false) {
-				throw new Error(response.description || 'Something went wrong')
+				throw new Error(
+					response.description || response.msg || 'Something went wrong',
+				)
 			}
 
 			return response

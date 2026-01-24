@@ -3,8 +3,9 @@ import GroupInfoField from '../../components/group/GroupInfoField'
 import MemberItem from '../../components/group/GroupInfoMemberItems'
 import TechLeadItem from '../../components/group/GroupInfoTechLeadItem'
 import { PeopleHeader, PeopleSection } from '../../components/group/People'
+import InviteUserModal from '../../components/InviteUserModal'
+import Modal from '../../components/Modal'
 import Button from '../../components/ui/Button'
-import Form from '../../components/ui/Form'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
@@ -24,6 +25,9 @@ function GroupInfo() {
 		handleRemoveMember,
 		handleDeleteGroup,
 		handleRemoveGroup,
+		handleInviteUser,
+		isOpen,
+		setIsOpen,
 	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
@@ -55,7 +59,12 @@ function GroupInfo() {
 	return (
 		<Page className='flex items-center justify-center'>
 			<Toaster />
-			<Form className='w-7/10 max-w-xl'>
+			{isOpen && (
+				<Modal onOverLayClick={() => setIsOpen(false)}>
+					<InviteUserModal block={false} onSubmit={handleInviteUser} />
+				</Modal>
+			)}
+			<section className='w-7/10 max-w-xl flex flex-col items-center justify-center gap-6 rounded-sm p-8 shadow-contrast shadow-sm'>
 				<Title className='mb-3'>Insane Group</Title>
 				<div
 					className='
@@ -92,7 +101,7 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>TechLeads</h2>
-							<Button>Add</Button>
+							<Button onClick={() => setIsOpen(true)}>Add</Button>
 						</PeopleHeader>
 
 						<ul className='overflow-x-auto'>{techLeadItems}</ul>
@@ -101,7 +110,7 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>Members</h2>
-							<Button>Add</Button>
+							<Button onClick={() => setIsOpen(true)}>Add</Button>
 						</PeopleHeader>
 						<ul className='overflow-x-auto'>{memberItems}</ul>
 					</PeopleSection>
@@ -112,7 +121,7 @@ function GroupInfo() {
 				<Button className='w-full' onClick={handleDeleteGroup}>
 					Delete
 				</Button>
-			</Form>
+			</section>
 		</Page>
 	)
 }

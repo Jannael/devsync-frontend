@@ -8,12 +8,15 @@ import useDeleteGroup from '../group/useDeleteGroup'
 import useGetGroup from '../group/useGetGroup'
 import useRemoveMember from '../group/useRemoveMember'
 import useUpdateGroup from '../group/useUpdateGroup'
+import useInviteUser from '../user/useInviteUser'
 import useRemoveGroup from '../user/useRemoveGroup'
+import { useState } from 'react'
 
 function useGroupInfoComponent() {
 	const [searchParams] = useSearchParams()
 	const queryClient = useQueryClient()
 	const groupId = searchParams.get('groupId')
+	const [isOpen, setIsOpen] = useState(false)
 
 	const { group } = useGetGroup({ groupId })
 	const data = group.data?.result
@@ -30,6 +33,10 @@ function useGroupInfoComponent() {
 	const { removeGroup } = useRemoveGroup(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 		window.location.href = routesConst.main
+	})
+	const { inviteUser } = useInviteUser(() => {
+		setIsOpen(false)
+		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
 
 	const handleColorUpdate = (value: string | undefined) => {
@@ -87,11 +94,28 @@ function useGroupInfoComponent() {
 		})
 	}
 
+	const handleInviteUser = ({
+		account,
+		role,
+	}: {
+		account: string
+		role: string
+	}) => {
+		if (groupId === null) return
+
+		inviteUser.mutate({
+			account,
+			role,
+			_id: groupId,
+		})
+	}
+
 	if (group.isError) toast.error(group.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
 	if (removeGroup.isError) toast.error(removeGroup.error.message)
+	if (inviteUser.isError) toast.error(inviteUser.error.message)
 
 	return {
 		data,
@@ -99,7 +123,10 @@ function useGroupInfoComponent() {
 		handleRepositoryUpdate,
 		handleRemoveMember,
 		handleDeleteGroup,
-		handleRemoveGroup
+		handleRemoveGroup,
+		handleInviteUser,
+		isOpen,
+		setIsOpen
 	}
 }
 
