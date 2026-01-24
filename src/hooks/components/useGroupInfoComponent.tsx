@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { toast } from 'sonner'
 import { routesConst } from '../../routes.constants'
@@ -8,9 +9,9 @@ import useDeleteGroup from '../group/useDeleteGroup'
 import useGetGroup from '../group/useGetGroup'
 import useRemoveMember from '../group/useRemoveMember'
 import useUpdateGroup from '../group/useUpdateGroup'
+import useUpdateMemberRole from '../group/useUpdateMemberRole'
 import useInviteUser from '../user/useInviteUser'
 import useRemoveGroup from '../user/useRemoveGroup'
-import { useState } from 'react'
 
 function useGroupInfoComponent() {
 	const [searchParams] = useSearchParams()
@@ -36,6 +37,9 @@ function useGroupInfoComponent() {
 	})
 	const { inviteUser } = useInviteUser(() => {
 		setIsOpen(false)
+		queryClient.invalidateQueries({ queryKey: [groupId] })
+	})
+	const { updateMemberRole } = useUpdateMemberRole(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
 
@@ -110,12 +114,29 @@ function useGroupInfoComponent() {
 		})
 	}
 
+	const handleUpdateMemberRole = ({
+		account,
+		role,
+	}: {
+		account: string
+		role: string
+	}) => {
+		if (groupId === null) return
+
+		updateMemberRole.mutate({
+			_id: groupId,
+			account,
+			role,
+		})
+	}
+
 	if (group.isError) toast.error(group.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (removeMember.isError) toast.error(removeMember.error.message)
 	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
 	if (removeGroup.isError) toast.error(removeGroup.error.message)
 	if (inviteUser.isError) toast.error(inviteUser.error.message)
+	if (updateMemberRole.isError) toast.error(updateMemberRole.error.message)
 
 	return {
 		data,
@@ -125,8 +146,9 @@ function useGroupInfoComponent() {
 		handleDeleteGroup,
 		handleRemoveGroup,
 		handleInviteUser,
+		handleUpdateMemberRole,
 		isOpen,
-		setIsOpen
+		setIsOpen,
 	}
 }
 

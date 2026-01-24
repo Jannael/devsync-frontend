@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { X } from '../../icons'
 import { roles } from '../../memberRoles'
 import Option from '../ui/Option'
@@ -11,9 +12,12 @@ function GroupInfoMemberItem({
 }: {
 	account: string
 	role: string
-	onSave?: () => void
+	onSave?: (val: string) => void
 	onDelete?: () => void
 }) {
+	const [disabled, setDisabled] = useState(true)
+	const [selectedRole, setSelectedRole] = useState(role)
+
 	return (
 		<li
 			className='
@@ -25,7 +29,14 @@ function GroupInfoMemberItem({
 		>
 			<p className='w-1/3 min-w-23 pr-2 border-r-2 truncate'>{account}</p>
 
-			<Select value={role}>
+			<Select
+				onChange={(newRole) => {
+					setSelectedRole(newRole)
+					setDisabled(false)
+				}}
+				value={role}
+			>
+				<Option value={roles.techLead}>TechLead</Option>
 				<Option value={roles.developer}>Developer</Option>
 				<Option value={roles.documenter}>Documenter</Option>
 			</Select>
@@ -45,7 +56,8 @@ function GroupInfoMemberItem({
 							border-l-2 border-r-2 border-2 rounded-full
 							cursor-pointer
 						'
-						onClick={onSave}
+						disabled={disabled}
+						onClick={() => onSave?.(selectedRole)}
 						type='button'
 					>
 						Save

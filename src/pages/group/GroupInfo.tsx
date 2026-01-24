@@ -26,6 +26,7 @@ function GroupInfo() {
 		handleDeleteGroup,
 		handleRemoveGroup,
 		handleInviteUser,
+		handleUpdateMemberRole,
 		isOpen,
 		setIsOpen,
 	} = useGroupInfoComponent()
@@ -50,6 +51,9 @@ function GroupInfo() {
 					account={member.account}
 					key={member.account}
 					onDelete={() => handleRemoveMember(member.account)}
+					onSave={(role) => {
+						handleUpdateMemberRole({ account: member.account, role })
+					}}
 					role={member.role}
 				/>
 			)
