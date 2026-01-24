@@ -38,6 +38,7 @@ function GroupInfoField({
 					'
 					placeholder={placeholder}
 					ref={inputRef}
+					value=''
 				/>
 			) : (
 				<p

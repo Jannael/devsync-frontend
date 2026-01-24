@@ -12,6 +12,11 @@
     <script type="module"> 
     import { routesConst } from './src/routes.constants.ts';
 
+    const theme = localStorage.getItem('theme')
+    if (theme) {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
       const worker = new Worker(new URL('/refreshToken.ts', import.meta.url), { type: 'module' })
       if (!window.location.href.includes(routesConst.login)) {
         worker.postMessage('start')

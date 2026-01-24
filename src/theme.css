@@ -25,3 +25,17 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--color-contrast);
 }
+
+[data-theme="light"] {
+	--color-primary: #eee;
+	--color-contrast: #222;
+	--color-txt: #222;
+	--color-error: #ec003f;
+}
+
+[data-theme="dark"] {
+	--color-primary: #222;
+	--color-contrast: #eee;
+	--color-txt: #eee;
+	--color-error: #ec003f;
+}
