@@ -52,7 +52,7 @@ export function GroupItem({
 			<button
 				className='
 					p-1 m-1
-					border-contrast border-2 rounded-full
+					border-contrast border-2 rounded-xl
 					cursor-pointer
 					absolute left-0 top-0
 					bg-primary

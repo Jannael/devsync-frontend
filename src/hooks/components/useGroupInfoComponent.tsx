@@ -13,14 +13,17 @@ import useUpdateMemberRole from '../group/useUpdateMemberRole'
 import useInviteUser from '../user/useInviteUser'
 import useRemoveGroup from '../user/useRemoveGroup'
 
-function useGroupInfoComponent() {
-	const [searchParams] = useSearchParams()
+function useMutations({
+	groupId,
+	setIsOpen,
+}: {
+	groupId: string
+	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) {
 	const queryClient = useQueryClient()
-	const groupId = searchParams.get('groupId')
-	const [isOpen, setIsOpen] = useState(false)
-
 	const { group } = useGetGroup({ groupId })
 	const data = group.data?.result
+
 	const { removeMember } = useRemoveMember(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
@@ -43,6 +46,44 @@ function useGroupInfoComponent() {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
 
+	if (group.isError) toast.error(group.error.message)
+	if (removeMember.isError) toast.error(removeMember.error.message)
+	if (removeMember.isError) toast.error(removeMember.error.message)
+	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
+	if (removeGroup.isError) toast.error(removeGroup.error.message)
+	if (inviteUser.isError) toast.error(inviteUser.error.message)
+	if (updateMemberRole.isError) toast.error(updateMemberRole.error.message)
+
+	return {
+		removeMember,
+		deleteGroup,
+		removeGroup,
+		updateGroup,
+		inviteUser,
+		updateMemberRole,
+		data,
+	}
+}
+
+function useHandlers({
+	groupId,
+	updateGroup,
+	data,
+	removeMember,
+	deleteGroup,
+	removeGroup,
+	inviteUser,
+	updateMemberRole,
+}: {
+	groupId: string
+	updateGroup: ReturnType<typeof useUpdateGroup>['updateGroup']
+	data: ReturnType<typeof useGetGroup>['group']['data']
+	removeMember: ReturnType<typeof useRemoveMember>['removeMember']
+	deleteGroup: ReturnType<typeof useDeleteGroup>['deleteGroup']
+	removeGroup: ReturnType<typeof useRemoveGroup>['removeGroup']
+	inviteUser: ReturnType<typeof useInviteUser>['inviteUser']
+	updateMemberRole: ReturnType<typeof useUpdateMemberRole>['updateMemberRole']
+}) {
 	const handleColorUpdate = (value: string | undefined) => {
 		if (!value) return
 		const isValid = ColorValidator({ color: value })
@@ -130,13 +171,50 @@ function useGroupInfoComponent() {
 		})
 	}
 
-	if (group.isError) toast.error(group.error.message)
-	if (removeMember.isError) toast.error(removeMember.error.message)
-	if (removeMember.isError) toast.error(removeMember.error.message)
-	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
-	if (removeGroup.isError) toast.error(removeGroup.error.message)
-	if (inviteUser.isError) toast.error(inviteUser.error.message)
-	if (updateMemberRole.isError) toast.error(updateMemberRole.error.message)
+	return {
+		handleColorUpdate,
+		handleRepositoryUpdate,
+		handleRemoveMember,
+		handleDeleteGroup,
+		handleRemoveGroup,
+		handleInviteUser,
+		handleUpdateMemberRole,
+	}
+}
+
+function useGroupInfoComponent() {
+	const [searchParams] = useSearchParams()
+	const groupId = searchParams.get('groupId')
+	const [isOpen, setIsOpen] = useState(false)
+
+	const {
+		removeMember,
+		deleteGroup,
+		removeGroup,
+		updateGroup,
+		inviteUser,
+		updateMemberRole,
+		data,
+	} = useMutations({ groupId: groupId!, setIsOpen })
+
+	const {
+		handleColorUpdate,
+		handleRepositoryUpdate,
+		handleRemoveMember,
+		handleDeleteGroup,
+		handleRemoveGroup,
+		handleInviteUser,
+		handleUpdateMemberRole,
+	} = useHandlers({
+		groupId: groupId!,
+		updateGroup,
+		data,
+		removeMember,
+		deleteGroup,
+		removeGroup,
+		inviteUser,
+		updateMemberRole,
+	})
 
 	return {
 		data,
