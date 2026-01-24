@@ -4,8 +4,8 @@
 @theme {
 	--font-main: "lexend", sans-serif;
 	--color-primary: #222;
-	--color-contrast: #eee;
-	--color-txt: #eee;
+	--color-contrast: #ddd;
+	--color-txt: #ddd;
 	--color-error: #ec003f;
 }
 

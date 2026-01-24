@@ -1,8 +1,8 @@
 @media (prefers-color-scheme: light) {
 	:root {
-		--color-primary: #eee;
+		--color-primary: #ddd;
 		--color-contrast: #222;
-		--color-txt: #222;
+		--color-txt: #000;
 	}
 }
 
@@ -27,15 +27,15 @@
 }
 
 [data-theme="light"] {
-	--color-primary: #eee;
+	--color-primary: #ddd;
 	--color-contrast: #222;
-	--color-txt: #222;
+	--color-txt: #000;
 	--color-error: #ec003f;
 }
 
 [data-theme="dark"] {
 	--color-primary: #222;
-	--color-contrast: #eee;
-	--color-txt: #eee;
+	--color-contrast: #ddd;
+	--color-txt: #ddd;
 	--color-error: #ec003f;
 }

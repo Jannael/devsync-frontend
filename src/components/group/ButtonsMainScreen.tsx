@@ -1,14 +1,23 @@
 import { useState } from 'react'
+import useLogout from '../../hooks/user/useLogout'
 import { CubePlus, FullMoon, Moon, SettingsIcon } from '../../icons'
 import { routesConst } from '../../routes.constants'
 import FloatingMenu from '../ui/FloatingMenu'
 import FloatingMenuLi from '../ui/FloatingMenuLi'
-import GroupInfoField from './GroupInfoField'
 
-function ButtonFloatingMenu({ children }: { children: React.ReactNode }) {
+// import GroupInfoField from './GroupInfoField'
+
+function ButtonFloatingMenu({
+	children,
+	onClick,
+}: {
+	children: React.ReactNode
+	onClick?: () => void
+}) {
 	return (
 		<button
 			className='border-error border w-full p-3 rounded-full text-error cursor-pointer'
+			onClick={onClick}
 			type='button'
 		>
 			{children}
@@ -24,6 +33,9 @@ export function ButtonsScreen() {
 			? 'dark'
 			: 'light'
 	const [changeTheme, setChangeTheme] = useState(currentTheme)
+	const { logoutMutation } = useLogout(() => {
+		window.location.href = routesConst.login
+	})
 
 	return (
 		<>
@@ -63,10 +75,21 @@ export function ButtonsScreen() {
 									</a>
 								</FloatingMenuLi>
 								<FloatingMenuLi className='border-none hover:bg-transparent mt-5 mb-3'>
-									<ButtonFloatingMenu>Delete account</ButtonFloatingMenu>
+									<ButtonFloatingMenu
+										onClick={() => {
+											window.location.href = `${routesConst.verifyCode}?redirect=${routesConst.deleteAccount}`
+										}}
+									>
+										Delete account
+									</ButtonFloatingMenu>
 								</FloatingMenuLi>
 								<FloatingMenuLi className='border-none hover:bg-transparent'>
-									<ButtonFloatingMenu>Logout</ButtonFloatingMenu>
+									<ButtonFloatingMenu onClick={() => {
+										console.log('logout') 
+										logoutMutation.mutate({})
+									}}>
+										Logout
+									</ButtonFloatingMenu>
 								</FloatingMenuLi>
 							</ul>
 						</div>

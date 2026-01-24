@@ -10,7 +10,7 @@ type InputTextProps = {
 
 const InputText = forwardRef<HTMLInputElement, InputTextProps>(
 	({ className, placeholder, name, required, value }, ref) => {
-		const [currentValue, setCurrentValue] = useState(value)
+		const [currentValue, setCurrentValue] = useState(value || '')
 
 		return (
 			<input
