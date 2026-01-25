@@ -5,8 +5,6 @@ import { routesConst } from '../../routes.constants'
 import FloatingMenu from '../ui/FloatingMenu'
 import FloatingMenuLi from '../ui/FloatingMenuLi'
 
-// import GroupInfoField from './GroupInfoField'
-
 function ButtonFloatingMenu({
 	children,
 	onClick,
@@ -42,7 +40,7 @@ export function ButtonsScreen() {
 			<div>
 				{isOpenSettings && (
 					<FloatingMenu onOverlayClick={() => setIsOpenSettings(false)}>
-						<div className='absolute top-0 right-0 m-12 bg-primary p-4 text-contrast border-2 border-contrast w-3/10 rounded-xl'>
+						<div className='absolute top-0 right-0 m-12 bg-primary p-4 text-contrast border-2 border-contrast w-4/10 rounded-xl max-w-xl'>
 							<h2 className='text-2xl border-b-2 pb-3'>Settings</h2>
 							<ul className='p-2 flex flex-col gap-2'>
 								<FloatingMenuLi className='p-3 justify-between'>
@@ -65,6 +63,14 @@ export function ButtonsScreen() {
 									</button>
 								</FloatingMenuLi>
 								<FloatingMenuLi>
+									<a
+										className='w-full p-3'
+										href={`${routesConst.verifyCode}?redirect=${routesConst.updateUser}`}
+									>
+										Update user
+									</a>
+								</FloatingMenuLi>
+								<FloatingMenuLi>
 									<a className='w-full p-3' href={routesConst.login}>
 										Login
 									</a>
@@ -84,10 +90,11 @@ export function ButtonsScreen() {
 									</ButtonFloatingMenu>
 								</FloatingMenuLi>
 								<FloatingMenuLi className='border-none hover:bg-transparent'>
-									<ButtonFloatingMenu onClick={() => {
-										console.log('logout') 
-										logoutMutation.mutate({})
-									}}>
+									<ButtonFloatingMenu
+										onClick={() => {
+											logoutMutation.mutate({})
+										}}
+									>
 										Logout
 									</ButtonFloatingMenu>
 								</FloatingMenuLi>
@@ -111,7 +118,6 @@ export function ButtonsScreen() {
 					<SettingsIcon />
 				</button>
 			</div>
-
 			<button
 				className='
 					w-10

@@ -11,5 +11,6 @@ export const routesConst = {
 	group: '/group',
 	solveTask: '/solve/task',
 	createTask: '/create/task',
-	deleteAccount: '/delete/account'
+	deleteAccount: '/delete/account',
+	updateUser: '/delete/account',
 }
