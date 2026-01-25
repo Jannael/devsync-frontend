@@ -4,6 +4,7 @@ const queryKeys = {
 	groupDetail: 'groupDetail',
 	taskDetail: 'taskDetail',
 	invitationList: 'invitationList',
+	user: 'user',
 }
 
 export default queryKeys

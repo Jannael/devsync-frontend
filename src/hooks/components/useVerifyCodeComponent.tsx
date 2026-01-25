@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { localStorageKeys } from '../../localStorageKeys'
+import { routesConst } from '../../routes.constants'
 import AccountValidator from '../../service/AccountValidation'
 import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
@@ -21,12 +22,14 @@ function useVerifyCodeComponent() {
 
 	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
 		const action = searchParams.get('action')
+		const updateUser = searchParams.get('updateUser')
 		if (action === verifyCodeActions.deleteUser) {
 			deleteUser.mutate({})
 		}
 
 		const redirect = searchParams.get('redirect')
-		if (redirect !== null) window.location.href = redirect
+		if (redirect !== null)
+			window.location.href = `${redirect}?updateUser=${updateUser}`
 	})
 
 	const handleVerifyCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {

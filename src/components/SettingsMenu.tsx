@@ -1,5 +1,11 @@
+import { useQueryClient } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router'
+import useUpdateUser from '../hooks/user/useUpdateUser'
+import useUser from '../hooks/user/useUser'
 import { FullMoon, Moon } from '../icons'
+import queryKeys from '../queryKeys'
 import { routesConst } from '../routes.constants'
+import GroupInfoField from './group/GroupInfoField'
 import ButtonFloatingMenu from './ui/ButtonFloatingMenu'
 import FloatingMenu from './ui/FloatingMenu'
 import FloatingMenuLi from './ui/FloatingMenuLi'
@@ -17,6 +23,15 @@ function SettingsMenu({
 	handleDeleteUser: () => void
 	handleLogout: () => void
 }) {
+	const [searchParams] = useSearchParams()
+	const updateUserParam = searchParams.get('updateUser')
+	const { data: user } = useUser()
+	const queryClient = useQueryClient()
+	const { updateUser } = useUpdateUser(() => {
+		queryClient.invalidateQueries({ queryKey: [queryKeys.user] })
+		window.location.href = routesConst.main
+	})
+
 	return (
 		<FloatingMenu onOverlayClick={() => setIsOpenSettings(false)}>
 			<div className='absolute top-0 right-0 m-12 bg-primary p-4 text-contrast border-2 border-contrast w-4/10 rounded-xl max-w-xl'>
@@ -36,14 +51,42 @@ function SettingsMenu({
 							)}
 						</button>
 					</FloatingMenuLi>
-					<FloatingMenuLi>
-						<a
-							className='w-full p-3'
-							href={`${routesConst.verifyCode}?redirect=${routesConst.updateUser}`}
-						>
-							Update user
-						</a>
-					</FloatingMenuLi>
+					{updateUserParam ? (
+						<FloatingMenuLi className='flex-col p-3'>
+							<span className='w-full border-b pb-3'> Update </span>
+							<GroupInfoField
+								field='fullName'
+								fieldValue={user?.result?.fullName}
+								onSave={(val) => {
+									updateUser.mutate({
+										fullName: val,
+										nickName: user?.result?.nickName,
+									})
+								}}
+								placeholder='Jon Doe Ramirez'
+							/>
+							<GroupInfoField
+								field='nickName'
+								fieldValue={user?.result?.nickName}
+								onSave={(val) => {
+									updateUser.mutate({
+										fullName: user?.result?.fullName,
+										nickName: val,
+									})
+								}}
+								placeholder='Jon Doe Ramirez'
+							/>
+						</FloatingMenuLi>
+					) : (
+						<FloatingMenuLi>
+							<a
+								className='w-full p-3'
+								href={`${routesConst.verifyCode}?redirect=${routesConst.main}&updateUser=true`}
+							>
+								Update user
+							</a>
+						</FloatingMenuLi>
+					)}
 					<FloatingMenuLi>
 						<a className='w-full p-3' href={routesConst.login}>
 							Login
