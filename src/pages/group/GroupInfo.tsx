@@ -1,4 +1,3 @@
-import { Toaster } from 'sonner'
 import GroupInfoField from '../../components/group/GroupInfoField'
 import MemberItem from '../../components/group/GroupInfoMemberItems'
 import TechLeadItem from '../../components/group/GroupInfoTechLeadItem'
@@ -62,7 +61,6 @@ function GroupInfo() {
 
 	return (
 		<Page className='flex items-center justify-center'>
-			<Toaster />
 			{isOpen && (
 				<Modal onOverLayClick={() => setIsOpen(false)}>
 					<InviteUserModal block={false} onSubmit={handleInviteUser} />

@@ -1,4 +1,3 @@
-import { Toaster } from 'sonner'
 import FeaturesInput from '../../components/group/FeaturesInput'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
@@ -15,7 +14,6 @@ function SolveTask() {
 
 	return (
 		<Page className='flex justify-center items-center'>
-			<Toaster />
 			<Form className='w-6/10 max-w-xl' onSubmit={handleSubmit}>
 				<Title>Solve task</Title>
 				<P>{`taskId = ${taskId}`}</P>

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Toaster } from 'sonner'
 
 function Page({
 	className,
@@ -18,6 +19,7 @@ function Page({
 			'
 		>
 			<div className={`${className} min-h-dvh w-full`}>
+				<Toaster />
 				{children}
 			</div>
 		</div>

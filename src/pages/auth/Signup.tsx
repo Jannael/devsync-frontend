@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import { Toaster } from 'sonner'
 import Form from '../../components/ui/Form'
 import FormButton from '../../components/ui/FormButton'
 import InputText from '../../components/ui/InputText'
@@ -15,7 +14,6 @@ function Signup() {
 
 	return (
 		<Page className='flex items-center justify-center'>
-			<Toaster />
 			<Form className='w-6/10 max-w-96' onSubmit={handleSubmit}>
 				<Title className='mb-4'>Signup</Title>
 				<Label>

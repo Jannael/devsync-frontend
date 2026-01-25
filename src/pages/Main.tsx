@@ -1,4 +1,3 @@
-import { Toaster } from 'sonner'
 import ButtonsScreen from '../components/ButtonsMainScreen'
 import GroupContainer from '../components/group/GroupContainer'
 import GroupItem from '../components/group/GroupItem'
@@ -55,7 +54,6 @@ function Main() {
 	return (
 		<>
 			<Page className='p-10'>
-				<Toaster />
 				<GroupContainer>
 					{groupItems}
 					{invitationItems}

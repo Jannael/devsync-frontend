@@ -1,4 +1,3 @@
-import { Toaster } from 'sonner'
 import MemberInput from '../../components/group/MemberInput'
 import TechLeadInput from '../../components/group/TechLeadInput'
 import ColorPicker from '../../components/ui/ColorPicker'
@@ -25,7 +24,6 @@ function CreateGroup() {
 
 	return (
 		<Page className='flex justify-center items-center'>
-			<Toaster />
 			<Form onSubmit={handleSubmit}>
 				<Title>Create group</Title>
 

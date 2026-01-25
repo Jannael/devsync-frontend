@@ -1,4 +1,3 @@
-import { Toaster } from 'sonner'
 import CreateTaskLeftSide from '../../components/task/CreateTaskLeftSide'
 import CreateTaskRightSide from '../../components/task/CreateTaskRightSIde'
 import Form from '../../components/ui/Form'
@@ -19,7 +18,6 @@ function CreateTask() {
 
 	return (
 		<Page className='flex p-4 justify-center items-center'>
-			<Toaster />
 			<Form
 				className='flex flex-row flex-wrap w-full max-w-7xl'
 				onSubmit={handleSubmit}
