@@ -32,7 +32,7 @@ function Group() {
 
 	return (
 		<Page className='flex justify-center items-center'>
-			<section className='flex flex-col w-2/10 h-dvh p-3 border-r pr-5'>
+			<section className='flex flex-col w-2/10 h-dvh p-3 border-r'>
 				<ul
 					className='
 						flex flex-col overflow-y-auto flex-1

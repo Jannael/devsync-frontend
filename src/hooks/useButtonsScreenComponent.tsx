@@ -3,8 +3,9 @@ import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 import queryKeys from '../queryKeys'
 import { routesConst } from '../routes.constants'
-import useAddGroup from './user/useAddGroup'
+import verifyCodeActions from '../verifyCodeActions'
 import useLogout from './auth/useLogout'
+import useAddGroup from './user/useAddGroup'
 
 function useButtonsScreenComponent() {
 	const queryClient = useQueryClient()
@@ -43,7 +44,7 @@ function useButtonsScreenComponent() {
 	}
 
 	const handleDeleteUser = () => {
-		window.location.href = `${routesConst.verifyCode}?redirect=${routesConst.deleteAccount}`
+		window.location.href = `${routesConst.verifyCode}?action=${verifyCodeActions.deleteUser}`
 	}
 
 	if (addGroup.isError) toast.error(addGroup.error.message)

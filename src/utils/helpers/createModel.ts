@@ -24,6 +24,10 @@ function createModel<T extends Record<string, any>>(
 
 			return response
 		} catch (e) {
+			if ((e as Error).message === 'You can not remove the last techLead') {
+				;(e as Error).message =
+					'If you are trying to eliminate you account, you must delete your groups first'
+			}
 			console.error('Model Error:', e)
 			throw e
 		}

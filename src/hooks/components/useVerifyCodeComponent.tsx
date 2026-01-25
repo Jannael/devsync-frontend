@@ -4,8 +4,10 @@ import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
 import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
+import verifyCodeActions from '../../verifyCodeActions'
 import useRequestCode from '../auth/useRequestCode'
 import useVerifyCode from '../auth/useVerifyCode'
+import useDeleteUser from '../user/useDeleteUser'
 
 function useVerifyCodeComponent() {
 	const [verifyCode, setVerifyCode] = useState(false)
@@ -15,10 +17,16 @@ function useVerifyCodeComponent() {
 	const { requestCode } = useRequestCode(() => {
 		setVerifyCode(true)
 	})
+	const { deleteUser } = useDeleteUser()
 
 	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
+		const action = searchParams.get('action')
+		if (action === verifyCodeActions.deleteUser) {
+			deleteUser.mutate({})
+		}
+
 		const redirect = searchParams.get('redirect')
-		window.location.href = redirect !== null ? redirect : ''
+		if (redirect !== null) window.location.href = redirect
 	})
 
 	const handleVerifyCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
