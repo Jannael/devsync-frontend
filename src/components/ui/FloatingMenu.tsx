@@ -10,7 +10,7 @@ function FloatingMenu({
 	return (
 		<>
 			<button
-				className='w-full min-h-dvh fixed left-0 top-0'
+				className='w-full min-h-dvh fixed left-0 top-0 z-10'
 				onClick={onOverlayClick}
 				type='button'
 			></button>

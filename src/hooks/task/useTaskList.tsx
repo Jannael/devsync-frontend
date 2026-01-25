@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import queryKeys from '../../queryKeys'
 import TaskModel from '../../service/api/models/task/model'
 
-function useTaskList({ taskPage }: { taskPage: number }) {
+function useTaskList() {
 	const [searchParams] = useSearchParams()
 
 	const taskListQuery = useInfiniteQuery({
@@ -17,15 +17,19 @@ function useTaskList({ taskPage }: { taskPage: number }) {
 				pagination: pageParam,
 			})
 		},
-		queryKey: [queryKeys.taskList, taskPage],
+		queryKey: [queryKeys.taskList],
 		retry: false,
 		initialPageParam: 0,
 		getNextPageParam: (lastPage) => {
 			if (lastPage.result.task.length === 0) {
 				return undefined
 			}
-
-			return taskPage + 1
+			const nextPageParam = lastPage.result.task.length / 10
+			if (nextPageParam % 1 !== 0) {
+				toast.info('There are no more tasks')
+				return undefined
+			}
+			return nextPageParam
 		},
 	})
 	if (taskListQuery.isError) toast.error(taskListQuery.error.message)

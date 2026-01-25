@@ -6,14 +6,8 @@ import useGroupComponent from '../../hooks/components/useGroupComponent'
 import { routesConst } from '../../routes.constants'
 
 function Group() {
-	const {
-		handleScroll,
-		scrollRef,
-		groupId,
-		currentTaskId,
-		taskList,
-		setCurrentTaskId,
-	} = useGroupComponent()
+	const { handleSeeMore, groupId, currentTaskId, taskList, setCurrentTaskId } =
+		useGroupComponent()
 
 	const taskElements = taskList?.map(
 		(task: {
@@ -38,17 +32,19 @@ function Group() {
 
 	return (
 		<Page className='flex justify-center items-center'>
-			<section className='flex flex-col w-2/10 h-dvh'>
+			<section className='flex flex-col w-2/10 h-dvh p-3 border-r pr-5'>
 				<ul
 					className='
-						flex flex-col overflow-auto flex-1
-						size-full gap-2 relative
+						flex flex-col overflow-y-auto flex-1
+						overflow-x-hidden
+						size-full gap-2 relative items-center
 					'
-					onScroll={handleScroll}
-					ref={scrollRef}
 				>
 					{taskElements}
 				</ul>
+				<Button className='mt-5' onClick={handleSeeMore}>
+					See more
+				</Button>
 				<Button
 					className='mt-5'
 					onClick={() => {
