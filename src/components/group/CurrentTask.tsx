@@ -1,9 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import queryKeys from '../../queryKeys'
-import TaskModel from '../../service/api/models/task/model'
+import useGetTask from '../../hooks/task/useGetTask'
 import P from '../ui/P'
 import Title from '../ui/Title'
 import { FeatureItem } from './FeatureItem'
@@ -12,23 +10,7 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 	const [searchParams] = useSearchParams()
 	const groupId = searchParams.get('groupId')
 
-	const currentTask = useQuery({
-		queryFn: async ({ signal }) => {
-			if (groupId === null) return null
-			if (currentTaskId === undefined) return null
-
-			const res = await TaskModel.get({
-				_id: currentTaskId,
-				groupId: groupId,
-				signal,
-			})
-
-			return res.result
-		},
-		queryKey: [queryKeys.taskDetail, currentTaskId],
-		enabled: !!currentTaskId && !!groupId,
-		retry: false,
-	})
+	const { task: currentTask } = useGetTask({ groupId, currentTaskId })
 
 	return (
 		<section

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import useTaskList from '../auth/useTaskList'
+import useTaskList from '../task/useTaskList'
 
 function useGroupComponent() {
 	const [searchParams] = useSearchParams()

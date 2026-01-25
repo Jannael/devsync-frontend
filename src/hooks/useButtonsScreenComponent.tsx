@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import queryKeys from '../queryKeys'
 import { routesConst } from '../routes.constants'
 import useAddGroup from './user/useAddGroup'
-import useLogout from './user/useLogout'
+import useLogout from './auth/useLogout'
 
 function useButtonsScreenComponent() {
 	const queryClient = useQueryClient()

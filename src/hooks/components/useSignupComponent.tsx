@@ -4,7 +4,7 @@ import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 import signupValidator from '../../service/SignupValidation'
-import useCreateUser from '../auth/useCreateUser'
+import useCreateUser from '../user/useCreateUser'
 
 function useSignUpComponent() {
 	const [error, setError] = useState<string | null>(null)
