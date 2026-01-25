@@ -1,23 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
 import ButtonsScreen from '../components/ButtonsMainScreen'
 import GroupContainer from '../components/group/GroupContainer'
 import GroupItem from '../components/group/GroupItem'
+import InvitationItem from '../components/group/InvitationItem'
 import Page from '../components/ui/Page'
-import queryKeys from '../queryKeys'
+import useGetInvitation from '../hooks/user/useGetInvitation'
+import useGetUsersGroup from './../hooks/user/useGetUsersGroup'
 import { routesConst } from '../routes.constants'
-import userModel from './../service/api/models/user/model'
 
 function Main() {
-	const { data, isError, error } = useQuery({
-		queryFn: userModel.getGroup,
-		queryKey: [queryKeys.groupsList],
-		retry: 1,
-	})
+	const { data: groups } = useGetUsersGroup()
+	const { data: invitations } = useGetInvitation()
 
-	if (isError) toast.error(error.message)
-
-	const groupItems = data?.result?.map(
+	const groupItems = groups?.result?.map(
 		(group: { color: string; name: string; _id: string }) => {
 			return (
 				<GroupItem
@@ -35,11 +30,20 @@ function Main() {
 		},
 	)
 
+	const invitationItems = invitations?.result?.map(
+		(invitation: { name: string; _id: string; color: string }) => {
+			return <InvitationItem key={invitation._id} />
+		},
+	)
+
 	return (
 		<>
 			<Page className='p-10'>
 				<Toaster />
-				<GroupContainer>{groupItems}</GroupContainer>
+				<GroupContainer>
+					{groupItems}
+					{invitationItems}
+				</GroupContainer>
 			</Page>
 			<ButtonsScreen />
 		</>
