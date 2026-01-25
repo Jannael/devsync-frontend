@@ -18,6 +18,7 @@ function useCreateTaskComponent() {
 	})
 	const { group } = useGetGroup({ groupId })
 	if (group.isError) toast.error(group.error.message)
+	if (createTask.isError) toast.error(createTask.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
