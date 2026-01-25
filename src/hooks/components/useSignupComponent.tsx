@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
@@ -13,8 +12,6 @@ function useSignUpComponent() {
 		localStorage.removeItem(localStorageKeys.verifyCode)
 		window.location.href = routesConst.main
 	})
-
-	if (signUp.isError) toast.error(signUp.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const data = ValidateFromSchema({

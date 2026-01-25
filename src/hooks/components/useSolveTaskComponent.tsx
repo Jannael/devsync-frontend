@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { toast } from 'sonner'
 import useSolveTask from '../../hooks/solveTask/useSolveTask'
 import { routesConst } from '../../routes.constants'
 import SolveTaskValidation from '../../service/SolveTaskValidation'
@@ -15,8 +14,6 @@ function useSolveTaskComponent() {
 	const { solveTask } = useSolveTask(() => {
 		window.location.href = `${routesConst.group}?groupId=${groupId}`
 	})
-
-	if (solveTask.isError) toast.error(solveTask.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -39,7 +36,6 @@ function useSolveTaskComponent() {
 		}
 
 		const isValid = SolveTaskValidation(solution)
-		console.log(isValid)
 
 		if (typeof isValid === 'string') return setError(isValid)
 

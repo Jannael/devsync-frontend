@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { localStorageKeys } from '../../localStorageKeys'
 import { routesConst } from '../../routes.constants'
 import VerifyAccount from '../../service/FormValidations/auth/VerifyAccount'
@@ -15,14 +14,9 @@ function useForgotPwdComponent() {
 		window.location.href = routesConst.login
 	})
 
-	if (passwordVerifyCode.isError) toast.error(passwordVerifyCode.error.message)
-
 	const { passwordRequestCode } = useRequestCodePwd(() => {
 		setVerifyCode(true)
 	})
-
-	if (passwordRequestCode.isError)
-		toast.error(passwordRequestCode.error.message)
 
 	const handleVerifyCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const data = VerifyCodePassword(e, setError)

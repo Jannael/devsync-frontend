@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { routesConst } from '../../routes.constants'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
 import LoginValidator from '../../service/LoginValidation'
@@ -11,9 +10,6 @@ function useLoginComponent() {
 	const { requestRefreshTokenCode } = useRefreshTokenCode(() => {
 		window.location.href = routesConst.verifyLogin
 	})
-
-	if (requestRefreshTokenCode.isError)
-		toast.error(requestRefreshTokenCode.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const data = ValidateFromSchema({

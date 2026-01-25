@@ -6,6 +6,8 @@ import TaskValidation from '../../service/TaskValidation'
 import useGetGroup from '../group/useGetGroup'
 import useCreateTask from '../task/useCreateTask'
 
+// here its the only place where we are allow to use the toast because the P-error element does not look good so i used the toast for validations errors as well
+
 function useCreateTaskComponent() {
 	const [users, setUsers] = useState<string[]>()
 	const [features, setFeatures] = useState<string[]>()
@@ -17,8 +19,6 @@ function useCreateTaskComponent() {
 		window.location.href = `${routesConst.group}?groupId=${groupId}`
 	})
 	const { group } = useGetGroup({ groupId })
-	if (group.isError) toast.error(group.error.message)
-	if (createTask.isError) toast.error(createTask.error.message)
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()

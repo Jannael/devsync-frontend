@@ -13,6 +13,8 @@ import useUpdateMemberRole from '../group/useUpdateMemberRole'
 import useInviteUser from '../user/useInviteUser'
 import useRemoveGroup from '../user/useRemoveGroup'
 
+// same case as createTask: here its the only place where we are allow to use the toast because the P-error element does not look good so i used the toast for validations errors as well
+
 function useMutations({
 	groupId,
 	setIsOpen,
@@ -45,14 +47,6 @@ function useMutations({
 	const { updateMemberRole } = useUpdateMemberRole(() => {
 		queryClient.invalidateQueries({ queryKey: [groupId] })
 	})
-
-	if (group.isError) toast.error(group.error.message)
-	if (removeMember.isError) toast.error(removeMember.error.message)
-	if (removeMember.isError) toast.error(removeMember.error.message)
-	if (deleteGroup.isError) toast.error(deleteGroup.error.message)
-	if (removeGroup.isError) toast.error(removeGroup.error.message)
-	if (inviteUser.isError) toast.error(inviteUser.error.message)
-	if (updateMemberRole.isError) toast.error(updateMemberRole.error.message)
 
 	return {
 		removeMember,

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { toast } from 'sonner'
 import { localStorageKeys } from '../../localStorageKeys'
 import AccountValidator from '../../service/AccountValidation'
 import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
@@ -16,13 +15,11 @@ function useVerifyCodeComponent() {
 	const { requestCode } = useRequestCode(() => {
 		setVerifyCode(true)
 	})
-	if (requestCode.isError) toast.error(requestCode.error.message)
 
 	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
 		const redirect = searchParams.get('redirect')
 		window.location.href = redirect !== null ? redirect : ''
 	})
-	if (verifyCodeMutation.isError) toast.error(verifyCodeMutation.error.message)
 
 	const handleVerifyCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const data = VerifyCodeForm(e, setError)

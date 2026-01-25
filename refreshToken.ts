@@ -13,7 +13,6 @@ self.addEventListener('message', async (e) => {
 				try {
 					await AuthModel.requestAccessToken()
 				} catch {
-          console.log('login')
 					self.postMessage('login')
 				}
 			},
