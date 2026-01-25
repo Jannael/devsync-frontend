@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import taskModel from './../../service/api/models/task/model'
 
 function useCreateTask(onSuccess: () => void) {
@@ -6,6 +7,7 @@ function useCreateTask(onSuccess: () => void) {
 		mutationFn: taskModel.create,
 		onSuccess,
 	})
+	if (createTask.isError) toast.error(createTask.error.message)
 	return { createTask }
 }
 

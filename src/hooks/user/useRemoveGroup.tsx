@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import UserModel from '../../service/api/models/user/model'
 
 function useRemoveGroup(onSuccess: () => void) {
@@ -6,7 +7,7 @@ function useRemoveGroup(onSuccess: () => void) {
 		mutationFn: UserModel.deleteGroup,
 		onSuccess,
 	})
-
+	if (removeGroup.isError) toast.error(removeGroup.error.message)
 	return { removeGroup }
 }
 

@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import authModel from '../../service/api/models/auth/model'
 
 function useRequestRefreshToken(onSuccess: () => void) {
@@ -6,6 +7,8 @@ function useRequestRefreshToken(onSuccess: () => void) {
 		mutationFn: authModel.requestRefreshToken,
 		onSuccess,
 	})
+	if (requestRefreshToken.isError)
+		toast.error(requestRefreshToken.error.message)
 	return { requestRefreshToken }
 }
 

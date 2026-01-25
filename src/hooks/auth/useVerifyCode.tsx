@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import authModel from '../../service/api/models/auth/model'
 
 function useVerifyCode(onSuccess: () => void) {
@@ -6,6 +7,7 @@ function useVerifyCode(onSuccess: () => void) {
 		mutationFn: authModel.verifyCode,
 		onSuccess,
 	})
+	if (verifyCode.isError) toast.error(verifyCode.error.message)
 	return { verifyCode }
 }
 

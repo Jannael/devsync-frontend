@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import queryKeys from '../../queryKeys'
 import TaskModel from '../../service/api/models/task/model'
 
@@ -26,6 +27,7 @@ function useGetTask({
 		enabled: !!currentTaskId && !!groupId,
 		retry: false,
 	})
+	if (task.isError) toast.error(task.error.message)
 	return { task }
 }
 

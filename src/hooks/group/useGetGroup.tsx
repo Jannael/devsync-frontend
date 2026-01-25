@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import GroupModel from '../../service/api/models/group/model'
 
 function useGetGroup({ groupId }: { groupId: string | null }) {
@@ -10,6 +11,7 @@ function useGetGroup({ groupId }: { groupId: string | null }) {
 		queryKey: [groupId],
 		retry: 1,
 	})
+	if (group.isError) toast.error(group.error.message)
 	return { group }
 }
 

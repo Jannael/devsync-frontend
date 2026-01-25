@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import UserModel from '../../service/api/models/user/model'
 
 function useInviteUser(onSuccess: () => void) {
@@ -6,7 +7,7 @@ function useInviteUser(onSuccess: () => void) {
 		mutationFn: UserModel.createInvitation,
 		onSuccess,
 	})
-
+	if (inviteUser.isError) toast.error(inviteUser.error.message)
 	return { inviteUser }
 }
 export default useInviteUser

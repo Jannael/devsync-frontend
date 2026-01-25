@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import UserModel from '../../service/api/models/user/model'
 
 function useAddGroup(onSuccess: () => void) {
@@ -7,6 +8,7 @@ function useAddGroup(onSuccess: () => void) {
 		onSuccess,
 	})
 
+	if (addGroup.isError) toast.error(addGroup.error.message)
 	return { addGroup }
 }
 

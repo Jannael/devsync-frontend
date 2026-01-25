@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import authModel from '../../service/api/models/auth/model'
 
 function useRequestCodePwd(onSuccess: () => void) {
@@ -6,6 +7,8 @@ function useRequestCodePwd(onSuccess: () => void) {
 		mutationFn: authModel.passwordRequestCode,
 		onSuccess,
 	})
+	if (passwordRequestCode.isError)
+		toast.error(passwordRequestCode.error.message)
 	return { passwordRequestCode }
 }
 
