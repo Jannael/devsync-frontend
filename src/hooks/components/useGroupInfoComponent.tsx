@@ -108,6 +108,19 @@ function useHandlers({
 		})
 	}
 
+	const handleNameUpdate = (value: string | undefined) => {
+		if (!value) return
+
+		updateGroup.mutate({
+			_id: data?._id,
+			data: {
+				repository: undefined,
+				name: value,
+				color: undefined,
+			},
+		})
+	}
+
 	const handleRemoveMember = (account: string) => {
 		if (groupId === null) return
 
@@ -173,6 +186,7 @@ function useHandlers({
 		handleRemoveGroup,
 		handleInviteUser,
 		handleUpdateMemberRole,
+		handleNameUpdate,
 	}
 }
 
@@ -199,6 +213,7 @@ function useGroupInfoComponent() {
 		handleRemoveGroup,
 		handleInviteUser,
 		handleUpdateMemberRole,
+		handleNameUpdate,
 	} = useHandlers({
 		groupId: groupId!,
 		updateGroup,
@@ -219,6 +234,7 @@ function useGroupInfoComponent() {
 		handleRemoveGroup,
 		handleInviteUser,
 		handleUpdateMemberRole,
+		handleNameUpdate,
 		isOpen,
 		setIsOpen,
 	}

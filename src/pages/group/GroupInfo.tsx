@@ -28,6 +28,7 @@ function GroupInfo() {
 		handleUpdateMemberRole,
 		isOpen,
 		setIsOpen,
+		handleNameUpdate
 	} = useGroupInfoComponent()
 
 	const techLeadItems = data?.techLead?.map(
@@ -67,7 +68,7 @@ function GroupInfo() {
 				</Modal>
 			)}
 			<section className='w-7/10 max-w-xl flex flex-col items-center justify-center gap-6 rounded-sm p-8 shadow-contrast shadow-sm'>
-				<Title className='mb-3'>Insane Group</Title>
+				<Title className='mb-3'>{data?.name}</Title>
 				<div
 					className='
 						flex flex-col
@@ -78,6 +79,12 @@ function GroupInfo() {
 					'
 				>
 					<GroupInfoField field='id' fieldValue={data?._id} />
+					<GroupInfoField
+						field='name'
+						fieldValue={data?.name}
+						onSave={handleNameUpdate}
+						placeholder='devsync'
+					/>
 					<GroupInfoField
 						field='color'
 						fieldValue={data?.color}
