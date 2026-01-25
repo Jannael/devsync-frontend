@@ -1,9 +1,16 @@
-import { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
+import useAddGroup from '../../hooks/user/useAddGroup'
 import useLogout from '../../hooks/user/useLogout'
 import { CubePlus, FullMoon, Moon, SettingsIcon } from '../../icons'
+import queryKeys from '../../queryKeys'
 import { routesConst } from '../../routes.constants'
+import Button from '../ui/Button'
 import FloatingMenu from '../ui/FloatingMenu'
 import FloatingMenuLi from '../ui/FloatingMenuLi'
+import InputText from '../ui/InputText'
+import Label from '../ui/Label'
 
 function ButtonFloatingMenu({
 	children,
@@ -24,7 +31,9 @@ function ButtonFloatingMenu({
 }
 
 export function ButtonsScreen() {
+	const queryClient = useQueryClient()
 	const [isOpenSettings, setIsOpenSettings] = useState(false)
+	const [isOpenGroup, setIsOpenGroup] = useState(false)
 	const currentTheme = localStorage.getItem('theme')
 		? localStorage.getItem('theme')
 		: window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -34,6 +43,11 @@ export function ButtonsScreen() {
 	const { logoutMutation } = useLogout(() => {
 		window.location.href = routesConst.login
 	})
+	const addGroupRef = useRef<HTMLInputElement>(null)
+	const { addGroup } = useAddGroup(() => {
+		queryClient.invalidateQueries({ queryKey: [queryKeys.groupsList] })
+	})
+	if (addGroup.isError) toast.error(addGroup.error.message)
 
 	return (
 		<>
@@ -118,8 +132,38 @@ export function ButtonsScreen() {
 					<SettingsIcon />
 				</button>
 			</div>
-			<button
-				className='
+			<div>
+				{isOpenGroup && (
+					<FloatingMenu onOverlayClick={() => setIsOpenGroup(false)}>
+						<div className='absolute bottom-0 right-0 m-12 bg-primary p-4 text-contrast border-2 border-contrast w-4/10 rounded-xl max-w-xl'>
+							<ul>
+								<FloatingMenuLi>
+									<a className='w-full p-3' href={routesConst.createGroup}>
+										Create group
+									</a>
+								</FloatingMenuLi>
+								<FloatingMenuLi className='p-3 hover:bg-transparent items-end gap-2'>
+									<Label>
+										Add Group
+										<InputText placeholder='12abccccc...' ref={addGroupRef} />
+									</Label>
+									<Button
+										onClick={() => {
+											if (!addGroupRef.current?.value) return
+											addGroup.mutate({
+												_id: addGroupRef.current!.value,
+											})
+										}}
+									>
+										Add
+									</Button>
+								</FloatingMenuLi>
+							</ul>
+						</div>
+					</FloatingMenu>
+				)}
+				<button
+					className='
 					w-10
 					m-2 p-1
 					border-contrast border-2 rounded-sm
@@ -127,10 +171,12 @@ export function ButtonsScreen() {
 					right-0 bottom-0 fixed
 					text-contrast
 				'
-				type='button'
-			>
-				<CubePlus />
-			</button>
+					onClick={() => setIsOpenGroup(!isOpenGroup)}
+					type='button'
+				>
+					<CubePlus />
+				</button>
+			</div>
 		</>
 	)
 }

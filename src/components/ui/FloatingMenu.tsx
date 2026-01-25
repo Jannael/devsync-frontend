@@ -14,7 +14,7 @@ function FloatingMenu({
 				onClick={onOverlayClick}
 				type='button'
 			></button>
-			<div className=''>{children}</div>
+			<div>{children}</div>
 		</>
 	)
 }
