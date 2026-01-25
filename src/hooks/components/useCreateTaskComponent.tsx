@@ -37,7 +37,7 @@ function useCreateTaskComponent() {
 				: undefined,
 			feature: features,
 			description: data.description?.toString(),
-			isComplete: Boolean(data.isComplete?.toString()),
+			isComplete: data.isComplete === 'true',
 			priority: Number(data.priority?.toString()),
 		})
 		if (typeof isValid === 'string') {
