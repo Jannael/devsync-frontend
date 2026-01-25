@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Toaster, toast } from 'sonner'
-import ButtonsScreen from '../components/group/ButtonsMainScreen'
+import ButtonsScreen from '../components/ButtonsMainScreen'
 import GroupContainer from '../components/group/GroupContainer'
 import GroupItem from '../components/group/GroupItem'
 import Page from '../components/ui/Page'
