@@ -1,8 +1,11 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import EditableCode from '../components/EditableCode'
 import EditableFeatures from '../components/EditableFeatures'
 import Button from '../components/ui/Button'
 import EditableP from '../components/ui/EditableP'
+import useDeleteSolution from '../hooks/solveTask/useDeleteSolution'
 import useSolution from '../hooks/solveTask/useSolution'
 import Title from './ui/Title'
 
@@ -20,15 +23,37 @@ function CurrentSolution({
 	const [features, setFeatures] = useState<string[] | undefined>()
 	const [updateFeatures, setUpdateFeatures] = useState(false)
 	const [updateCode, setUpdateCode] = useState(false)
+	const queryClient = useQueryClient()
 
 	const code = solution.data?.result.code?.content
+	const { deleteSolution } = useDeleteSolution(() => {
+		queryClient.invalidateQueries({ queryKey: [taskId] })
+		setShowSolution(false)
+	})
+
+	if (solution.isError) {
+		setShowSolution(false)
+	}
 
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
-				<div className='flex-1 flex justify-between items-center'>
+				<div className='flex-1 flex justify-between items-center gap-3'>
 					<Title>Solution by {solution.data?.result.user}</Title>
-					<Button onClick={() => setShowSolution(false)}>Show task</Button>
+					<Button
+						className='text-error border-error'
+						onClick={() => {
+							deleteSolution.mutate({
+								taskId,
+								groupId,
+							})
+						}}
+					>
+						Delete
+					</Button>
+					<Button className='' onClick={() => setShowSolution(false)}>
+						Task
+					</Button>
 				</div>
 				<EditableP
 					description={solution.data?.result.description}
