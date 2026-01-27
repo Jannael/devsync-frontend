@@ -1,9 +1,13 @@
+import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import useGetTask from '../../hooks/task/useGetTask'
+import useUpdateTask from '../../hooks/task/useUpdateTask'
 import { Edit } from '../../icons'
 import Button from '../ui/Button'
+import InputText from '../ui/InputText'
+import Label from '../ui/Label'
 import P from '../ui/P'
 import Title from '../ui/Title'
 import { FeatureItem } from './FeatureItem'
@@ -13,15 +17,50 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 	const groupId = searchParams.get('groupId')
 
 	const { task: currentTask } = useGetTask({ groupId, currentTaskId })
+	const [updateTitle, setUpdateTitle] = useState(false)
+	const TitleRef = useRef<HTMLInputElement>(null)
+	const { updateTask } = useUpdateTask()
 
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
-				<div className='w-full p-3 flex items-center justify-between gap-2'>
-					<Title className='mb-4 flex-1'>
-						{currentTask.data?.name || 'Task'}
-					</Title>
-					<Button>
+				<div
+					className={`w-full p-3 flex justify-between ${updateTitle ? 'items-end' : 'items-center'} gap-2`}
+				>
+					{!updateTitle ? (
+						<Title className='mb-4 flex-1'>
+							{currentTask.data?.name || 'Task'}
+						</Title>
+					) : (
+						<>
+							<Label>
+								Task name
+								<InputText
+									className='flex-1'
+									placeholder='chore: update tasks name'
+									ref={TitleRef}
+								/>
+							</Label>
+							<Button
+								onClick={() => {
+									const title = TitleRef.current?.value
+									if (title) {
+										updateTask.mutate({
+											groupId: groupId || '',
+											taskId: currentTaskId || '',
+											data: {
+												name: title
+											},
+										})
+										setUpdateTitle(false)
+									}
+								}}
+							>
+								Save
+							</Button>
+						</>
+					)}
+					<Button onClick={() => setUpdateTitle(!updateTitle)}>
 						<Edit />
 					</Button>
 					{currentTask.data?.isComplete ? (

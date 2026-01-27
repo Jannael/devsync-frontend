@@ -27,18 +27,26 @@ const model = {
 			groupId: '',
 			taskId: '',
 			data: {
-				user: [''] as string[] | undefined, // Optional
-				name: '' as string | undefined, // Optional
+				user: [''] as string[], // Optional
+				name: '' as string, // Optional
 				code: {
 					// Optional
 					language: '',
 					content: '',
-				} as { language: string; content: string } | undefined,
-				feature: [''] as string[] | undefined, // Optional
-				description: '' as string | undefined, // Optional
+				} as { language: string; content: string },
+				feature: [''] as string[], // Optional
+				description: '' as string, // Optional
 				isComplete: null as unknown as boolean, // Optional
 				priority: null as unknown as number, // Optional
-			},
+			} as Partial<{
+				user: string[]
+				name: string
+				code: { language: string; content: string }
+				feature: string[]
+				description: string
+				isComplete: boolean
+				priority: number
+			}>,
 		},
 		api,
 		'/update',
