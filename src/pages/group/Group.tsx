@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import CurrentSolution from '../../components/CurrentSolution'
 import CurrentTask from '../../components/group/CurrentTask'
 import TaskItem from '../../components/group/TaskItem'
 import Button from '../../components/ui/Button'
@@ -14,6 +16,7 @@ function Group() {
 		setCurrentTaskId,
 		handleDeleteTask,
 	} = useGroupComponent()
+	const [showSolution, setShowSolution] = useState(false)
 
 	const taskElements = taskList?.map(
 		(task: {
@@ -69,7 +72,18 @@ function Group() {
 					Solve
 				</Button>
 			</section>
-			<CurrentTask currentTaskId={currentTaskId || taskList?.[0]?._id} />
+			{showSolution ? (
+				<CurrentSolution
+					groupId={groupId || ''}
+					setShowSolution={setShowSolution}
+					taskId={currentTaskId || taskList?.[0]?._id}
+				/>
+			) : (
+				<CurrentTask
+					currentTaskId={currentTaskId || taskList?.[0]?._id}
+					setShowSolution={setShowSolution}
+				/>
+			)}
 		</Page>
 	)
 }

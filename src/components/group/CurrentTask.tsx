@@ -5,7 +5,13 @@ import Button from '../ui/Button'
 import EditableP from '../ui/EditableP'
 import EditableTitle from './EditableTitle'
 
-function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
+function CurrentTask({
+	currentTaskId,
+	setShowSolution,
+}: {
+	currentTaskId: string | undefined
+	setShowSolution: React.Dispatch<React.SetStateAction<boolean>>
+}) {
 	const {
 		handleUpdateCode,
 		handleUpdateDescription,
@@ -37,7 +43,7 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 						setUpdateTitle={setUpdateTitle}
 						updateTitle={updateTitle}
 					/>
-					{!updateTitle && isComplete && <Button>Solution</Button>}
+					{!updateTitle && isComplete && <Button onClick={() => setShowSolution(true)}>Solution</Button>}
 				</div>
 				<EditableP
 					description={description}
