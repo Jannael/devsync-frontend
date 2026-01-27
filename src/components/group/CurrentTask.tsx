@@ -1,14 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import useGetTask from '../../hooks/task/useGetTask'
 import useUpdateTask from '../../hooks/task/useUpdateTask'
-import { Edit } from '../../icons'
+import EditableCode from '../EditableCode'
 import EditableFeatures from '../EditableFeatures'
-import Button from '../ui/Button'
 import EditableP from '../ui/EditableP'
-import Textarea from '../ui/Textarea'
 import EditableTitle from './EditableTitle'
 
 function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
@@ -24,7 +20,6 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 	const [updateCode, setUpdateCode] = useState(false)
 
 	const [features, setFeatures] = useState<string[] | undefined>([])
-	const codeRef = useRef<HTMLTextAreaElement>(null)
 
 	useEffect(() => {
 		setFeatures(currentTask.data?.feature ?? [])
@@ -69,6 +64,20 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 		setUpdateFeatures(false)
 	}
 
+	const handleUpdateCode = (val: string) => {
+		updateTask.mutate({
+			groupId: groupId || '',
+			taskId: currentTaskId || '',
+			data: {
+				code: {
+					language: 'js',
+					content: val,
+				},
+			},
+		})
+		setUpdateCode(false)
+	}
+
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
@@ -94,54 +103,12 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 					setUpdateFeatures={setUpdateFeatures}
 					updateFeatures={updateFeatures}
 				/>
-				<div className='w-7/10 h-full p-3 relative'>
-					{!updateCode ? (
-						<>
-							<SyntaxHighlighter
-								customStyle={{
-									height: '100%',
-								}}
-								language='javascript'
-								style={dracula}
-							>
-								{currentTask.data?.code?.content || 'function Hello() {}'}
-							</SyntaxHighlighter>
-							<Button
-								className='absolute right-0 bottom-0 mr-5 mb-3.5'
-								onClick={() => setUpdateCode(true)}
-							>
-								<Edit />
-							</Button>
-						</>
-					) : (
-						<>
-							<Textarea
-								className='flex-1 size-full'
-								placeholder='function Hello() {}'
-								ref={codeRef}
-								value={currentTask.data?.code?.content || ''}
-							/>
-							<Button
-								className='absolute right-0 bottom-0 m-5'
-								onClick={() => {
-									updateTask.mutate({
-										groupId: groupId || '',
-										taskId: currentTaskId || '',
-										data: {
-											code: {
-												language: 'js',
-												content: codeRef.current!.value,
-											},
-										},
-									})
-									setUpdateCode(false)
-								}}
-							>
-								Save
-							</Button>
-						</>
-					)}
-				</div>
+				<EditableCode
+					content={currentTask.data?.code?.content}
+					handleUpdateCode={handleUpdateCode}
+					setUpdateCode={setUpdateCode}					
+					updateCode={updateCode}
+				/>
 			</div>
 		</section>
 	)
