@@ -1,6 +1,7 @@
 import useCurrentTaskComponent from '../../hooks/components/useCurrentTaskComponent'
 import EditableCode from '../EditableCode'
 import EditableFeatures from '../EditableFeatures'
+import Button from '../ui/Button'
 import EditableP from '../ui/EditableP'
 import EditableTitle from './EditableTitle'
 
@@ -20,22 +21,24 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 		updateDescription,
 		updateFeatures,
 		updateTitle,
-		isComplete,
 		name,
 		description,
+		isComplete,
 		code,
 	} = useCurrentTaskComponent({ currentTaskId })
 
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
-				<EditableTitle
-					handleUpdateTitle={handleUpdateTitle}
-					isComplete={isComplete}
-					name={name}
-					setUpdateTitle={setUpdateTitle}
-					updateTitle={updateTitle}
-				/>
+				<div className='flex-1 flex justify-between items-center'>
+					<EditableTitle
+						handleUpdateTitle={handleUpdateTitle}
+						name={name}
+						setUpdateTitle={setUpdateTitle}
+						updateTitle={updateTitle}
+					/>
+					{!updateTitle && isComplete && <Button>Solution</Button>}
+				</div>
 				<EditableP
 					description={description}
 					handleUpdateDescription={handleUpdateDescription}
