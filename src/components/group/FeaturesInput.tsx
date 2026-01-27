@@ -51,7 +51,7 @@ function FeaturesInput({
 					/>
 				</Label>
 				<Label className='flex-1'>
-					Save
+					Add
 					<Button
 						className='w-full flex justify-center items-center'
 						onClick={() => {

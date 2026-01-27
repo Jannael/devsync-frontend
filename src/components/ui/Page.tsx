@@ -19,7 +19,7 @@ function Page({
 			'
 		>
 			<div className={`${className} min-h-dvh w-full`}>
-				<Toaster position='bottom-center' />
+				<Toaster />
 				{children}
 			</div>
 		</div>

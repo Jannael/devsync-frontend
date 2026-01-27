@@ -1,17 +1,14 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import useGetTask from '../../hooks/task/useGetTask'
 import useUpdateTask from '../../hooks/task/useUpdateTask'
 import { Edit } from '../../icons'
+import EditableFeatures from '../EditableFeatures'
 import Button from '../ui/Button'
 import EditableP from '../ui/EditableP'
-import InputText from '../ui/InputText'
-import P from '../ui/P'
-import Textarea from '../ui/Textarea'
 import EditableTitle from './EditableTitle'
-import { FeatureItem } from './FeatureItem'
 
 function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 	const [searchParams] = useSearchParams()
@@ -22,6 +19,14 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 
 	const [updateTitle, setUpdateTitle] = useState(false)
 	const [updateDescription, setUpdateDescription] = useState(false)
+	const [updateFeatures, setUpdateFeatures] = useState(false)
+	const [features, setFeatures] = useState<string[] | undefined>(
+		currentTask.data?.feature ?? [],
+	)
+
+	useEffect(() => {
+		setFeatures(currentTask.data?.feature ?? [])
+	}, [currentTask.data?.feature])
 
 	const handleUpdateTitle = (val: string) => {
 		const title = val
@@ -51,6 +56,17 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 		}
 	}
 
+	const handleUpdateFeatures = () => {
+		updateTask.mutate({
+			groupId: groupId || '',
+			taskId: currentTaskId || '',
+			data: {
+				feature: features,
+			},
+		})
+		setUpdateFeatures(false)
+	}
+
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
@@ -69,20 +85,13 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 				/>
 			</article>
 			<div className='flex w-full h-5/10 p-3 gap-3'>
-				<div className='w-3/10 h-full overflow-y-auto border-r p-3'>
-					<header className=' flex justify-between items-center'>
-						Features
-						<Button>
-							<Edit />
-						</Button>
-					</header>
-					<ul className=''>
-						{currentTask.data?.feature?.map((feature: string) => {
-							return <FeatureItem key={feature}> {feature} </FeatureItem>
-						})}
-					</ul>
-				</div>
-
+				<EditableFeatures
+					features={features}
+					handleUpdateFeatures={handleUpdateFeatures}
+					setFeatures={setFeatures}
+					setUpdateFeatures={setUpdateFeatures}
+					updateFeatures={updateFeatures}
+				/>
 				<div className='w-7/10 h-full p-3 relative'>
 					<SyntaxHighlighter
 						customStyle={{
