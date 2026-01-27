@@ -6,8 +6,14 @@ import useGroupComponent from '../../hooks/components/useGroupComponent'
 import { routesConst } from '../../routes.constants'
 
 function Group() {
-	const { handleSeeMore, groupId, currentTaskId, taskList, setCurrentTaskId } =
-		useGroupComponent()
+	const {
+		handleSeeMore,
+		groupId,
+		currentTaskId,
+		taskList,
+		setCurrentTaskId,
+		handleDeleteTask,
+	} = useGroupComponent()
 
 	const taskElements = taskList?.map(
 		(task: {
@@ -24,6 +30,7 @@ function Group() {
 					onClick={() => {
 						setCurrentTaskId(task._id)
 					}}
+					onDelete={handleDeleteTask}
 					priority={task.priority}
 				/>
 			)

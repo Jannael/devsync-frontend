@@ -9,11 +9,13 @@ function TaskItem({
 	priority,
 	isComplete,
 	onClick,
+	onDelete
 }: {
 	name: string
 	priority: number
 	isComplete: boolean
 	onClick: () => void
+	onDelete: () => void
 }) {
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -51,11 +53,10 @@ function TaskItem({
 			<div className='w-1/10 relative'>
 				{isOpen && (
 					<FloatingMenu onOverlayClick={() => setIsOpen(false)}>
-						<div className='absolute right-0 -bottom-39 bg-primary p-4 z-10 border border-contrast w-30'>
+						<div className='absolute right-0 -bottom-22 bg-primary p-4 z-10 border border-contrast w-30'>
 							<ul className='flex flex-col gap-4'>
-								<FloatingMenuLi className='p-2'>Update</FloatingMenuLi>
 								<FloatingMenuLi className='border-none hover:bg-transparent'>
-									<ButtonFloatingMenu>Delete</ButtonFloatingMenu>
+									<ButtonFloatingMenu onClick={onDelete}>Delete</ButtonFloatingMenu>
 								</FloatingMenuLi>
 							</ul>
 						</div>
