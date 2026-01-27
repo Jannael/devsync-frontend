@@ -8,6 +8,7 @@ import { Edit } from '../../icons'
 import EditableFeatures from '../EditableFeatures'
 import Button from '../ui/Button'
 import EditableP from '../ui/EditableP'
+import Textarea from '../ui/Textarea'
 import EditableTitle from './EditableTitle'
 
 function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
@@ -20,9 +21,10 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 	const [updateTitle, setUpdateTitle] = useState(false)
 	const [updateDescription, setUpdateDescription] = useState(false)
 	const [updateFeatures, setUpdateFeatures] = useState(false)
-	const [features, setFeatures] = useState<string[] | undefined>(
-		currentTask.data?.feature ?? [],
-	)
+	const [updateCode, setUpdateCode] = useState(false)
+
+	const [features, setFeatures] = useState<string[] | undefined>([])
+	const codeRef = useRef<HTMLTextAreaElement>(null)
 
 	useEffect(() => {
 		setFeatures(currentTask.data?.feature ?? [])
@@ -93,18 +95,52 @@ function CurrentTask({ currentTaskId }: { currentTaskId: string | undefined }) {
 					updateFeatures={updateFeatures}
 				/>
 				<div className='w-7/10 h-full p-3 relative'>
-					<SyntaxHighlighter
-						customStyle={{
-							height: '100%',
-						}}
-						language='javascript'
-						style={dracula}
-					>
-						{currentTask.data?.code?.content}
-					</SyntaxHighlighter>
-					<Button className='absolute right-0 bottom-0 mr-5 mb-3.5'>
-						<Edit />
-					</Button>
+					{!updateCode ? (
+						<>
+							<SyntaxHighlighter
+								customStyle={{
+									height: '100%',
+								}}
+								language='javascript'
+								style={dracula}
+							>
+								{currentTask.data?.code?.content || 'function Hello() {}'}
+							</SyntaxHighlighter>
+							<Button
+								className='absolute right-0 bottom-0 mr-5 mb-3.5'
+								onClick={() => setUpdateCode(true)}
+							>
+								<Edit />
+							</Button>
+						</>
+					) : (
+						<>
+							<Textarea
+								className='flex-1 size-full'
+								placeholder='function Hello() {}'
+								ref={codeRef}
+								value={currentTask.data?.code?.content || ''}
+							/>
+							<Button
+								className='absolute right-0 bottom-0 m-5'
+								onClick={() => {
+									updateTask.mutate({
+										groupId: groupId || '',
+										taskId: currentTaskId || '',
+										data: {
+											code: {
+												language: 'js',
+												content: codeRef.current!.value,
+											},
+										},
+									})
+									setUpdateCode(false)
+								}}
+							>
+								Save
+							</Button>
+						</>
+					)}
 				</div>
 			</div>
 		</section>
