@@ -20,6 +20,7 @@ function SolveTask() {
 				<Label>
 					Description
 					<Textarea
+						className='h-auto max-h-24'
 						name='description'
 						placeholder='i fix the issue using ...'
 					/>
@@ -33,7 +34,7 @@ function SolveTask() {
 					<Label>
 						Code
 						<Textarea
-							className='min-h-50'
+							className='min-h-50 h-auto max-h-24'
 							name='code'
 							placeholder='function hello() {}'
 						/>

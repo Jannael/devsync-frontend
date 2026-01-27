@@ -19,7 +19,7 @@ function CreateTaskRightSide({
 			<Label>
 				Description
 				<Textarea
-					className='min-h-24'
+					className='min-h-24 max-h-24 h-auto'
 					name='description'
 					placeholder='there is an use when ...'
 				/>
@@ -29,7 +29,7 @@ function CreateTaskRightSide({
 				<Label className='w-6/10'>
 					Code
 					<Textarea
-						className='h-full'
+						className='h-full max-h-24'
 						name='code'
 						placeholder='function hello() {}'
 					></Textarea>
