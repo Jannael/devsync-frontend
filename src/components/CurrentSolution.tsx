@@ -47,6 +47,17 @@ function CurrentSolution({
     setUpdateDescription(false)
 	}
 
+  const handleUpdateFeatures = () => {
+		updateSolution.mutate({
+			taskId,
+			groupId,
+			data: {
+				feature: features,
+			},
+		})
+		setUpdateFeatures(false)
+	}
+
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
@@ -77,7 +88,7 @@ function CurrentSolution({
 			<div className='flex w-full h-5/10 p-3 gap-3'>
 				<EditableFeatures
 					features={features}
-					handleUpdateFeatures={() => {}}
+					handleUpdateFeatures={handleUpdateFeatures}
 					setFeatures={setFeatures}
 					setUpdateFeatures={setUpdateFeatures}
 					updateFeatures={updateFeatures}
