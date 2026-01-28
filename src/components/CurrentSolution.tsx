@@ -44,10 +44,10 @@ function CurrentSolution({
 				description: val,
 			},
 		})
-    setUpdateDescription(false)
+		setUpdateDescription(false)
 	}
 
-  const handleUpdateFeatures = () => {
+	const handleUpdateFeatures = () => {
 		updateSolution.mutate({
 			taskId,
 			groupId,
@@ -56,6 +56,19 @@ function CurrentSolution({
 			},
 		})
 		setUpdateFeatures(false)
+	}
+
+	const handleUpdateCode = (val: string) => {
+		updateSolution.mutate({
+			taskId,
+			groupId,
+			data: {
+				code: {
+					language: 'js',
+					content: val,
+				},
+			},
+		})
 	}
 
 	return (
@@ -95,7 +108,7 @@ function CurrentSolution({
 				/>
 				<EditableCode
 					content={code}
-					handleUpdateCode={() => {}}
+					handleUpdateCode={handleUpdateCode}
 					setUpdateCode={setUpdateCode}
 					updateCode={updateCode}
 				/>
