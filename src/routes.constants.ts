@@ -13,4 +13,5 @@ export const routesConst = {
 	createTask: '/create/task',
 	deleteAccount: '/delete/account',
 	updateUser: '/update/account',
+	home: '/home',
 }

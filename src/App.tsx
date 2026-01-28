@@ -9,6 +9,7 @@ import ValidateLoginCode from './pages/auth/VerifyLoginCode'
 import CreateGroup from './pages/group/CreateGroup'
 import Group from './pages/group/Group'
 import GroupInfo from './pages/group/GroupInfo'
+import Home from './pages/Home/Home'
 import Main from './pages/Main'
 import CreateTask from './pages/task/CreateTask'
 import SolveTask from './pages/task/SolveTask'
@@ -23,6 +24,7 @@ function App() {
 				<Route element={<Main />} index></Route>
 				<Route element={<Group />} path={routesConst.group}></Route>
 				<Route element={<GroupInfo />} path={routesConst.groupInfo}></Route>
+				<Route element={<Home />} path={routesConst.home}></Route>
 
 				{/* Forms */}
 				<Route element={<Login />} path={routesConst.login}></Route>
