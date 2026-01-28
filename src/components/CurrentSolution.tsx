@@ -1,12 +1,12 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import EditableCode from '../components/EditableCode'
 import EditableFeatures from '../components/EditableFeatures'
 import Button from '../components/ui/Button'
 import EditableP from '../components/ui/EditableP'
 import useDeleteSolution from '../hooks/solveTask/useDeleteSolution'
 import useSolution from '../hooks/solveTask/useSolution'
+import useUpdateSolution from '../hooks/solveTask/useUpdateSolution'
 import Title from './ui/Title'
 
 function CurrentSolution({
@@ -30,9 +30,21 @@ function CurrentSolution({
 		queryClient.invalidateQueries({ queryKey: [taskId] })
 		setShowSolution(false)
 	})
+	const { updateSolution } = useUpdateSolution()
 
 	if (solution.isError) {
 		setShowSolution(false)
+	}
+
+	const handleUpdateDescription = (val: string) => {
+		updateSolution.mutate({
+			taskId,
+			groupId,
+			data: {
+				description: val,
+			},
+		})
+    setUpdateDescription(false)
 	}
 
 	return (
@@ -57,7 +69,7 @@ function CurrentSolution({
 				</div>
 				<EditableP
 					description={solution.data?.result.description}
-					handleUpdateDescription={() => {}}
+					handleUpdateDescription={handleUpdateDescription}
 					setUpdateDescription={setUpdateDescription}
 					updateDescription={updateDescription}
 				/>

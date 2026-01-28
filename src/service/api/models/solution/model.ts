@@ -33,7 +33,11 @@ const model = {
 					content: '',
 				} as { language: string; content: string } | undefined,
 				description: '' as string | undefined,
-			},
+			} as Partial<{
+				feature: string[] | undefined
+				code: { language: string; content: string } | undefined
+				description: string | undefined
+			}>,
 		},
 		api,
 		'/update',
