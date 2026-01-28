@@ -27,8 +27,8 @@ function CurrentSolution({
 		updateDescription,
 		updateFeatures,
 		handleDelete,
-    solution,
-    code
+		solution,
+		code,
 	} = useCurrentSolutionComponent({ taskId, groupId, setShowSolution })
 
 	return (
@@ -36,12 +36,14 @@ function CurrentSolution({
 			<article className='w-full h-5/10 flex flex-col p-3'>
 				<div className='flex-1 flex justify-between items-center gap-3'>
 					<Title>Solution by {solution.data?.result.user}</Title>
-					<Button className='text-error border-error' onClick={handleDelete}>
-						Delete
-					</Button>
-					<Button className='' onClick={() => setShowSolution(false)}>
-						Task
-					</Button>
+					<div className='flex gap-3'>
+						<Button className='text-error border-error' onClick={handleDelete}>
+							Delete
+						</Button>
+						<Button className='' onClick={() => setShowSolution(false)}>
+							Task
+						</Button>
+					</div>
 				</div>
 				<EditableP
 					description={solution.data?.result.description}

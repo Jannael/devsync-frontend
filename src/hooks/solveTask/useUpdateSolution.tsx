@@ -8,7 +8,6 @@ function useUpdateSolution() {
 		mutationFn: SolutionModel.update,
 		onSuccess: (_, data) => {
 			queryClient.invalidateQueries({ queryKey: [data.taskId] })
-			toast.success('Solution updated')
 		},
 	})
 
