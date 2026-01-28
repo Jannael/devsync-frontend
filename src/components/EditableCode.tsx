@@ -32,7 +32,7 @@ function EditableCode({
 						{content || 'function Hello() {}'}
 					</SyntaxHighlighter>
 					<Button
-						className='absolute right-0 bottom-0 mr-5 mb-3.5'
+						className='absolute right-0 bottom-0 mr-5 mb-3.5 bg-primary'	
 						onClick={() => setUpdateCode(true)}
 					>
 						<Edit />
