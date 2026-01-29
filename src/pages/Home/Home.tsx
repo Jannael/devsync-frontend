@@ -21,13 +21,22 @@ const userManagement = [
 	'Share group',
 ]
 
+const focus = ['Minimize distractions', 'Just what you need', 'Easy to use']
+
 function Home() {
 	const featuresItems = features.map((feature) => (
 		<Li key={feature}>
 			<Check /> {feature}
 		</Li>
 	))
+
 	const userManagementItems = userManagement.map((feature) => (
+		<Li key={feature}>
+			<Check /> {feature}
+		</Li>
+	))
+
+	const focusItems = focus.map((feature) => (
 		<Li key={feature}>
 			<Check /> {feature}
 		</Li>
@@ -60,7 +69,8 @@ function Home() {
 						>
 							Try here
 						</Link>
-					</div>
+					</div
+					>
 					<img
 						alt='A man with holding a taskBoard'
 						className='flex-1'
@@ -68,23 +78,21 @@ function Home() {
 					/>
 				</main>
 			</Section>
-			<Section className='mb-[10dvh]'>
-				<div className='size-full flex mb-40'>
+			<Section>
+				<div className='size-full flex mb-50'>
 					<img
 						alt='taskList in the right with task details in the left'
-						className='flex-3 border-emerald-600 border-5 rounded-xl'
+						className='flex-3 border-emerald-600 border-3 rounded-xl'
 						src='/GroupScreen.webp'
 					/>
 					<article className='flex-2 pl-10 flex flex-col justify-center'>
-						<h2 className='text-3xl mb-6 border-b-4 border-emerald-700 w-fit pb-3'>
-							Features
-						</h2>
-						<ul className='flex flex-col gap-4'>{featuresItems}</ul>
+						<H2>Features</H2>
+						<Ul>{featuresItems}</Ul>
 					</article>
 				</div>
 			</Section>
 			<Section>
-				<div className='size-full flex justify-center items-center mb-40'>
+				<div className='size-full flex justify-center items-center mb-70'>
 					<picture className='flex-1 relative flex justify-center items-center'>
 						<img
 							alt='Menu with the option to create and join a group'
@@ -98,15 +106,38 @@ function Home() {
 						/>
 					</picture>
 					<article className='flex-1'>
-						<h2 className='text-3xl mb-6 border-b-4 border-emerald-700 w-fit pb-3'>
-							User Management
-						</h2>
-						<ul className='flex flex-col gap-4'>{userManagementItems} </ul>
+						<H2>User Management</H2>
+						<Ul>{userManagementItems} </Ul>
+					</article>
+				</div>
+			</Section>
+			<Section>
+				<div className='flex size-full mb-50'>
+					<img
+						alt='group dashboard to delete and update the data of it'
+						className='flex-1 max-h-150 object-contain'
+						src='/GroupOptions.webp'
+					/>
+					<article className='flex-1 pl-10 flex flex-col justify-center'>
+						<H2>Focus</H2>
+						<Ul>{focusItems}</Ul>
 					</article>
 				</div>
 			</Section>
 		</Page>
 	)
+}
+
+function H2({ children }: { children: ReactNode }) {
+	return (
+		<h2 className='text-3xl mb-6 border-b-4 border-emerald-700 w-fit pb-3'>
+			{children}
+		</h2>
+	)
+}
+
+function Ul({ children }: { children: ReactNode }) {
+	return <ul className='flex flex-col gap-4'>{children}</ul>
 }
 
 function Section({

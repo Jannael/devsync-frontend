@@ -19,7 +19,7 @@ function Navbar() {
 	}
 
 	return (
-		<nav className='text-contrast w-full max-w-7xl h-fit border-b p-4 flex justify-between items-center fixed top-0 bg-primary'>
+		<nav className='text-contrast w-full max-w-7xl h-fit border-b p-4 flex justify-between items-center fixed top-0 bg-primary z-999999'>
 			<header className='text-2xl'>Devsync</header>
 			<div className='h-full flex gap-3'>
 				<button
