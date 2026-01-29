@@ -10,7 +10,7 @@ function VerifyAccount(
 	const formData = new FormData(e.currentTarget)
 	const data = Object.fromEntries(formData.entries())
 	const isValid = AccountValidator({
-		account: data.newAccount,
+		account: data.account,
 	} as Record<string, string>)
 
 	if (typeof isValid === 'string') {

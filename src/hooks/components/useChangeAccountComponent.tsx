@@ -17,7 +17,7 @@ function useChangeAccountComponent() {
 		const data = VerifyAccount(e, setError)
 		if (!data) return
 
-		requestCode.mutate({ newAccount: data.newAccount.toString() })
+		requestCode.mutate({ newAccount: data.account.toString() })
 	}
 
 	const handleVerifyCodeSubmit = (e: React.FormEvent<HTMLFormElement>) => {

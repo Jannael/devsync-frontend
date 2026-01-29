@@ -18,7 +18,10 @@
     }
 
       const worker = new Worker(new URL('/refreshToken.ts', import.meta.url), { type: 'module' })
-      if (!window.location.href.includes(routesConst.login)) {
+      if (!window.location.href.includes(routesConst.login) &&
+          !window.location.href.includes(routesConst.verifyCode) &&
+          !window.location.href.includes(routesConst.signup) 
+      ){
         worker.postMessage('start')
       }
 

@@ -24,7 +24,7 @@ function ChangeAccount() {
 					<Title>Change account</Title>
 					<Label>
 						New account
-						<InputText name='newAccount' placeholder='example@gmail.com' />
+						<InputText name='account' placeholder='example@gmail.com' />
 					</Label>
 
 					{error !== null && <P className='text-error'>{error}</P>}

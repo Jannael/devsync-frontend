@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { localStorageKeys } from '../../localStorageKeys'
-import { routesConst } from '../../routes.constants'
 import AccountValidator from '../../service/AccountValidation'
 import VerifyCodeForm from '../../service/FormValidations/auth/VerifyCodeForm'
 import ValidateFromSchema from '../../service/FormValidations/ValidateFromSchema'
@@ -22,7 +21,7 @@ function useVerifyCodeComponent() {
 
 	const { verifyCode: verifyCodeMutation } = useVerifyCode(() => {
 		const action = searchParams.get('action')
-		const updateUser = searchParams.get('updateUser')
+		const updateUser = searchParams.get('updateUser') ?? 'false'
 		if (action === verifyCodeActions.deleteUser) {
 			deleteUser.mutate({})
 		}
