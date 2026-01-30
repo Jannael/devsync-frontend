@@ -261,3 +261,50 @@ export function Github() {
 		</svg>
 	)
 }
+
+export function Cube() {
+	return (
+		<svg
+			aria-hidden='true'
+			className='icon icon-tabler icons-tabler-outline icon-tabler-cube size-full'
+			fill='none'
+			height='24'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			strokeWidth='2'
+			viewBox='0 0 24 24'
+			width='24'
+			xmlns='http://www.w3.org/2000/svg'
+		>
+			<path d='M0 0h24v24H0z' fill='none' stroke='none' />
+			<path d='M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718' />
+			<path d='M12 22v-10' />
+			<path d='M12 12l8.73 -5.04' />
+			<path d='M3.27 6.96l8.73 5.04' />
+		</svg>
+	)
+}
+
+export function Instagram() {
+	return (
+		<svg
+			aria-hidden='true'
+			className='icon icon-tabler icons-tabler-outline icon-tabler-brand-instagram size-full'
+			fill='none'
+			height='24'
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			strokeWidth='2'
+			viewBox='0 0 24 24'
+			width='24'
+			xmlns='http://www.w3.org/2000/svg'
+		>
+			<path d='M0 0h24v24H0z' fill='none' stroke='none' />
+			<path d='M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4l0 -8' />
+			<path d='M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' />
+			<path d='M16.5 7.5v.01' />
+		</svg>
+	)
+}

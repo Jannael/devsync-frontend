@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import Page from '../../components/ui/Page'
-import { Check, Github } from '../../icons'
+import { Check, Cube, Github, Instagram } from '../../icons'
 import { routesConst } from '../../routes.constants'
 import Li from './components/Li'
 import Navbar from './components/Navbar'
@@ -146,6 +146,35 @@ function Home() {
 						/>
 					</picture>
 				</div>
+			</Section>
+			<Section>
+				<footer
+					className='min-h-[30dvh] bg-contrast/10 w-full rounded-t-full border-2 border-emerald-700 
+				justify-center items-center flex flex-col
+				border-b-transparent 
+				'
+				>
+					<div className='text-2xl flex items-center mb-10'>
+						Brand Art by
+						<a
+							className='flex items-center ml-3 size-12 w-fit'
+							href='https://www.instagram.com/nat.chavez18'
+						>
+							<span className='w-fit'>Natali Chavez</span>
+							<Instagram />
+						</a>
+					</div>
+					<div className='flex items-center text-xl'>
+						The inspiration for Home page is from{' '}
+						<a
+							className='size-12 flex items-center ml-3 w-fit'
+							href='https://www.cubedesk.io/home'
+						>
+							<span>CubeDesk</span>
+							<Cube />
+						</a>
+					</div>
+				</footer>
 			</Section>
 		</Page>
 	)
