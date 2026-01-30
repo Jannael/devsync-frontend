@@ -24,23 +24,29 @@ const userManagement = [
 const focus = ['Minimize distractions', 'Just what you need', 'Easy to use']
 
 function Home() {
-	const featuresItems = features.map((feature) => (
-		<Li key={feature}>
-			<Check /> {feature}
-		</Li>
-	))
+	const featuresItems = features.map((feature) => {
+		return (
+			<Li key={feature}>
+				<Check /> {feature}
+			</Li>
+		)
+	})
 
-	const userManagementItems = userManagement.map((feature) => (
-		<Li key={feature}>
-			<Check /> {feature}
-		</Li>
-	))
+	const userManagementItems = userManagement.map((feature) => {
+		return (
+			<Li key={feature}>
+				<Check /> {feature}
+			</Li>
+		)
+	})
 
-	const focusItems = focus.map((feature) => (
-		<Li key={feature}>
-			<Check /> {feature}
-		</Li>
-	))
+	const focusItems = focus.map((feature) => {
+		return (
+			<Li key={feature}>
+				<Check /> {feature}
+			</Li>
+		)
+	})
 
 	return (
 		<Page className='flex justify-center max-w-7xl flex-col items-center'>
@@ -69,8 +75,7 @@ function Home() {
 						>
 							Try here
 						</Link>
-					</div
-					>
+					</div>
 					<img
 						alt='A man with holding a taskBoard'
 						className='flex-1'
@@ -122,6 +127,24 @@ function Home() {
 						<H2>Focus</H2>
 						<Ul>{focusItems}</Ul>
 					</article>
+				</div>
+			</Section>
+			<Section>
+				<div className='flex justify-center items-center flex-col w-full mb-40'>
+					<H2>Dark/Light Mode</H2>
+					<h3 className='mb-10 text-xl'>I like the light mode</h3>
+					<picture className='flex border-2 border-emerald-600 size-full'>
+						<img
+							alt='dashboard in light mode'
+							className='w-5/10'
+							src='/Main-white-left.webp'
+						/>
+						<img
+							alt='dashboard in dark mode'
+							className='w-5/10'
+							src='/Main-black-right.webp'
+						/>
+					</picture>
 				</div>
 			</Section>
 		</Page>
