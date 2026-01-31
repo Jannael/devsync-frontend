@@ -5,6 +5,9 @@ import TaskItem from '../../components/group/TaskItem'
 import Button from '../../components/ui/Button'
 import Page from '../../components/ui/Page'
 import useGroupComponent from '../../hooks/components/useGroupComponent'
+import useGetTask from '../../hooks/task/useGetTask'
+import useRole from '../../hooks/useRole'
+import useUser from '../../hooks/user/useUser'
 import { routesConst } from '../../routes.constants'
 
 function Group() {
@@ -17,6 +20,16 @@ function Group() {
 		handleDeleteTask,
 	} = useGroupComponent()
 	const [showSolution, setShowSolution] = useState(false)
+	const { isTechLead } = useRole({ groupId })
+	const { task: currentTask } = useGetTask({
+		groupId,
+		currentTaskId: currentTaskId || taskList?.[0]?._id,
+	})
+	const { data: user } = useUser()
+
+	const isAssignedToCurrentTask = currentTask.data?.user.includes(
+		user?.result?.account,
+	)
 
 	const taskElements = taskList?.map(
 		(task: {
@@ -55,22 +68,26 @@ function Group() {
 				<Button className='mt-5' onClick={handleSeeMore}>
 					See more
 				</Button>
-				<Button
-					className='mt-5'
-					onClick={() => {
-						window.location.href = `${routesConst.createTask}?groupId=${groupId}`
-					}}
-				>
-					Create
-				</Button>
-				<Button
-					className='mt-5'
-					onClick={() => {
-						window.location.href = `${routesConst.solveTask}?groupId=${groupId}&taskId=${currentTaskId || taskList?.[0]?._id}`
-					}}
-				>
-					Solve
-				</Button>
+				{isTechLead && (
+					<Button
+						className='mt-5'
+						onClick={() => {
+							window.location.href = `${routesConst.createTask}?groupId=${groupId}`
+						}}
+					>
+						Create
+					</Button>
+				)}
+				{isAssignedToCurrentTask && (
+					<Button
+						className='mt-5'
+						onClick={() => {
+							window.location.href = `${routesConst.solveTask}?groupId=${groupId}&taskId=${currentTaskId || taskList?.[0]?._id}`
+						}}
+					>
+						Solve
+					</Button>
+				)}
 			</section>
 			{showSolution ? (
 				<CurrentSolution
