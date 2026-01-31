@@ -6,6 +6,7 @@ import useDeleteSolution from '../solveTask/useDeleteSolution'
 
 import useSolution from '../solveTask/useSolution'
 import useUpdateSolution from '../solveTask/useUpdateSolution'
+import useUser from '../user/useUser'
 
 function useCurrentSolutionComponent({
 	taskId,
@@ -17,11 +18,14 @@ function useCurrentSolutionComponent({
 	setShowSolution: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 	const solution = useSolution({ taskId, groupId })
+	const { data: user } = useUser()
 	const [updateDescription, setUpdateDescription] = useState(false)
 	const [features, setFeatures] = useState<string[] | undefined>()
 	const [updateFeatures, setUpdateFeatures] = useState(false)
 	const [updateCode, setUpdateCode] = useState(false)
 	const queryClient = useQueryClient()
+
+	const isOwner = solution.data?.result.user === user?.result?.account
 
 	const code = solution.data?.result.code?.content
 	const { deleteSolution } = useDeleteSolution(() => {
@@ -67,10 +71,10 @@ function useCurrentSolutionComponent({
 				},
 			},
 		})
-    setUpdateCode(false)
+		setUpdateCode(false)
 	}
 
-  const handleDelete = () => {
+	const handleDelete = () => {
 		deleteSolution.mutate({
 			taskId,
 			groupId,
@@ -91,7 +95,8 @@ function useCurrentSolutionComponent({
 		updateFeatures,
 		code,
 		handleDelete,
-    solution
+		solution,
+		isOwner
 	}
 }
 
