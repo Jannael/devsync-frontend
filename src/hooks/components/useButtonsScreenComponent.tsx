@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import { toast } from 'sonner'
-import queryKeys from '../queryKeys'
-import { routesConst } from '../routes.constants'
-import verifyCodeActions from '../verifyCodeActions'
-import useLogout from './auth/useLogout'
-import useAddGroup from './user/useAddGroup'
+import queryKeys from '../../queryKeys'
+import { routesConst } from '../../routes.constants'
+import verifyCodeActions from '../../verifyCodeActions'
+import useLogout from '../auth/useLogout'
+import useAddGroup from '../user/useAddGroup'
 
 function useButtonsScreenComponent() {
 	const queryClient = useQueryClient()

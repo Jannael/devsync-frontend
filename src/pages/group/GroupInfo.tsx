@@ -8,6 +8,7 @@ import Button from '../../components/ui/Button'
 import Page from '../../components/ui/Page'
 import Title from '../../components/ui/Title'
 import useGroupInfoComponent from '../../hooks/components/useGroupInfoComponent'
+import useRole from '../../hooks/useRole'
 
 //Features
 // 1.change roles
@@ -28,14 +29,18 @@ function GroupInfo() {
 		handleUpdateMemberRole,
 		isOpen,
 		setIsOpen,
-		handleNameUpdate
+		handleNameUpdate,
+		groupId,
 	} = useGroupInfoComponent()
+
+	const { isTechLead } = useRole({ groupId })
 
 	const techLeadItems = data?.techLead?.map(
 		(techLead: { account: string; fullName: string }) => {
 			return (
 				<TechLeadItem
 					account={techLead.account}
+					edit={isTechLead}
 					fullName={techLead.fullName}
 					key={techLead.account}
 					onDelete={() => handleRemoveMember(techLead.account)}
@@ -49,6 +54,7 @@ function GroupInfo() {
 			return (
 				<MemberItem
 					account={member.account}
+					edit={isTechLead}
 					key={member.account}
 					onDelete={() => handleRemoveMember(member.account)}
 					onSave={(role) => {
@@ -82,20 +88,20 @@ function GroupInfo() {
 					<GroupInfoField
 						field='name'
 						fieldValue={data?.name}
-						onSave={handleNameUpdate}
+						onSave={isTechLead ? handleNameUpdate : undefined}
 						placeholder='devsync'
 					/>
 					<GroupInfoField
 						field='color'
 						fieldValue={data?.color}
-						onSave={handleColorUpdate}
+						onSave={isTechLead ? handleColorUpdate : undefined}
 						placeholder='#000000'
 					/>
 					{data?.repository != null && (
 						<GroupInfoField
 							field='repository'
 							fieldValue={data?.repository}
-							onSave={handleRepositoryUpdate}
+							onSave={isTechLead ? handleRepositoryUpdate : undefined}
 							placeholder='https://github.com'
 						/>
 					)}
@@ -110,7 +116,9 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>TechLeads</h2>
-							<Button onClick={() => setIsOpen(true)}>Add</Button>
+							{isTechLead && (
+								<Button onClick={() => setIsOpen(true)}>Add</Button>
+							)}
 						</PeopleHeader>
 
 						<ul className='overflow-x-auto'>{techLeadItems}</ul>
@@ -119,17 +127,21 @@ function GroupInfo() {
 					<PeopleSection>
 						<PeopleHeader>
 							<h2 className='text-xl'>Members</h2>
-							<Button onClick={() => setIsOpen(true)}>Add</Button>
+							{isTechLead && (
+								<Button onClick={() => setIsOpen(true)}>Add</Button>
+							)}
 						</PeopleHeader>
 						<ul className='overflow-x-auto'>{memberItems}</ul>
 					</PeopleSection>
 				</div>
-				<Button className='w-full' onClick={handleRemoveGroup}>
+				<Button className='w-full mt-5' onClick={handleRemoveGroup}>
 					Quit
 				</Button>
-				<Button className='w-full' onClick={handleDeleteGroup}>
-					Delete
-				</Button>
+				{isTechLead && (
+					<Button className='w-full' onClick={handleDeleteGroup}>
+						Delete
+					</Button>
+				)}
 			</section>
 		</Page>
 	)

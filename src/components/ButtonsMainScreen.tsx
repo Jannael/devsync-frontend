@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useButtonsScreenComponent from '../hooks/useButtonsScreenComponent'
+import useButtonsScreenComponent from '../hooks/components/useButtonsScreenComponent'
 import { CubePlus, SettingsIcon } from '../icons'
 import AddGroupMenu from './AddGroupMenu'
 import SettingsMenu from './SettingsMenu'
