@@ -10,11 +10,13 @@ function EditableTitle({
 	name,
 	handleUpdateTitle,
 	setUpdateTitle,
+	edit
 }: {
 	updateTitle: boolean
 	name: string
 	handleUpdateTitle: (val: string) => void
 	setUpdateTitle: React.Dispatch<React.SetStateAction<boolean>>
+	edit?: boolean
 }) {
 	const TitleRef = useRef<HTMLInputElement>(null)
 	return (
@@ -42,9 +44,9 @@ function EditableTitle({
 					</Button>
 				</>
 			)}
-			<Button onClick={() => setUpdateTitle(!updateTitle)}>
+			{edit && <Button onClick={() => setUpdateTitle(!updateTitle)}>
 				<Edit />
-			</Button>
+			</Button>}
 		</div>
 	)
 }

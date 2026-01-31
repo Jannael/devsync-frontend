@@ -8,13 +8,15 @@ function EditableFeatures({
 	features,
 	setUpdateFeatures,
 	setFeatures,
-  handleUpdateFeatures
+	handleUpdateFeatures,
+	edit,
 }: {
 	updateFeatures: boolean
 	features: string[] | undefined
 	setFeatures: React.Dispatch<React.SetStateAction<string[] | undefined>>
 	setUpdateFeatures: React.Dispatch<React.SetStateAction<boolean>>
-  handleUpdateFeatures: () => void
+	handleUpdateFeatures: () => void
+	edit?: boolean
 }) {
 	return (
 		<div className='w-3/10 h-full overflow-y-auto border-r p-3'>
@@ -22,9 +24,9 @@ function EditableFeatures({
 				<>
 					<header className=' flex justify-between items-center'>
 						Features
-						<Button onClick={() => setUpdateFeatures(true)}>
+						{edit && <Button onClick={() => setUpdateFeatures(true)}>
 							<Edit />
-						</Button>
+						</Button>}
 					</header>
 					<ul className=''>
 						{features?.map((feature: string) => {
@@ -35,10 +37,7 @@ function EditableFeatures({
 			) : (
 				<>
 					<FeaturesInput features={features} setFeatures={setFeatures} />
-					<Button
-						className='w-full mt-3'
-						onClick={handleUpdateFeatures}
-					>
+					<Button className='w-full mt-3' onClick={handleUpdateFeatures}>
 						Save
 					</Button>
 				</>

@@ -97,6 +97,7 @@ function useCurrentTaskComponent({
 		name: currentTask.data?.name,
 		description: currentTask.data?.description,
 		code: currentTask.data?.code?.content,
+		groupId
 	}
 }
 

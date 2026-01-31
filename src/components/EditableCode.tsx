@@ -10,11 +10,13 @@ function EditableCode({
 	updateCode,
 	setUpdateCode,
 	handleUpdateCode,
+	edit,
 }: {
 	content: string | undefined
 	updateCode: boolean
 	setUpdateCode: React.Dispatch<React.SetStateAction<boolean>>
 	handleUpdateCode: (val: string) => void
+	edit?: boolean
 }) {
 	const codeRef = useRef<HTMLTextAreaElement>(null)
 
@@ -31,12 +33,12 @@ function EditableCode({
 					>
 						{content || 'function Hello() {}'}
 					</SyntaxHighlighter>
-					<Button
-						className='absolute right-0 bottom-0 mr-5 mb-3.5 bg-primary'	
+					{edit && <Button
+						className='absolute right-0 bottom-0 mr-5 mb-3.5 bg-primary'
 						onClick={() => setUpdateCode(true)}
 					>
 						<Edit />
-					</Button>
+					</Button>}
 				</>
 			) : (
 				<>

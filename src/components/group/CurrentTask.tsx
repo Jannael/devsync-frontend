@@ -1,4 +1,5 @@
 import useCurrentTaskComponent from '../../hooks/components/useCurrentTaskComponent'
+import useRole from '../../hooks/useRole'
 import EditableCode from '../EditableCode'
 import EditableFeatures from '../EditableFeatures'
 import Button from '../ui/Button'
@@ -31,22 +32,28 @@ function CurrentTask({
 		description,
 		isComplete,
 		code,
+		groupId,
 	} = useCurrentTaskComponent({ currentTaskId })
+	const { isTechLead } = useRole({ groupId })
 
 	return (
 		<section className='w-8/10 flex flex-col max-h-dvh h-dvh overflow-y-auto'>
 			<article className='w-full h-5/10 flex flex-col p-3'>
 				<div className='flex-1 flex justify-between items-center'>
 					<EditableTitle
+						edit={isTechLead}
 						handleUpdateTitle={handleUpdateTitle}
 						name={name}
 						setUpdateTitle={setUpdateTitle}
 						updateTitle={updateTitle}
 					/>
-					{!updateTitle && isComplete && <Button onClick={() => setShowSolution(true)}>Solution</Button>}
+					{!updateTitle && isComplete && (
+						<Button onClick={() => setShowSolution(true)}>Solution</Button>
+					)}
 				</div>
 				<EditableP
 					description={description}
+					edit={isTechLead}
 					handleUpdateDescription={handleUpdateDescription}
 					setUpdateDescription={setUpdateDescription}
 					updateDescription={updateDescription}
@@ -54,6 +61,7 @@ function CurrentTask({
 			</article>
 			<div className='flex w-full h-5/10 p-3 gap-3'>
 				<EditableFeatures
+					edit={isTechLead}
 					features={features}
 					handleUpdateFeatures={handleUpdateFeatures}
 					setFeatures={setFeatures}
@@ -62,6 +70,7 @@ function CurrentTask({
 				/>
 				<EditableCode
 					content={code}
+					edit={isTechLead}
 					handleUpdateCode={handleUpdateCode}
 					setUpdateCode={setUpdateCode}
 					updateCode={updateCode}

@@ -9,11 +9,13 @@ function EditableP({
 	description,
 	handleUpdateDescription,
 	setUpdateDescription,
+	edit
 }: {
 	updateDescription: boolean
 	description: string
 	handleUpdateDescription: (val: string) => void
 	setUpdateDescription: React.Dispatch<React.SetStateAction<boolean>>
+	edit?: boolean
 }) {
 	const descriptionRef = useRef<HTMLTextAreaElement>(null)
 
@@ -41,12 +43,12 @@ function EditableP({
 					</Button>
 				</>
 			)}
-			<Button
+			{edit && <Button
 				className='absolute right-0 bottom-0 m-3'
 				onClick={() => setUpdateDescription(!updateDescription)}
 			>
 				<Edit />
-			</Button>
+			</Button>}
 		</div>
 	)
 }
