@@ -15,13 +15,15 @@ const TaskModel = {
 		groupId: string
 		data: {
 			name: string
-			content: string
-			user: string[]
-			priority: string
-			code: {
+			description: string
+			user?: string[] | null
+			feature?: string[] | null
+			priority?: string | null
+			isComplete?: boolean
+			code?: {
 				language: string
 				content: string
-			}
+			} | null
 		}
 	}>({
 		method: 'POST',
@@ -33,13 +35,14 @@ const TaskModel = {
 		data: {
 			name?: string
 			description?: string
+			user?: string[]
+			feature?: string[]
+			priority?: string
+			isComplete?: boolean
 			code?: {
 				language?: string
 				content?: string
 			}
-			user?: string[]
-			priority?: string
-			isComplete?: boolean
 		}
 	}>({
 		method: 'PUT',
