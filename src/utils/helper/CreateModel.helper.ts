@@ -1,12 +1,17 @@
+import type { Response } from '../../interface/Response'
+
 interface Props {
 	endpoint: string
 	method: 'POST' | 'DELETE' | 'PATCH' | 'PUT' | 'GET'
 }
 
+const api = import.meta.env.VITE_API_DOMAIN
+// const api = 'http://localhost:3000'
+
 function CreateModel<T>({ method, endpoint }: Props) {
-	return async (data: T & { signal?: AbortSignal }) => {
+	return async (data: T & { signal?: AbortSignal }): Promise<Response> => {
 		try {
-			const request = await fetch(endpoint, {
+			const request = await fetch(`${api}${endpoint}`, {
 				method,
 				headers: { 'content-type': 'application/json' },
 				credentials: 'include',
