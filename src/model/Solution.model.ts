@@ -11,9 +11,12 @@ const SolutionModel = {
 		groupId: string
 		data: {
 			_id: string
-			feature: string
+			feature?: string[] | null
 			description: string
-			code: string
+			code?: {
+				language: string
+				content: string
+			} | null
 		}
 	}>({
 		method: 'POST',
@@ -23,9 +26,12 @@ const SolutionModel = {
 		_id: string
 		groupId: string
 		data: {
-			feature?: string
+			feature?: string[]
 			description?: string
-			code?: string
+			code?: {
+				language?: string
+				content?: string
+			} | null
 		}
 	}>({
 		method: 'PUT',
