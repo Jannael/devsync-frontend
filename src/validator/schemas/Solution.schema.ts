@@ -1,11 +1,12 @@
 import z from 'zod'
 import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
-import CodeFieldSchema from './CodeField.schema'
+import CodeFieldSchema from '../fields/CodeField.schema.ts'
+import { ObjectIdSchema } from '../fields/ObjectId.validator.ts'
 
 export const SolutionSchema = z.object({
-	groupId: z.string('Group id is required'),
+	groupId: ObjectIdSchema,
 	data: z.object({
-		_id: z.string('task id is required'),
+		_id: ObjectIdSchema,
 		feature: z
 			.array(
 				z
@@ -23,8 +24,8 @@ export const SolutionSchema = z.object({
 })
 
 export const SolutionSchemaPartial = z.object({
-	_id: z.string('Solution id is required'),
-	groupId: z.string('Group id is required'),
+	_id: ObjectIdSchema,
+	groupId: ObjectIdSchema,
 	data: SolutionSchema.shape.data.omit({ _id: true }).partial(),
 })
 

@@ -1,9 +1,10 @@
 import z from 'zod'
 import Roles from '../../constant/Roles.constant'
 import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
+import { ObjectIdSchema } from '../fields/ObjectId.validator.ts'
 
 const InvitationSchema = z.object({
-	groupId: z.string('Group id is required'),
+	groupId: ObjectIdSchema,
 	data: z.object({
 		account: z.string('Account is required').email('Invalid account'),
 		role: z.enum([Roles.developer, Roles.documenter, Roles.techLead], {

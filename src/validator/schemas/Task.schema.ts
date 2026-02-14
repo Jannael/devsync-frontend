@@ -1,9 +1,10 @@
 import { z } from 'zod'
 import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
-import CodeFieldSchema from './CodeField.schema'
+import CodeFieldSchema from '../fields/CodeField.schema.ts'
+import { ObjectIdSchema } from '../fields/ObjectId.validator.ts'
 
 export const TaskBaseSchema = z.object({
-	groupId: z.string('Group id is required'),
+	groupId: ObjectIdSchema,
 	data: z.object({
 		user: z
 			.array(z.string('User is required').email('User is invalid'))
@@ -38,8 +39,8 @@ export const TaskSchema = TaskBaseSchema.extend({
 })
 
 export const TaskSchemaUpdate = TaskBaseSchema.extend({
-	_id: z.string('Id is required'),
-	groupId: z.string('Group id is required'),
+	_id: ObjectIdSchema,
+	groupId: ObjectIdSchema,
 	data: TaskBaseSchema.shape.data.optional(),
 })
 export const TaskSchemaPartial = TaskSchemaUpdate.partial()

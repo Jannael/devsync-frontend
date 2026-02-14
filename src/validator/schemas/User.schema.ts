@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
-import PasswordSchema from './Password.schema'
+import PasswordSchema from '../fields/Password.schema.ts'
 
 export const UserSchema = z.object({
 	data: z.object({
