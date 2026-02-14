@@ -57,6 +57,7 @@ const TaskService = {
 		const taskList: TaskList = {
 			task: res.data?.task ?? [],
 			assign: assign ?? [],
+			metadata: res.data?.metadata,
 		}
 
 		return taskList
