@@ -21,7 +21,7 @@ const AuthModel = {
 	}),
 	VerifyLogin: CreateModel<{ code: string }>({
 		method: 'POST',
-		endpoint: `${route}/verify/refreshToken/`,
+		endpoint: `${route}/request/refreshToken/`,
 	}),
 	RequestChangeAccount: CreateModel<{ nreAccount: string }>({
 		method: 'PATCH',
