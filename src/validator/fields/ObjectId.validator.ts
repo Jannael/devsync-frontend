@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import CreateValidator from '../utils/helper/CreateValidator.helper.ts'
+import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
 
 const objectIdRegex = /^[0-9a-fA-F]{24}$/
 

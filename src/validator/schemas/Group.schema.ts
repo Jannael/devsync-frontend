@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
+import { ObjectIdSchema } from '../fields/ObjectId.validator.ts'
 
 export const GroupSchema = z.object({
 	data: z.object({
@@ -18,7 +19,7 @@ export const GroupSchema = z.object({
 })
 
 export const GroupSchemaPartial = z.object({
-	groupId: z.string('Group id is required'),
+	groupId: ObjectIdSchema,
 	data: GroupSchema.shape.data.partial(),
 })
 
