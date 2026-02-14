@@ -54,7 +54,7 @@ function HomeNavbar() {
 
 	return (
 		<nav className='flex w-full items-center justify-center font-main mt-10 fixed top-0 left-0 z-50'>
-			<ul className='flex text-xl gap-4 shadow-xl rounded-full py-5 px-6 bg-main text-contrast shadow-shade-shadow'>
+			<ul className='flex text-xl gap-4 shadow-xl rounded-full p-3 bg-main text-contrast shadow-shade-shadow'>
 				{items}
 			</ul>
 		</nav>
