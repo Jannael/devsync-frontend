@@ -1,3 +1,4 @@
-export const ROUTE = {
+export const ROUTES = {
 	HOME: '/home',
+	MAIN: '/main',
 }
