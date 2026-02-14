@@ -1,9 +1,24 @@
 import { Link } from 'react-router'
 import HomeNavbar from '../component/HomeNavbar'
 import { ROUTES } from '../constant/Route.constant'
-import { GithubIcon } from '../Icon'
+import { CheckIcon, GithubIcon } from '../Icon'
+
+const features = [
+	'Easy to use',
+	'Solution tracking',
+	'Task management',
+	'Documenter role',
+]
 
 function HomePage() {
+	const featureItems = features.map((feature) => {
+		return (
+			<li className='flex items-center gap-2 [&>svg]:text-shade text-2xl text-contrast/80' key={feature}>
+				<CheckIcon />
+				<p>{feature}</p>
+			</li>
+		)
+	})
 	return (
 		<div className='bg-main text-contrast min-h-screen font-main'>
 			<HomeNavbar />
@@ -49,10 +64,18 @@ function HomePage() {
 					</a>
 				</section>
 				<section
-					className='h-screen flex items-center justify-center'
+					className='flex items-center justify-center my-10'
 					id='Feature'
 				>
-					<h2 className='text-6xl font-bold'>Features Section</h2>
+					<div className='flex-1'>
+						<img alt='Devsync' src='/pet.png' />
+					</div>
+					<div className='flex-1'>
+						<h2 className='text-3xl font-bold mb-6'>
+							Less stuff and better solutions
+						</h2>
+						<ul className='flex flex-col gap-2'>{featureItems}</ul>
+					</div>
 				</section>
 				<section
 					className='h-screen flex items-center justify-center'
