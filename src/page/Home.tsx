@@ -10,11 +10,53 @@ const features = [
 	'Documenter role',
 ]
 
+const thanks = [
+	{
+		label: 'Natali Chavez',
+		href: 'https://www.instagram.com/nat.chavez18?utm_source=ig_web_button_share_sheet',
+	},
+	{
+		label: 'Tabler icons',
+		href: 'https://tablericons.com',
+	},
+	{
+		label: 'Npmx',
+		href: 'https://npmx.dev',
+	},
+	{
+		label: 'Zustand',
+		href: 'https://zustand-demo.pmnd.rs/',
+	},
+	{
+		label: 'CubeDesk',
+		href: 'https://cubedesk.io',
+	},
+	{
+		label: 'Tailwindcss',
+		href: 'https://tailwindcss.com',
+	},
+]
+
+const personal = [
+	{
+		label: 'Github',
+		href: 'https://github.com/jannael',
+	},
+	{
+		label: '@JannaelCode',
+		href: 'https://twitter.com/JannaelCode',
+	},
+	{
+		label: 'Linkedin',
+		href: 'https://www.linkedin.com/in/jannael-orlando-44604a349/',
+	},
+]
+
 function HomePage() {
 	const featureItems = features.map((feature) => {
 		return (
 			<li
-				className='flex items-center gap-2 [&>svg]:text-shade text-2xl text-contrast/80'
+				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80'
 				key={feature}
 			>
 				<CheckIcon />
@@ -22,6 +64,33 @@ function HomePage() {
 			</li>
 		)
 	})
+
+	const personalItems = personal.map((personal) => {
+		return (
+			<li
+				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80 font-main font-bold'
+				key={personal.label}
+			>
+				<a href={personal.href} rel='noopener' target='_blank'>
+					{personal.label}
+				</a>
+			</li>
+		)
+	})
+
+	const thanksItems = thanks.map((thank) => {
+		return (
+			<li
+				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80 font-main font-bold'
+				key={thank.label}
+			>
+				<a href={thank.href} rel='noopener' target='_blank'>
+					{thank.label}
+				</a>
+			</li>
+		)
+	})
+
 	return (
 		<div className='bg-main text-contrast min-h-screen font-main'>
 			<HomeNavbar />
@@ -57,17 +126,10 @@ function HomePage() {
 					<div className='flex gap-2 flex-1'>
 						<img alt='Devsync' src='/pet.png' />
 					</div>
-					<a
-						className='absolute bottom-0 left-0 m-10 text-contrast/70 text-xl font-main shadow-xs shadow-shade-shadow'
-						href='https://www.instagram.com/nat.chavez18?utm_source=ig_web_button_share_sheet'
-						rel='noopener'
-						target='_blank'
-					>
-						@Brand art by Natali Chavez
-					</a>
+					<div className='border-b border-contrast/40 w-full absolute bottom-0 left-0'></div>
 				</section>
 				<section
-					className='flex items-center justify-center'
+					className='flex items-center justify-center mt-30'
 					id='Feature'
 				>
 					<div className='flex-1'>
@@ -81,7 +143,7 @@ function HomePage() {
 					</div>
 				</section>
 				<section
-					className='my-40 flex items-center justify-center flex-col'
+					className='my-60 flex items-center justify-center flex-col'
 					id='About'
 				>
 					<h2 className='text-6xl font-bold mb-5'>About</h2>
@@ -133,8 +195,22 @@ function HomePage() {
 					</p>
 				</section>
 			</main>
+			<footer className='border-t border-contrast/40 w-full bg-accent flex flex-col justify-center items-center py-6'>
+				<div>
+					<ul className='flex gap-4 font-main text-xl border-b-2 py-5'>
+						{thanksItems}
+					</ul>
+				</div>
+				<div>
+					<ul className='flex gap-4 font-main text-xl mt-3'>{personalItems}</ul>
+				</div>
+			</footer>
 		</div>
 	)
+}
+
+function FooterItem({ children }: { children: React.ReactNode }) {
+	return <li>{children}</li>
 }
 
 export default HomePage
