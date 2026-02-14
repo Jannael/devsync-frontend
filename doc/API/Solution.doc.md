@@ -1,4 +1,4 @@
-# /solution/v1/
+\*\*\*\*# /solution/v1/
 
 ## [/get/]
 
@@ -47,7 +47,9 @@
     "groupId": "65b2f1...",
     "description": "Implemented auth service with JWT",
     "feature": "Login process",
-    "code": "export const auth = ..."
+    "code": {
+      "language": "typescript",
+      "content": ""
   }
 }
 ```
@@ -70,13 +72,14 @@
 
 #### Body fields
 
-| Parameter          | Type     | Required | Description                                   |
-| :----------------- | :------- | :------- | :-------------------------------------------- |
-| `groupId`          | `String` | Yes      | The unique ID of the group.                   |
-| `data._id`         | `String` | Yes      | The ID of the task this solution belongs to.  |
-| `data.feature`     | `String` | Yes      | Short description of the feature implemented. |
-| `data.description` | `String` | Yes      | Detailed description of the solution.         |
-| `data.code`        | `String` | Yes      | The code implementation.                      |
+| Parameter            | Type       | Required | Description                                  |
+| :------------------- | :--------- | :------- | :------------------------------------------- |
+| `groupId`            | `String`   | Yes      | The unique ID of the group.                  |
+| `data._id`           | `String`   | Yes      | The ID of the task this solution belongs to. |
+| `data.description`   | `String`   | Yes      | Detailed description of the solution.        |
+| `data.feature`       | `String[]` | No       | List of implemented features.                |
+| `data.code.language` | `String`   | No       | The language code.                           |
+| `data.code.content`  | `String`   | No       | The content code.                            |
 
 #### Request Body
 
@@ -87,7 +90,9 @@
     "_id": "65b2f1...",
     "feature": "Login process",
     "description": "Implemented auth service with JWT",
-    "code": "export const auth = ..."
+    "code": {
+      "language": "typescript",
+      "content": "console.log('devsync')"
   }
 }
 ```
@@ -107,7 +112,9 @@
     "groupId": "65b2f1...",
     "description": "Implemented auth service with JWT",
     "feature": "Login process",
-    "code": "export const auth = ..."
+    "code": {
+      "language": "",
+      "content": ""
   }
 }
 ```
@@ -130,13 +137,14 @@
 
 #### Body fields
 
-| Parameter          | Type     | Required | Description                               |
-| :----------------- | :------- | :------- | :---------------------------------------- |
-| `_id`              | `String` | Yes      | The ID of the solution (same as Task ID). |
-| `groupId`          | `String` | Yes      | The unique ID of the group.               |
-| `data.feature`     | `String` | No       | Updated feature description.              |
-| `data.description` | `String` | No       | Updated solution description.             |
-| `data.code`        | `String` | No       | Updated code.                             |
+| Parameter            | Type       | Required | Description                               |
+| :------------------- | :--------- | :------- | :---------------------------------------- |
+| `_id`                | `String`   | Yes      | The ID of the solution (same as Task ID). |
+| `groupId`            | `String`   | Yes      | The unique ID of the group.               |
+| `data.feature`       | `String[]` | No       | Updated feature description.              |
+| `data.description`   | `String`   | No       | Updated solution description.             |
+| `data.code.language` | `String`   | No       | Updated language code.                    |
+| `data.code.content`  | `String`   | No       | Updated content code.                     |
 
 #### Request Body
 

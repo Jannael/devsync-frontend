@@ -1,5 +1,5 @@
 import type Group from '../interface/Group.d'
-import type { GroupInvitationList } from '../interface/Invitation.d'
+import type { GroupInvitationListItem } from '../interface/Invitation.d'
 import type { Member } from '../interface/Member'
 import { api } from './api.config.ts'
 
@@ -28,7 +28,7 @@ const GroupService = {
 		groupId,
 	}: {
 		groupId: string
-	}): Promise<GroupInvitationList[]> => {
+	}): Promise<GroupInvitationListItem[]> => {
 		const res = await api({
 			endpoint: `${route}/get/invitation/`,
 			options: {
@@ -37,8 +37,8 @@ const GroupService = {
 			},
 		})
 
-		const invitations: GroupInvitationList[] =
-			res.data?.map((invitation: GroupInvitationList) => {
+		const invitations: GroupInvitationListItem[] =
+			res.data?.map((invitation: GroupInvitationListItem) => {
 				return {
 					groupId: invitation.groupId,
 					account: invitation.account,
