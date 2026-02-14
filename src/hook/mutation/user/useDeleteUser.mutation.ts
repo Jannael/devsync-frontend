@@ -1,16 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { AUTH_KEYS } from '../../../constant/AuthKeys.constant'
 import { USER_KEYS } from '../../../constant/UserKeys.constant'
-import AuthService from '../../../service/Auth.service'
+import UserService from '../../../service/User.service'
 
-export const useLogout = () => {
+export const useDeleteUser = () => {
 	const queryClient = useQueryClient()
 
 	return useMutation({
-		mutationFn: () => AuthService.Logout(),
+		mutationFn: () => UserService.Delete(),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: AUTH_KEYS.SESSION })
 			queryClient.invalidateQueries({ queryKey: USER_KEYS.ALL })
+			// Logout would typically follow or be triggered
 		},
 	})
 }
