@@ -5,9 +5,11 @@ interface Group {
 	repository: string
 }
 
-export interface UserGroupList {
+export interface UserGroupListItem {
 	groupId: string
 	role: string
+	name: string
+	color: string
 }
 
 export default Group

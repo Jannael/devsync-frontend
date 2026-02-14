@@ -14,16 +14,20 @@ interface Task {
 }
 
 export interface TaskList {
-	task: [
-		{
-			_id: string
-			name: string
-			priority: number
-			user: string[]
-			isComplete: boolean
-		}
-	]
-	assign: string[]
+	task: {
+		_id: string
+		name: string
+		priority: number
+		user: string[]
+		isComplete: boolean
+	}[]
+	assign: {
+		_id: string
+		name: string
+		priority: number
+		user: string[]
+		isComplete: boolean
+	}[]
 }
 
 export default Task
