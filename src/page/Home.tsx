@@ -56,7 +56,7 @@ function HomePage() {
 	const featureItems = features.map((feature) => {
 		return (
 			<li
-				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80'
+				className='flex items-center gap-5 [&>svg]:text-contrast text-2xl text-contrast/80'
 				key={feature}
 			>
 				<CheckIcon />
@@ -117,7 +117,7 @@ function HomePage() {
 							Task management and solution tracking
 						</p>
 						<Link
-							className='px-6 py-4 bg-accent w-fit rounded-full text-xl mt-3 hover:bg-shade transition-all duration-300 font-main'
+							className='px-6 py-4 bg-shade w-fit rounded-full text-xl mt-3 hover:bg-accent transition-all duration-300 font-main'
 							to={ROUTES.MAIN}
 						>
 							Try now
@@ -126,10 +126,9 @@ function HomePage() {
 					<div className='flex gap-2 flex-1'>
 						<img alt='Devsync' src='/pet.png' />
 					</div>
-					<div className='border-b border-contrast/40 w-full absolute bottom-0 left-0'></div>
 				</section>
 				<section
-					className='flex items-center justify-center mt-30'
+					className='flex items-center justify-center mt-30 bg-shade rounded-xl'
 					id='Feature'
 				>
 					<div className='flex-1'>
@@ -154,7 +153,7 @@ function HomePage() {
 						keeping it open source, if you have suggestions, issues or want to
 						contribute please visit the{' '}
 						<a
-							className='text-accent hover:text-shade transition-all duration-300'
+							className='text-shade hover:text-accent transition-all duration-300'
 							href='https://github.com/jannael/devsync'
 						>
 							repository
@@ -165,27 +164,28 @@ function HomePage() {
 						The page design, it is inspired by some open source pages i use,
 						such as{' '}
 						<a
-							className='text-accent hover:text-shade transition-all duration-300'
+							className='text-shade hover:text-accent transition-all duration-300'
 							href='https://cubedesk.io'
 						>
 							CubeDesk,{' '}
 						</a>
 						<a
-							className='text-accent hover:text-shade transition-all duration-300'
+							className='text-shade hover:text-accent transition-all duration-300'
 							href='https://npmx.dev'
 						>
 							Npmx{' '}
 						</a>{' '}
 						and{' '}
 						<a
-							className='text-accent hover:text-shade transition-all duration-300'
+							className='text-shade hover:text-accent transition-all duration-300'
 							href='https://zustand-demo.pmnd.rs/'
 						>
 							zustand
 						</a>
-						, Illustrations are made by{' '}
+						<br />
+						Brand art by{' '}
 						<a
-							className='text-accent hover:text-shade transition-all duration-300'
+							className='text-shade hover:text-accent transition-all duration-300'
 							href='https://www.instagram.com/nat.chavez18?utm_source=ig_web_button_share_sheet'
 							rel='noopener'
 							target='_blank'
@@ -195,7 +195,7 @@ function HomePage() {
 					</p>
 				</section>
 			</main>
-			<footer className='border-t border-contrast/40 w-full bg-accent flex flex-col justify-center items-center py-6'>
+			<footer className='w-full bg-shade flex flex-col justify-center items-center py-6 bottom-0'>
 				<div>
 					<ul className='flex gap-4 font-main text-xl border-b-2 py-5'>
 						{thanksItems}
@@ -207,10 +207,6 @@ function HomePage() {
 			</footer>
 		</div>
 	)
-}
-
-function FooterItem({ children }: { children: React.ReactNode }) {
-	return <li>{children}</li>
 }
 
 export default HomePage
