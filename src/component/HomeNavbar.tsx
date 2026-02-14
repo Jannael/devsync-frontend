@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react'
-import { AboutIcon, FeaturesIcon, HomeIcon } from '../Icon'
 
-const NAV_ITEMS = [
-	{ label: 'Home', icon: <HomeIcon /> },
-	{ label: 'Feature', icon: <FeaturesIcon /> },
-	{ label: 'About', icon: <AboutIcon /> },
-]
-
-function HomeNavbar() {
+function HomeNavbar({
+	navItems,
+}: {
+	navItems: { label: string; icon: React.ReactNode }[]
+}) {
 	const [activeSection, setActiveSection] = useState('Home')
 
 	useEffect(() => {
-		const sections = NAV_ITEMS.map((item) =>
-			document.getElementById(item.label),
-		)
+		const sections = navItems.map((item) => document.getElementById(item.label))
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -38,9 +33,9 @@ function HomeNavbar() {
 				if (section) observer.unobserve(section)
 			}
 		}
-	}, [])
+	}, [navItems])
 
-	const items = NAV_ITEMS.map((item) => {
+	const items = navItems.map((item) => {
 		return (
 			<HomeNavbarItem
 				active={activeSection === item.label}

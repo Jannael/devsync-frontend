@@ -1,7 +1,13 @@
 import { Link } from 'react-router'
 import HomeNavbar from '../component/HomeNavbar'
 import { ROUTES } from '../constant/Route.constant'
-import { CheckIcon, GithubIcon } from '../Icon'
+import {
+	AboutIcon,
+	CheckIcon,
+	FeaturesIcon,
+	GithubIcon,
+	HomeIcon,
+} from '../Icon'
 
 const features = [
 	'Easy to use',
@@ -52,6 +58,12 @@ const personal = [
 	},
 ]
 
+const NAV_ITEMS = [
+	{ label: 'Home', icon: <HomeIcon /> },
+	{ label: 'Feature', icon: <FeaturesIcon /> },
+	{ label: 'About', icon: <AboutIcon /> },
+]
+
 function HomePage() {
 	const featureItems = features.map((feature) => {
 		return (
@@ -93,7 +105,7 @@ function HomePage() {
 
 	return (
 		<div className='bg-main text-contrast min-h-screen font-main'>
-			<HomeNavbar />
+			<HomeNavbar navItems={NAV_ITEMS} />
 			<main className='flex flex-col max-w-7xl mx-auto'>
 				<section
 					className='h-screen flex items-center justify-center'
