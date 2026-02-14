@@ -1,0 +1,88 @@
+import { useEffect, useState } from 'react'
+import { AboutIcon, FeaturesIcon, HomeIcon } from '../Icon'
+
+const NAV_ITEMS = [
+	{ label: 'Home', icon: <HomeIcon /> },
+	{ label: 'Feature', icon: <FeaturesIcon /> },
+	{ label: 'About', icon: <AboutIcon /> },
+]
+
+function HomeNavbar() {
+	const [activeSection, setActiveSection] = useState('Home')
+
+	useEffect(() => {
+		const sections = NAV_ITEMS.map((item) =>
+			document.getElementById(item.label),
+		)
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setActiveSection(entry.target.id)
+					}
+				})
+			},
+			{
+				threshold: 0,
+				rootMargin: '-50% 0px -50% 0px',
+			},
+		)
+
+		for (const section of sections) {
+			if (section) observer.observe(section)
+		}
+
+		return () => {
+			for (const section of sections) {
+				if (section) observer.unobserve(section)
+			}
+		}
+	}, [])
+
+	const items = NAV_ITEMS.map((item) => {
+		return (
+			<HomeNavbarItem
+				active={activeSection === item.label}
+				icon={item.icon}
+				key={item.label}
+			>
+				{item.label}
+			</HomeNavbarItem>
+		)
+	})
+
+	return (
+		<nav className='flex w-full items-center justify-center font-main mt-10 fixed top-0 left-0 z-50'>
+			<ul className='flex text-xl gap-4 shadow-xl rounded-full py-5 px-6 bg-main text-contrast shadow-shade-shadow'>
+				{items}
+			</ul>
+		</nav>
+	)
+}
+
+export function HomeNavbarItem({
+	children,
+	icon,
+	active,
+}: {
+	children: React.ReactNode
+	icon: React.ReactNode
+	active: boolean
+}) {
+	return (
+		<li>
+			<a
+				className={`py-2 px-3 rounded-full text-center transition-all duration-300 cursor-pointer flex items-center gap-2 justify-center ${
+					active ? 'bg-shade text-contrast' : 'hover:bg-accent hover:text-main'
+				}`}
+				href={`#${children}`}
+			>
+				{icon}
+				{children}
+			</a>
+		</li>
+	)
+}
+
+export default HomeNavbar
