@@ -44,7 +44,7 @@ function Footer() {
 	const personalItems = personal.map((personal) => {
 		return (
 			<li
-				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80 font-main font-bold'
+				className='flex items-center gap-2 md:gap-5 [&>svg]:text-shade text-lg md:text-2xl text-contrast/80 font-main font-bold'
 				key={personal.label}
 			>
 				<a href={personal.href} rel='noopener' target='_blank'>
@@ -57,7 +57,7 @@ function Footer() {
 	const thanksItems = thanks.map((thank) => {
 		return (
 			<li
-				className='flex items-center gap-5 [&>svg]:text-shade text-2xl text-contrast/80 font-main font-bold'
+				className='flex items-center gap-2 md:gap-5 [&>svg]:text-shade text-lg md:text-2xl text-contrast/80 font-main font-bold'
 				key={thank.label}
 			>
 				<a href={thank.href} rel='noopener' target='_blank'>
@@ -68,14 +68,16 @@ function Footer() {
 	})
 
 	return (
-		<footer className='w-full bg-shade flex flex-col justify-center items-center py-6 bottom-0'>
-			<div>
-				<ul className='flex gap-4 font-main text-xl border-b-2 py-5'>
+		<footer className='w-full bg-shade flex flex-col justify-center items-center py-8 px-6 bottom-0'>
+			<div className='w-full max-w-7xl overflow-hidden'>
+				<ul className='flex flex-wrap justify-center gap-4 md:gap-6 font-main text-lg md:text-xl border-b-2 border-contrast/10 py-5'>
 					{thanksItems}
 				</ul>
 			</div>
-			<div>
-				<ul className='flex gap-4 font-main text-xl mt-3'>{personalItems}</ul>
+			<div className='w-full max-w-7xl'>
+				<ul className='flex flex-wrap justify-center gap-4 md:gap-6 font-main text-lg md:text-xl mt-5'>
+					{personalItems}
+				</ul>
 			</div>
 		</footer>
 	)
