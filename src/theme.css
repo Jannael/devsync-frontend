@@ -3,6 +3,12 @@
 		--color-main: #fbfbfb;
 		--color-contrast: #222;
 
+		--color-shade: #00dd7730;
+		--color-accent: #224422;
+
+		--color-shade-shadow: #00dd7730;
+		--color-accent-shadow: #22442230;
+
 		--color-txt: #222;
 		--color-warning: #ec003f;
 	}
