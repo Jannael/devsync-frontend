@@ -36,7 +36,7 @@ const UserService = {
 					groupId: group.groupId,
 					role: group.role,
 					name: group.name,
-          color: group.color
+					color: group.color,
 				}
 			}) ?? []
 
@@ -55,7 +55,7 @@ const UserService = {
 				return {
 					groupId: invitation.groupId,
 					role: invitation.role,
-          name: invitation.name,
+					name: invitation.name,
 				}
 			}) ?? []
 

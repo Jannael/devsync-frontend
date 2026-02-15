@@ -1,9 +1,9 @@
-import HomeNavbar from '../../component/HomeNavbar'
+import HomeNavbar from '../../component/HomeNavbar.component'
 import { AboutIcon, FeaturesIcon, HomeIcon } from '../../Icon'
-import About from './About'
-import FeaturesSection from './FeaturesSection'
+import About from './About.section'
+import FeaturesSection from './Features.section'
 import Footer from './Footer'
-import HeroSection from './HeroSection'
+import HeroSection from './Hero.section'
 
 const NAV_ITEMS = [
 	{ label: 'Home', icon: <HomeIcon /> },

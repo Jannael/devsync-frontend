@@ -6,7 +6,7 @@ function About() {
 		>
 			<h2 className='text-4xl md:text-6xl font-bold mb-5'>About</h2>
 			<div className='text-lg md:text-2xl text-contrast/70 max-w-4xl'>
-				<p className="w-full">
+				<p className='w-full'>
 					Devsync was designed for personal improvement as developer, because
 					it's my first real project, the goal it's to maintain it and keep the
 					best experience for users with the tech-skills i have, while keeping
@@ -21,7 +21,7 @@ function About() {
 					,
 				</p>
 				<br />
-				<p className="w-full text-balance">
+				<p className='w-full text-balance'>
 					The page design, it is inspired by some open source pages i use, such
 					as{' '}
 					<a

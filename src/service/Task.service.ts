@@ -51,7 +51,9 @@ const TaskService = {
 
 		// assign from the server its an array of task id so just filter and get then from there
 		const assign = res.data?.assign?.map((id: string) => {
-			return res.data?.task?.filter((task: TaskList['task'][number]) => task._id === id)
+			return res.data?.task?.filter(
+				(task: TaskList['task'][number]) => task._id === id,
+			)
 		})
 
 		const taskList: TaskList = {

@@ -1,5 +1,5 @@
 export interface Member {
-  groupId: string
-  role: string
-  account: string
+	groupId: string
+	role: string
+	account: string
 }
