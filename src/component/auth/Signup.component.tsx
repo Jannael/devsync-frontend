@@ -2,6 +2,7 @@ import { Fragment, useRef, useState } from 'react'
 import { useRequestCode } from '../../hook/mutation/auth/useRequestCode.mutation'
 import { useVerifyCode } from '../../hook/mutation/auth/useVerifyCode.mutation'
 import { useCreateUser } from '../../hook/mutation/user/useCreateUser.mutation'
+import useLoginStore from '../../store/Login.store'
 import GetFormData from '../../utils/GetFormData.utils'
 import { UserValidator } from '../../validator/schemas/User.schema'
 import Button from '../ui/Button.ui'
@@ -9,6 +10,7 @@ import Form from '../ui/Form.ui'
 import Input from '../ui/Input.ui'
 import Label from '../ui/Label.ui'
 import P from '../ui/P.ui'
+import TextButton from '../ui/TextButton.ui'
 import Title from '../ui/Title.ui'
 import Warning from '../ui/Warning.ui'
 import VerifyCode from './VerifyCode.component'
@@ -123,10 +125,14 @@ function Signup() {
 			<P>Please fill in the form below to create an account</P>
 			{inputsItems}
 			{error && <Warning message={error} />}
-
 			<Button block={requestCode.isPending} type='submit'>
 				Signup
 			</Button>
+			<TextButton
+				buttonText='Login'
+				onClick={() => useLoginStore.setState({ show: 'login' })}
+				text='Already have an account? '
+			/>
 		</Form>
 	)
 }

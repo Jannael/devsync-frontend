@@ -1,7 +1,11 @@
+import ForgotPassword from '../component/auth/ForgotPassword.component'
+import LoginComponent from '../component/auth/Login.component'
 import Signup from '../component/auth/Signup.component'
 import Toaster from '../component/ui/Toaster.ui'
+import useLoginStore from '../store/Login.store'
 
 function Login() {
+	const { show } = useLoginStore()
 	return (
 		<div className='min-h-dvh bg-main flex justify-center items-center text-contrast p-4'>
 			<Toaster />
@@ -18,7 +22,9 @@ function Login() {
 				</div>
 				<article className='flex-1 flex justify-center items-center size-full'>
 					<div className='w-full flex justify-center items-center'>
-						<Signup />
+						{show === 'login' && <LoginComponent />}
+						{show === 'signup' && <Signup />}
+						{show === 'forgot-password' && <ForgotPassword />}
 					</div>
 				</article>
 			</div>
