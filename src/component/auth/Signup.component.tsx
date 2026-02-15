@@ -1,10 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { useRequestCode } from '../../hook/mutation/auth/useRequestCode.mutation'
-import { useVerifyCode } from '../../hook/mutation/auth/useVerifyCode.mutation'
-import { useCreateUser } from '../../hook/mutation/user/useCreateUser.mutation'
+import { Fragment } from 'react'
+import useSignup from '../../hook/component/auth/useSignUp.hook'
 import useLoginStore from '../../store/Login.store'
-import GetFormData from '../../utils/GetFormData.utils'
-import { UserValidator } from '../../validator/schemas/User.schema'
 import Button from '../ui/Button.ui'
 import Form from '../ui/Form.ui'
 import Input from '../ui/Input.ui'
@@ -47,17 +43,15 @@ const inputs = [
 ]
 
 function Signup() {
-	const [verifyCode, setVerifyCode] = useState(false)
-	const requestCode = useRequestCode()
-	const verifyCodeMutation = useVerifyCode()
-	const createUser = useCreateUser()
-	const [error, setError] = useState<string | null>(null)
-	const formData = useRef({
-		fullName: '',
-		nickName: '',
-		account: '',
-		pwd: '',
-	})
+	const {
+		handleSubmit,
+		handleVerifyCode,
+		verifyCode,
+		error,
+		requestCode,
+		verifyCodeMutation,
+		createUser,
+	} = useSignup()
 
 	const inputsItems = inputs.map((input) => (
 		<Fragment key={input.id}>
@@ -65,53 +59,6 @@ function Signup() {
 			<Input {...input} />
 		</Fragment>
 	))
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const data = GetFormData(e)
-		const userInfo = {
-			fullName: data.fullName,
-			nickName: data.nickName,
-			account: data.email,
-			pwd: data.password,
-		}
-		try {
-			console.log(userInfo)
-			UserValidator({
-				data: userInfo,
-			})
-		} catch (e) {
-			console.log(e)
-			setError((e as Error).message)
-			return
-		}
-
-		await requestCode.mutateAsync({
-			account: data.email,
-		})
-		setVerifyCode(true)
-		formData.current = {
-			fullName: data.fullName,
-			nickName: data.nickName,
-			account: data.email,
-			pwd: data.password,
-		}
-	}
-
-	const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const data = GetFormData(e)
-		const res = await verifyCodeMutation.mutateAsync({
-			code: data.code,
-		})
-		if (res) {
-			await createUser.mutateAsync({
-				fullName: formData.current.fullName,
-				nickName: formData.current.nickName,
-				pwd: formData.current.pwd,
-			})
-		}
-	}
 
 	return verifyCode ? (
 		<VerifyCode
