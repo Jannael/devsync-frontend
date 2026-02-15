@@ -1,10 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { useForgotPassword } from '../../hook/mutation/auth/useForgotPassword.mutation'
-import { useVerifyForgotPassword } from '../../hook/mutation/auth/useVerifyForgotPassword.mutation'
+import { Fragment } from 'react'
+import useForgotPasswordComponent from '../../hook/component/auth/useForgotPassword.hook'
 import useLoginStore from '../../store/Login.store'
-import GetFormData from '../../utils/GetFormData.utils'
-import AccountValidator from '../../validator/fields/Account.validator'
-import { PasswordValidator } from '../../validator/fields/Password.schema'
 import Button from '../ui/Button.ui'
 import Form from '../ui/Form.ui'
 import Input from '../ui/Input.ui'
@@ -40,51 +36,14 @@ const inputs = [
 ]
 
 function ForgotPassword() {
-	const userInfo = useRef({
-		account: '',
-		password: '',
-	})
-
-	const [verifyCode, setVerifyCode] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-	const requestCodeMutation = useForgotPassword()
-	const verifyCodeMutation = useVerifyForgotPassword()
-
-	const handleRequestCode = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const data = GetFormData(e)
-		userInfo.current = {
-			account: data.account,
-			password: data.password,
-		}
-
-		try {
-			const isValidAccount = AccountValidator({ account: data.account })
-			if (!isValidAccount) throw new Error('Invalid account')
-			PasswordValidator({ password: data.password })
-			if (data.password !== data['confirm-password'])
-				throw new Error('Passwords do not match')
-
-			await requestCodeMutation.mutateAsync({ account: data.account })
-
-			setVerifyCode(true)
-		} catch (e) {
-			setError((e as Error).message)
-		}
-	}
-
-	const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const data = GetFormData(e)
-		try {
-			await verifyCodeMutation.mutateAsync({
-				code: data.code,
-				newPwd: userInfo.current.password,
-			})
-		} catch (e) {
-			setError((e as Error).message)
-		}
-	}
+	const {
+		handleRequestCode,
+		handleVerifyCode,
+		verifyCode,
+		error,
+		requestCodeMutation,
+		verifyCodeMutation,
+	} = useForgotPasswordComponent()
 
 	const inputsItems = inputs.map((input) => (
 		<Fragment key={input.id}>
