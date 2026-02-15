@@ -75,7 +75,9 @@ export function HomeNavbarItem({
 		<li>
 			<a
 				className={`py-1 px-2 md:py-2 md:px-3 rounded-full text-center transition-all duration-300 cursor-pointer flex items-center gap-1 md:gap-2 justify-center ${
-					active ? 'bg-primary text-contrast' : 'hover:bg-shade hover:text-accent'
+					active
+						? 'bg-primary text-contrast'
+						: 'hover:bg-shade hover:text-accent'
 				}`}
 				href={`#${children}`}
 			>

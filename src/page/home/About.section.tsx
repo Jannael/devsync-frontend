@@ -19,8 +19,8 @@ function About() {
 				<p className='w-full text-balance'>
 					The page design, it is inspired by some open source pages i use, such
 					as <Anchor href='https://cubedesk.io' name='CubeDesk' />,{' '}
-					<Anchor href='https://npmx.dev' name='Npmx' />{' '}
-					and <Anchor href='https://zustand-demo.pmnd.rs/' name='zustand' />.
+					<Anchor href='https://npmx.dev' name='Npmx' /> and{' '}
+					<Anchor href='https://zustand-demo.pmnd.rs/' name='zustand' />.
 				</p>
 				<br />
 				<p>
