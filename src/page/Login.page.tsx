@@ -1,4 +1,4 @@
-import VerifyCode from '../component/VerifyCode.component'
+import VerifyCode from '../component/auth/VerifyCode.component'
 
 function Login() {
 	return (
