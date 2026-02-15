@@ -1,10 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { useRequestLogin } from '../../hook/mutation/auth/useRequestLogin.mutation'
-import { useVerifyLogin } from '../../hook/mutation/auth/useVerifyLogin.mutation'
+import { Fragment } from 'react'
+import useLogin from '../../hook/component/auth/useLogin.hook'
 import useLoginStore from '../../store/Login.store'
-import GetFormData from '../../utils/GetFormData.utils'
-import AccountValidator from '../../validator/fields/Account.validator'
-import { PasswordValidator } from '../../validator/fields/Password.schema'
 import Button from '../ui/Button.ui'
 import Form from '../ui/Form.ui'
 import Input from '../ui/Input.ui'
@@ -33,14 +29,14 @@ const inputs = [
 ]
 
 function Login() {
-	const loginInfo = useRef({
-		account: '',
-		pwd: '',
-	})
-	const [error, setError] = useState<null | string>(null)
-	const [verifyCode, setVerifyCode] = useState(false)
-	const requestCode = useRequestLogin()
-	const verifyCodeMutation = useVerifyLogin()
+	const {
+		handleSubmit,
+		handleVerifyCode,
+		verifyCode,
+		error,
+		requestCode,
+		verifyCodeMutation,
+	} = useLogin()
 
 	const inputsItems = inputs.map((input) => (
 		<Fragment key={input.id}>
@@ -48,30 +44,6 @@ function Login() {
 			<Input {...input} />
 		</Fragment>
 	))
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const data = GetFormData(e)
-		loginInfo.current = {
-			account: data.account,
-			pwd: data.password,
-		}
-
-		try {
-			const isValid = AccountValidator({ account: data.account })
-			if (!isValid) throw new Error('Invalid account')
-			PasswordValidator({ password: data.password })
-			requestCode.mutate({ account: data.account, pwd: data.password })
-			setVerifyCode(true)
-		} catch (error) {
-			setError((error as Error).message)
-		}
-	}
-
-	const handleVerifyCode = (e: React.FormEvent<HTMLFormElement>) => {
-		const data = GetFormData(e)
-		verifyCodeMutation.mutate({ code: data.code })
-	}
 
 	return verifyCode ? (
 		<VerifyCode
