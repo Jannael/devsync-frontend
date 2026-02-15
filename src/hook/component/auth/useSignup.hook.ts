@@ -32,14 +32,14 @@ function useSignup() {
 			UserValidator({
 				data: userInfo,
 			})
+
+			await requestCode.mutateAsync({
+				account: data.email,
+			})
 		} catch (e) {
 			setError((e as Error).message)
 			return
 		}
-
-		await requestCode.mutateAsync({
-			account: data.email,
-		})
 
 		setVerifyCode(true)
 		formData.current = {
@@ -53,16 +53,19 @@ function useSignup() {
 	const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const data = GetFormData(e)
-		const res = await verifyCodeMutation.mutateAsync({
-			code: data.code,
-		})
-
-		if (res) {
-			await createUser.mutateAsync({
-				fullName: formData.current.fullName,
-				nickName: formData.current.nickName,
-				pwd: formData.current.pwd,
+		try {
+			const res = await verifyCodeMutation.mutateAsync({
+				code: data.code,
 			})
+			if (res) {
+				await createUser.mutateAsync({
+					fullName: formData.current.fullName,
+					nickName: formData.current.nickName,
+					pwd: formData.current.pwd,
+				})
+			}
+		} catch (e) {
+			setError((e as Error).message)
 		}
 	}
 

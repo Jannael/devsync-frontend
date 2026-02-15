@@ -15,7 +15,7 @@ function useLogin() {
 	const requestCode = useRequestLogin()
 	const verifyCodeMutation = useVerifyLogin()
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const data = GetFormData(e)
 		loginInfo.current = {
@@ -27,16 +27,23 @@ function useLogin() {
 			const isValid = AccountValidator({ account: data.account })
 			if (!isValid) throw new Error('Invalid account')
 			PasswordValidator({ password: data.password })
-			requestCode.mutate({ account: data.account, pwd: data.password })
+			await requestCode.mutateAsync({
+				account: data.account,
+				pwd: data.password,
+			})
 			setVerifyCode(true)
 		} catch (error) {
 			setError((error as Error).message)
 		}
 	}
 
-	const handleVerifyCode = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
 		const data = GetFormData(e)
-		verifyCodeMutation.mutate({ code: data.code })
+		try {
+			await verifyCodeMutation.mutateAsync({ code: data.code })
+		} catch (e) {
+			setError((e as Error).message)
+		}
 	}
 
 	return {
