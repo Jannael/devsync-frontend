@@ -1,7 +1,7 @@
 function About() {
 	return (
 		<section
-			className='my-60 flex items-center justify-center flex-col'
+			className='my-60 flex items-center justify-center flex-col px-10'
 			id='About'
 		>
 			<h2 className='text-6xl font-bold mb-5'>About</h2>

@@ -1,12 +1,18 @@
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 import { ROUTES } from './constant/Route.constant'
-import HomePage from './page/home/Home'
+
+const HomePage = lazy(() => import('./page/home/Home'))
+
+//todo: loading component
 
 function App() {
 	return (
-		<Routes>
-			<Route element={<HomePage />} path={ROUTES.HOME} />
-		</Routes>
+		<Suspense fallback={<div>Loading...</div>}> 
+			<Routes>
+				<Route element={<HomePage />} path={ROUTES.HOME} />
+			</Routes>
+		</Suspense>
 	)
 }
 
