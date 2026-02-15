@@ -5,7 +5,7 @@ function VerifyCode({
 }) {
 	return (
 		<form
-			className='flex flex-col gap-5 w-96 justify-around py-15 px-10 rounded-xl border-primary border'
+			className='flex flex-col gap-5 w-full max-w-md justify-around py-10 md:py-15 px-6 md:px-10 rounded-xl border-primary border'
 			onSubmit={onSubmit}
 		>
 			<h1 className='text-2xl font-bold mb-4'>Verify code</h1>
@@ -19,7 +19,7 @@ function VerifyCode({
 				type='text'
 			/>
 			<button
-				className='text-contrast py-2 rounded-full px-3 cursor-pointer bg-primary mt-5 hover:bg-shade hover:text-accent transition-all duration-300'
+				className='text-contrast py-2 rounded-full px-3 cursor-pointer bg-primary mt-5 hover:bg-shade hover:text-accent hover:border-accent hover:border-2 transition-all duration-300'
 				type='submit'
 			>
 				Verify
