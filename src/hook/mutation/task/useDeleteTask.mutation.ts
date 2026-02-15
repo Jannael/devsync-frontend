@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { TASK_KEYS } from '../../../constant/TaskKeys.constant'
+import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import TaskService from '../../../service/Task.service'
 
 export const useDeleteTask = () => {
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	const mutation = useMutation({
 		mutationFn: (args: { _id: string; groupId: string }) =>
 			TaskService.Delete(args),
 		onSuccess: (_, variables) => {
@@ -14,4 +15,11 @@ export const useDeleteTask = () => {
 			})
 		},
 	})
+
+	useShowErrorFromServer({
+		isError: mutation.isError,
+		error: mutation.error,
+	})
+
+	return mutation
 }

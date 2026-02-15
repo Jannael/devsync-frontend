@@ -21,10 +21,7 @@ export const api = async ({
 
 	if (!response.ok) {
 		const errorData = await response.json().catch(() => ({}))
-		throw {
-			msg: errorData.msg,
-			description: errorData.description,
-		}
+		throw new Error(`${errorData.msg}: ${errorData.description}`)
 	}
 
 	return response.json()

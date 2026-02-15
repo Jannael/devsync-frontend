@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SOLUTION_KEYS } from '../../../constant/SolutionKeys.constant'
+import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import SolutionService from '../../../service/Solution.service'
 
 export const useUpdateSolution = () => {
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	const mutation = useMutation({
 		mutationFn: (args: {
 			_id: string
 			groupId: string
@@ -24,4 +25,11 @@ export const useUpdateSolution = () => {
 			})
 		},
 	})
+
+	useShowErrorFromServer({
+		isError: mutation.isError,
+		error: mutation.error,
+	})
+
+	return mutation
 }

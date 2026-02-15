@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { TASK_KEYS } from '../../../constant/TaskKeys.constant'
+import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import TaskService from '../../../service/Task.service'
 
 export const useUpdateTask = () => {
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	const mutation = useMutation({
 		mutationFn: (args: {
 			_id: string
 			groupId: string
@@ -30,4 +31,11 @@ export const useUpdateTask = () => {
 			})
 		},
 	})
+
+	useShowErrorFromServer({
+		isError: mutation.isError,
+		error: mutation.error,
+	})
+
+	return mutation
 }

@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { GROUP_KEYS } from '../../../constant/GroupKeys.constant'
+import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import InvitationService from '../../../service/Invitation.service'
 
 export const useCancelInvitation = () => {
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	const mutation = useMutation({
 		mutationFn: (args: { groupId: string; account: string }) =>
 			InvitationService.Cancel(args),
 		onSuccess: (_, variables) => {
@@ -14,4 +15,11 @@ export const useCancelInvitation = () => {
 			})
 		},
 	})
+
+	useShowErrorFromServer({
+		isError: mutation.isError,
+		error: mutation.error,
+	})
+
+	return mutation
 }

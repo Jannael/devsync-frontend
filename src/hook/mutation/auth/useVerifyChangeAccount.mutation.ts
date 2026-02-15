@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AUTH_KEYS } from '../../../constant/AuthKeys.constant'
 import { USER_KEYS } from '../../../constant/UserKeys.constant'
+import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import AuthService from '../../../service/Auth.service'
 
 export const useVerifyChangeAccount = () => {
 	const queryClient = useQueryClient()
 
-	return useMutation({
+	const mutation = useMutation({
 		mutationFn: (data: {
 			codeCurrentAccount: string
 			codeNewAccount: string
@@ -16,4 +17,11 @@ export const useVerifyChangeAccount = () => {
 			queryClient.invalidateQueries({ queryKey: USER_KEYS.ALL })
 		},
 	})
+
+	useShowErrorFromServer({
+		isError: mutation.isError,
+		error: mutation.error,
+	})
+
+	return mutation
 }
