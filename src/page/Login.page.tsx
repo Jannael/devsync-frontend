@@ -1,8 +1,10 @@
-import VerifyCode from '../component/auth/VerifyCode.component'
+import Signup from '../component/auth/Signup.component'
+import Toaster from '../component/ui/Toaster.ui'
 
 function Login() {
 	return (
 		<div className='min-h-dvh bg-main flex justify-center items-center text-contrast p-4'>
+			<Toaster />
 			<div className='flex flex-col lg:flex-row size-full max-w-7xl gap-10 lg:gap-0'>
 				<div className='flex-1 flex flex-col justify-center items-center gap-5 text-center'>
 					<img
@@ -16,7 +18,7 @@ function Login() {
 				</div>
 				<article className='flex-1 flex justify-center items-center size-full'>
 					<div className='w-full flex justify-center items-center'>
-						<VerifyCode onSubmit={() => {}} />
+						<Signup />
 					</div>
 				</article>
 			</div>
