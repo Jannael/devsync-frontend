@@ -29,12 +29,10 @@ function useSignup() {
 		}
 
 		try {
-			console.log(userInfo)
 			UserValidator({
 				data: userInfo,
 			})
 		} catch (e) {
-			console.log(e)
 			setError((e as Error).message)
 			return
 		}

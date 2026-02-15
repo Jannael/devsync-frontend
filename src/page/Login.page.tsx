@@ -1,8 +1,12 @@
-import ForgotPassword from '../component/auth/ForgotPassword.component'
+import { lazy, Suspense } from 'react'
 import LoginComponent from '../component/auth/Login.component'
-import Signup from '../component/auth/Signup.component'
 import Toaster from '../component/ui/Toaster.ui'
 import useLoginStore from '../store/Login.store'
+
+const Signup = lazy(() => import('../component/auth/Signup.component'))
+const ForgotPassword = lazy(
+	() => import('../component/auth/ForgotPassword.component'),
+)
 
 function Login() {
 	const { show } = useLoginStore()
@@ -23,8 +27,10 @@ function Login() {
 				<article className='flex-1 flex justify-center items-center size-full'>
 					<div className='w-full flex justify-center items-center'>
 						{show === 'login' && <LoginComponent />}
-						{show === 'signup' && <Signup />}
-						{show === 'forgot-password' && <ForgotPassword />}
+						<Suspense fallback={<div>Loading...</div>}>
+							{show === 'signup' && <Signup />}
+							{show === 'forgot-password' && <ForgotPassword />}
+						</Suspense>
 					</div>
 				</article>
 			</div>
