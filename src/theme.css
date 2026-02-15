@@ -3,14 +3,6 @@
 		--color-main: #fbfbfb;
 		--color-contrast: #222;
 
-		--color-accent: #3d8f68;
-		--color-shade: #00cc99; /* shade color should be light in light mode so it's easy to reads*/
-
-		--color-accent-shadow: #3d8f6830;
-		--color-shade-shadow: #00cc9930;
-		--color-main-shadow: #22222230;
-		--color-contrast-shadow: #fbfbfb30;
-
 		--color-txt: #222;
 		--color-warning: #ec003f;
 	}

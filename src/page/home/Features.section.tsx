@@ -22,7 +22,7 @@ function FeaturesSection() {
 
 	return (
 		<section
-			className='flex flex-col md:flex-row items-center justify-center mt-10 md:mt-30 bg-shade rounded-xl p-10 gap-10'
+			className='flex flex-col md:flex-row items-center justify-center mt-10 md:mt-30 bg-primary rounded-xl p-10 gap-10'
 			id='Feature'
 		>
 			<div className='flex-1 flex justify-center'>

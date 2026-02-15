@@ -12,52 +12,38 @@ function About() {
 					best experience for users with the tech-skills i have, while keeping
 					it open source, if you have suggestions, issues or want to contribute
 					please visit the{' '}
-					<a
-						className='text-shade hover:text-accent transition-all duration-300'
-						href='https://github.com/jannael/devsync'
-					>
-						repository
-					</a>
-					,
+					<Anchor href='https://github.com/jannael/devsync' name='repository' />
+					.
 				</p>
 				<br />
 				<p className='w-full text-balance'>
 					The page design, it is inspired by some open source pages i use, such
-					as{' '}
-					<a
-						className='text-shade hover:text-accent transition-all duration-300'
-						href='https://cubedesk.io'
-					>
-						CubeDesk,{' '}
-					</a>
-					<a
-						className='text-shade hover:text-accent transition-all duration-300'
-						href='https://npmx.dev'
-					>
-						Npmx{' '}
-					</a>{' '}
-					and{' '}
-					<a
-						className='text-shade hover:text-accent transition-all duration-300'
-						href='https://zustand-demo.pmnd.rs/'
-					>
-						zustand
-					</a>
+					as <Anchor href='https://cubedesk.io' name='CubeDesk' />,{' '}
+					<Anchor href='https://npmx.dev' name='Npmx' />{' '}
+					and <Anchor href='https://zustand-demo.pmnd.rs/' name='zustand' />.
 				</p>
 				<br />
 				<p>
 					Brand art by{' '}
-					<a
-						className='text-shade hover:text-accent transition-all duration-300'
+					<Anchor
 						href='https://www.instagram.com/nat.chavez18?utm_source=ig_web_button_share_sheet'
-						rel='noopener'
-						target='_blank'
-					>
-						Natali Chavez
-					</a>
+						name='Natali Chavez'
+					/>
 				</p>
 			</div>
 		</section>
+	)
+}
+export function Anchor({ href, name }: { href: string; name: string }) {
+	return (
+		<a
+			className='text-primary/70 hover:text-accent transition-all duration-300'
+			href={href}
+			rel='noopener'
+			target='_blank'
+		>
+			{name}
+		</a>
 	)
 }
 

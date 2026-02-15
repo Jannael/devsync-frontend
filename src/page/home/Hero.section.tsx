@@ -26,7 +26,7 @@ function HeroSection() {
 					Task management and solution tracking
 				</p>
 				<Link
-					className='px-5 py-3 md:px-6 md:py-4 bg-shade w-fit rounded-full text-lg md:text-xl mt-3 hover:bg-accent transition-all duration-300 font-main'
+					className='px-5 py-3 md:px-6 md:py-4 bg-primary w-fit rounded-full text-lg md:text-xl mt-3 hover:bg-shade hover:text-accent transition-all duration-300 font-main'
 					to={ROUTES.MAIN}
 				>
 					Try now
