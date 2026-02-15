@@ -1,15 +1,20 @@
 @media (prefers-color-scheme: light) {
 	:root {
-		--color-main: #fbfbfb;
-		--color-contrast: #222;
+		--color-main: #ffffff;
+		--color-contrast: #111111;
 
-		--color-shade: #00dd7730;
-		--color-accent: #224422;
+		--color-primary: #05ae76;
+		--color-accent: #00ff80;
+		--color-shade: #00ffae10;
 
-		--color-shade-shadow: #00dd7730;
-		--color-accent-shadow: #22442230;
+		--color-main-shadow: #22222240;
+		--color-contrast-shadow: #fbfbfb40;
 
-		--color-txt: #222;
-		--color-warning: #ec003f;
+		--color-primary-shadow: #00cc8840;
+		--color-accent-shadow: #00855940;
+		--color-shade-shadow: #01b97f40;
+
+		--color-txt: #333;
+		--color-warning: #dc2626;
 	}
 }

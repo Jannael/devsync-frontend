@@ -1,25 +1,22 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-:root {
-	scroll-behavior: smooth;
-}
-
 @theme {
 	--font-main: "roboto", sans-serif;
 
 	--color-main: #222;
 	--color-contrast: #fbfbfb;
+
 	--color-primary: #00af77;
+	--color-accent: #00ffaa;
+	--color-shade: #006142;
 
-	--color-accent: #01cc88;
-	--color-shade: #113322;
-
-	--color-accent-shadow: #01cc8840;
-	--color-shade-shadow: #11332240;
 	--color-main-shadow: #22222240;
 	--color-contrast-shadow: #fbfbfb40;
-	--color-primary-shadow: #00aa7730;
+
+	--color-primary-shadow: #00af7740;
+	--color-accent-shadow: #00ffaa40;
+	--color-shade-shadow: #00614240;
 
 	--color-txt: #fbfbfd;
 	--color-warning: #ec003f;
