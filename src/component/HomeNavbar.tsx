@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function HomeNavbar({
-	navItems,
-}: {
-	navItems: { label: string; icon: React.ReactNode }[]
-}) {
+function useHomeNavBar(navItems: { label: string; icon: React.ReactNode }[]) {
 	const [activeSection, setActiveSection] = useState('Home')
 
 	useEffect(() => {
@@ -34,6 +30,16 @@ function HomeNavbar({
 			}
 		}
 	}, [navItems])
+
+	return { activeSection }
+}
+
+function HomeNavbar({
+	navItems,
+}: {
+	navItems: { label: string; icon: React.ReactNode }[]
+}) {
+	const { activeSection } = useHomeNavBar(navItems)
 
 	const items = navItems.map((item) => {
 		return (
