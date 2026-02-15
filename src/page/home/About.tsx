@@ -1,12 +1,12 @@
 function About() {
 	return (
 		<section
-			className='my-20 md:my-60 flex items-center justify-center flex-col px-6 md:px-10 text-center md:text-left'
+			className='my-20 md:my-60 flex items-center justify-center flex-col text-center md:text-balance w-full'
 			id='About'
 		>
 			<h2 className='text-4xl md:text-6xl font-bold mb-5'>About</h2>
-			<div className='text-lg md:text-2xl text-contrast/70 text-balance max-w-4xl'>
-				<p>
+			<div className='text-lg md:text-2xl text-contrast/70 max-w-4xl'>
+				<p className="w-full">
 					Devsync was designed for personal improvement as developer, because
 					it's my first real project, the goal it's to maintain it and keep the
 					best experience for users with the tech-skills i have, while keeping
@@ -21,7 +21,7 @@ function About() {
 					,
 				</p>
 				<br />
-				<p>
+				<p className="w-full text-balance">
 					The page design, it is inspired by some open source pages i use, such
 					as{' '}
 					<a
