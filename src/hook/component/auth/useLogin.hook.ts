@@ -4,6 +4,7 @@ import AccountValidator from '../../../validator/fields/Account.validator'
 import { PasswordValidator } from '../../../validator/fields/Password.schema'
 import { useRequestLogin } from '../../mutation/auth/useRequestLogin.mutation'
 import { useVerifyLogin } from '../../mutation/auth/useVerifyLogin.mutation'
+import { ROUTES } from '../../../constant/Route.constant'
 
 function useLogin() {
 	const loginInfo = useRef({
@@ -27,20 +28,24 @@ function useLogin() {
 			const isValid = AccountValidator({ account: data.account })
 			if (!isValid) throw new Error('Invalid account')
 			PasswordValidator({ password: data.password })
-			await requestCode.mutateAsync({
+			const res = await requestCode.mutateAsync({
 				account: data.account,
 				pwd: data.password,
 			})
-			setVerifyCode(true)
+			setError(null)
+			if (res) setVerifyCode(true)
 		} catch (error) {
 			setError((error as Error).message)
 		}
 	}
 
 	const handleVerifyCode = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		const data = GetFormData(e)
 		try {
-			await verifyCodeMutation.mutateAsync({ code: data.code })
+			const res = await verifyCodeMutation.mutateAsync({ code: data.code })
+			setError(null)
+			if (res) window.location.href = ROUTES.MAIN
 		} catch (e) {
 			setError((e as Error).message)
 		}

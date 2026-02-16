@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { ROUTES } from '../../../constant/Route.constant'
 import GetFormData from '../../../utils/GetFormData.utils'
 import AccountValidator from '../../../validator/fields/Account.validator'
 import { PasswordValidator } from '../../../validator/fields/Password.schema'
@@ -31,9 +32,9 @@ function useForgotPasswordComponent() {
 			if (data.password !== data['confirm-password'])
 				throw new Error('Passwords do not match')
 
-			await requestCodeMutation.mutateAsync({ account: data.account })
-
-			setVerifyCode(true)
+			const res = await requestCodeMutation.mutateAsync({ account: data.account })
+			setError(null)
+			if (res) setVerifyCode(true)
 		} catch (e) {
 			setError((e as Error).message)
 		}
@@ -43,10 +44,12 @@ function useForgotPasswordComponent() {
 		e.preventDefault()
 		const data = GetFormData(e)
 		try {
-			await verifyCodeMutation.mutateAsync({
+			const res = await verifyCodeMutation.mutateAsync({
 				code: data.code,
 				newPwd: userInfo.current.password,
 			})
+			setError(null)
+			if (res) window.location.href = ROUTES.MAIN
 		} catch (e) {
 			setError((e as Error).message)
 		}

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import useSignup from '../../hook/component/auth/useSignUp.hook'
+import useSignup from '../../hook/component/auth/useSignup.hook'
 import useLoginStore from '../../store/Login.store'
 import Button from '../ui/Button.ui'
 import Form from '../ui/Form.ui'
