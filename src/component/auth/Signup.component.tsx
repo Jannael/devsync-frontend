@@ -22,7 +22,7 @@ const inputs = [
 	{
 		id: 'nickName',
 		name: 'nickName',
-		label: 'Nick name (optional)',
+		label: 'Nick name',
 		placeholder: 'Firefly killer',
 		type: 'text',
 	},
