@@ -35,7 +35,6 @@ const currentPrimaryColor = localStorage.getItem('primaryColor')
 
 const useThemeStore = create<ThemeStore>((set) => ({
 	isDarkTheme: (localStorage.getItem('theme') || systemTheme) === 'dark',
-
 	accentColor: currentAccentColor as AccentColor,
 	bgShade: currentBgShade as BgShade,
 	primaryColor: currentPrimaryColor as PrimaryColor,
@@ -72,7 +71,6 @@ const useThemeStore = create<ThemeStore>((set) => ({
 			primaryColor: primary as PrimaryColor,
 		})
 	},
-
 	setAccentColor: (color) => {
 		localStorage.setItem('accentColor', color)
 		document.documentElement.style.setProperty('--color-accent', color)
