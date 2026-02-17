@@ -1,4 +1,4 @@
-import HomeNavbar from '../../component/HomeNavbar.component'
+import HomeNavbar from '../../component/Navbar.component'
 import { AboutIcon, FeaturesIcon, HomeIcon } from '../../Icon'
 import About from './About.section'
 import FeaturesSection from './Features.section'

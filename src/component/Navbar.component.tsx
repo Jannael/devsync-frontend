@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
-function useHomeNavBar(navItems: { label: string; icon: React.ReactNode }[]) {
+function useNavBar(
+	navItems: { label: string; icon: React.ReactNode }[],
+	activeSectionProp?: string,
+	cb?: (section: string) => void,
+) {
 	const [activeSection, setActiveSection] = useState('Home')
 
 	useEffect(() => {
@@ -11,6 +15,7 @@ function useHomeNavBar(navItems: { label: string; icon: React.ReactNode }[]) {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						setActiveSection(entry.target.id)
+						if (cb) cb(entry.target.id)
 					}
 				})
 			},
@@ -29,50 +34,61 @@ function useHomeNavBar(navItems: { label: string; icon: React.ReactNode }[]) {
 				if (section) observer.unobserve(section)
 			}
 		}
-	}, [navItems])
+	}, [navItems, cb])
 
-	return { activeSection }
+	return { activeSection: activeSectionProp || activeSection }
 }
 
-function HomeNavbar({
+function Navbar({
 	navItems,
+	cb,
+	activeSection,
 }: {
 	navItems: { label: string; icon: React.ReactNode }[]
+	cb?: (section: string) => void
+	activeSection?: string
 }) {
-	const { activeSection } = useHomeNavBar(navItems)
+	const { activeSection: currentActiveSection } = useNavBar(
+		navItems,
+		activeSection,
+		cb,
+	)
 
 	const items = navItems.map((item) => {
 		return (
-			<HomeNavbarItem
-				active={activeSection === item.label}
+			<NavbarItem
+				active={currentActiveSection === item.label}
 				icon={item.icon}
 				key={item.label}
+				onClick={() => cb?.(item.label)}
 			>
 				{item.label}
-			</HomeNavbarItem>
+			</NavbarItem>
 		)
 	})
 
 	return (
 		<nav className='flex w-full items-center justify-center font-main mt-5 md:mt-10 fixed top-0 left-0 z-50 px-4'>
-			<ul className='flex text-sm md:text-xl gap-2 md:gap-4 shadow-xl rounded-full p-2 md:p-3 bg-main text-txt shadow-primary-shadow transition-all duration-300'>
+			<ul className='flex text-sm md:text-xl gap-2 md:gap-4 shadow-xl rounded-full p-1 md:p-2 bg-main text-txt shadow-primary-shadow transition-all duration-300'>
 				{items}
 			</ul>
 		</nav>
 	)
 }
 
-export function HomeNavbarItem({
+export function NavbarItem({
 	children,
 	icon,
 	active,
+	onClick,
 }: {
 	children: React.ReactNode
 	icon: React.ReactNode
 	active: boolean
+	onClick?: () => void
 }) {
 	return (
-		<li>
+		<li className='w-fit' onClick={onClick}>
 			<a
 				className={`py-1 px-2 md:py-2 md:px-3 rounded-full text-center transition-all duration-300 cursor-pointer flex items-center gap-1 md:gap-2 justify-center ${
 					active ? 'bg-primary text-txt' : 'hover:bg-shade hover:text-accent'
@@ -86,4 +102,4 @@ export function HomeNavbarItem({
 	)
 }
 
-export default HomeNavbar
+export default Navbar

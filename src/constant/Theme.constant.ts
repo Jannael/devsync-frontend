@@ -13,7 +13,7 @@ export const defaultAccentColor = {
 }
 
 export const defaultBgShade = {
-	dark: '#006142',
+	dark: '#002111',
 	light: '#00ffae10',
 }
 
