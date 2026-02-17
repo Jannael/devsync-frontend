@@ -1,0 +1,55 @@
+import Button from '../component/ui/Button.ui'
+import { useRequestCode } from '../hook/mutation/auth/useRequestCode.mutation'
+import { useGetUser } from '../hook/query/user/useGetUser.query'
+import { useDangerZoneStore } from '../store/DangerZone.store'
+import DeleteUserModal from './modal/DeleteAccount.modal'
+import LogoutModal from './modal/Logout.modal'
+import UpdateAccountModal from './modal/UpdateAccount.modal'
+
+function DangerZone() {
+	const requestCodeMutation = useRequestCode()
+	const { data: user } = useGetUser()
+
+	const handleDeleteAccountRequest = async () => {
+		requestCodeMutation.mutate({ account: user?.account ?? '' })
+		useDangerZoneStore.setState({ showDeleteAccountModal: true })
+	}
+
+	return (
+		<section className='flex gap-8 flex-col border-warning border-2 p-4 rounded-lg'>
+			<h2 className='text-2xl font-bold text-warning'>Danger Zone</h2>
+			<Button
+				block={false}
+				onClick={() =>
+					useDangerZoneStore.setState({ showUpdateAccountModal: true })
+				}
+				type='button'
+				variant='destructive'
+			>
+				Change account
+			</Button>
+			<Button
+				block={false}
+				onClick={() => useDangerZoneStore.setState({ showLogoutModal: true })}
+				type='button'
+				variant='destructive'
+			>
+				Logout
+			</Button>
+			<Button
+				block={false}
+				onClick={handleDeleteAccountRequest}
+				type='button'
+				variant='destructive'
+			>
+				Delete account
+			</Button>
+
+			<LogoutModal />
+			<UpdateAccountModal />
+			<DeleteUserModal />
+		</section>
+	)
+}
+
+export default DangerZone
