@@ -16,10 +16,12 @@ function ColorPicker({
 	colors,
 	label,
 	onClick,
+	currentColor,
 }: {
 	colors: readonly string[]
 	label: string
 	onClick: (color: string) => void
+	currentColor: string
 }) {
 	return (
 		<div className='flex gap-2 justify-between'>
@@ -27,7 +29,8 @@ function ColorPicker({
 			<div className='flex gap-2'>
 				{colors.map((color) => (
 					<button
-						className='w-8 h-8 rounded-full cursor-pointer'
+						className={`w-8 h-8 rounded-full cursor-pointer border-2
+						 ${currentColor === color ? 'border-contrast' : 'border-transparent'}`}
 						id={label}
 						key={color}
 						onClick={() => onClick(color)}
@@ -41,10 +44,15 @@ function ColorPicker({
 }
 
 function Settings() {
-	const setAccentColor = useThemeStore((state) => state.setAccentColor)
-	const setBgShade = useThemeStore((state) => state.setBgShade)
-	const setPrimaryColor = useThemeStore((state) => state.setPrimaryColor)
-	const setIsDarkTheme = useThemeStore((state) => state.setTheme)
+	const {
+		accentColor,
+		bgShade,
+		primaryColor,
+		setAccentColor,
+		setBgShade,
+		setPrimaryColor,
+		setTheme,
+	} = useThemeStore()
 
 	return (
 		<div className='min-h-dvh bg-main flex justify-center text-txt p-4 font-main'>
@@ -77,9 +85,9 @@ function Settings() {
 								onChange={(e) => {
 									const selected = e.target.value
 									if (selected === 'system') {
-										setIsDarkTheme(systemTheme ? 'dark' : 'light')
+										setTheme(systemTheme)
 									} else {
-										setIsDarkTheme(selected as 'dark' | 'light')
+										setTheme(selected as 'dark' | 'light')
 									}
 								}}
 							>
@@ -90,6 +98,7 @@ function Settings() {
 						</div>
 						<ColorPicker
 							colors={accentColors}
+							currentColor={accentColor}
 							label='Accent Color'
 							onClick={(color) =>
 								setAccentColor(color as (typeof accentColors)[number])
@@ -97,6 +106,7 @@ function Settings() {
 						/>
 						<ColorPicker
 							colors={bgShades}
+							currentColor={bgShade}
 							label='Background Shade'
 							onClick={(color) =>
 								setBgShade(color as (typeof bgShades)[number])
@@ -104,6 +114,7 @@ function Settings() {
 						/>
 						<ColorPicker
 							colors={primaryColors}
+							currentColor={primaryColor}
 							label='Primary Color'
 							onClick={(color) =>
 								setPrimaryColor(color as (typeof primaryColors)[number])

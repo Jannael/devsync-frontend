@@ -9,5 +9,31 @@
   <body class="font-main">
     <div id="root" class="font-main"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      const theme = localStorage.getItem("theme");
+      const accentColor = localStorage.getItem("accentColor");
+      const shade = localStorage.getItem("shade");
+      const primaryColor = localStorage.getItem("primaryColor");
+      const root = document.documentElement;
+
+      if (theme) {
+        root.setAttribute("data-theme", theme);
+      }
+
+      if (accentColor) {
+        root.style.setProperty("--color-accent", accentColor);
+        root.style.setProperty("--color-accent-shadow", `${accentColor}40`);
+      }
+
+      if (shade) {
+        root.style.setProperty("--color-shade", shade);
+        root.style.setProperty("--color-shade-shadow", `${shade}40`);
+      }
+
+      if (primaryColor) {
+        root.style.setProperty("--color-primary", primaryColor);
+        root.style.setProperty("--color-primary-shadow", `${primaryColor}40`);
+      }
+    </script>
   </body>
 </html>
