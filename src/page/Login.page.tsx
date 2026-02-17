@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import LoginComponent from '../component/auth/Login.component'
 import Toaster from '../component/ui/Toaster.ui'
+import { fullLogo } from '../constant/Images.constant'
 import useLoginStore from '../store/Login.store'
 
 const Signup = lazy(() => import('../component/auth/Signup.component'))
@@ -18,7 +19,7 @@ function Login() {
 					<img
 						alt='Devsync brand'
 						className='w-64 md:w-80 lg:w-96 drop-shadow-xl drop-shadow-primary-shadow'
-						src='/full logo.png'
+						src={fullLogo}
 					/>
 					<p className='text-lg md:text-xl font-bold text-txt/80'>
 						Less stuff better solutions
