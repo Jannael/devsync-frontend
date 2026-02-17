@@ -10,19 +10,30 @@ function VerifyCode({
 	onSubmit,
 	block,
 	error,
+	variant,
 }: {
 	block: boolean
 	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 	error: string | null
+	variant?: 'default' | 'destructive'
 }) {
 	return (
-		<Form onSubmit={onSubmit}>
+		<Form
+			className={variant === 'destructive' ? 'border-warning' : ''}
+			onSubmit={onSubmit}
+		>
 			<Title>Verify code</Title>
 			<P>We have sent you a code to your email please verify it</P>
 			<Label id='code'>Code</Label>
-			<Input id='code' name='code' placeholder='1234' type='text' />
+			<Input
+				id='code'
+				name='code'
+				placeholder='1234'
+				type='text'
+				variant={variant ?? 'default'}
+			/>
 			{error && <Warning message={error} />}
-			<Button block={block} type='submit'>
+			<Button block={block} type='submit' variant={variant ?? 'default'}>
 				Verify
 			</Button>
 		</Form>
