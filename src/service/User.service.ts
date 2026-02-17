@@ -22,7 +22,7 @@ const UserService = {
 
 		return user
 	},
-	GetGroups: async (): Promise<UserInvitationListItem[]> => {
+	GetGroups: async (): Promise<UserGroupListItem[]> => {
 		const res = await api({
 			endpoint: `${route}/get/group/`,
 			options: {

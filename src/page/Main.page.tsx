@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import FullLogo from '../assets/FullLogo'
+import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
 import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckListIcon, ListIcon, TerminalIcon } from '../Icon'
@@ -21,11 +21,9 @@ function Main() {
 	const Sections = () => {
 		return (
 			<>
-				<div className='flex-1 h-screen bg-green-800' id='Groups'>
-					<FullLogo />
-				</div>
-				<div className='flex-3 h-screen bg-red-800' id='Task'></div>
-				<div className='flex-1 h-screen bg-blue-800' id='Tasks'></div>
+				<GroupsMenu />
+				<div className='flex-3 h-full bg-red-800' id='Task'></div>
+				<div className='flex-1 h-full bg-blue-800' id='Tasks'></div>
 			</>
 		)
 	}
@@ -33,21 +31,21 @@ function Main() {
 	const CurrentSection = () => {
 		return (
 			<>
-				{activeSection === 'Groups' && (
-					<div className='flex-1 h-screen bg-green-800' id='Groups'></div>
-				)}
+				{activeSection === 'Groups' && <GroupsMenu />}
 				{activeSection === 'Task' && (
-					<div className='flex-3 h-screen bg-red-800' id='Task'></div>
+					<div className='flex-3 h-full bg-red-800' id='Task'></div>
 				)}
 				{activeSection === 'Tasks' && (
-					<div className='flex-1 h-screen bg-blue-800' id='Tasks'></div>
+					<div className='flex-1 h-full bg-blue-800' id='Tasks'></div>
 				)}
 			</>
 		)
 	}
 
 	return (
-		<div className='flex h-screen w-screen bg-main'>
+		<div
+			className={`flex h-screen w-screen text-txt bg-main ${isMobile ? 'pt-18' : ''}`}
+		>
 			{isMobile && (
 				<Navbar
 					cb={(section) => setActiveSection(section)}
