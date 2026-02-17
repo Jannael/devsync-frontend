@@ -8,9 +8,9 @@ import Title from './ui/Title.ui'
 function Logout() {
 	const logoutMutation = useLogout()
 
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		logoutMutation.mutate()
+		await logoutMutation.mutateAsync()
 		window.location.href = ROUTES.LOGIN
 	}
 
@@ -18,7 +18,11 @@ function Logout() {
 		<Form className='border-warning' onSubmit={onSubmit}>
 			<Title>Logout</Title>
 			<P>Are you sure you want to logout?</P>
-			<Button block={false} type='submit' variant='destructive'>
+			<Button
+				block={logoutMutation.isPending}
+				type='submit'
+				variant='destructive'
+			>
 				Logout
 			</Button>
 		</Form>

@@ -115,7 +115,7 @@ const AuthService = {
 	},
 	Logout: async () => {
 		const res = await api({
-			endpoint: `${route}/logout/`,
+			endpoint: `${route}/request/logout/`,
 			options: {
 				method: 'POST',
 			},
