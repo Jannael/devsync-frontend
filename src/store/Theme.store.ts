@@ -1,21 +1,24 @@
 import { create } from 'zustand'
 import {
-	type accentColors,
-	type bgShades,
+	type AccentColor,
+	type BgShade,
+	defaultAccentColor,
+	defaultBgShade,
+	defaultPrimaryColor,
 	defaultTheme,
-	type primaryColors,
+	type PrimaryColor,
 	systemTheme,
 } from '../constant/Theme.constant'
 
 interface ThemeStore {
 	isDarkTheme: boolean
-	accentColor: (typeof accentColors)[number]
-	bgShade: (typeof bgShades)[number]
-	primaryColor: (typeof primaryColors)[number]
+	accentColor: AccentColor
+	bgShade: BgShade
+	primaryColor: PrimaryColor
 	setTheme: (theme: 'light' | 'dark') => void
-	setAccentColor: (color: (typeof accentColors)[number]) => void
-	setBgShade: (shade: (typeof bgShades)[number]) => void
-	setPrimaryColor: (color: (typeof primaryColors)[number]) => void
+	setAccentColor: (color: AccentColor) => void
+	setBgShade: (shade: BgShade) => void
+	setPrimaryColor: (color: PrimaryColor) => void
 }
 
 const currentAccentColor = localStorage.getItem('accentColor')
@@ -31,17 +34,45 @@ const currentPrimaryColor = localStorage.getItem('primaryColor')
 	: defaultTheme.primaryColor
 
 const useThemeStore = create<ThemeStore>((set) => ({
-	isDarkTheme: systemTheme === 'dark', // for images constants
+	isDarkTheme: (localStorage.getItem('theme') || systemTheme) === 'dark',
 
-	accentColor: currentAccentColor as (typeof accentColors)[number],
-	bgShade: currentBgShade as (typeof bgShades)[number],
-	primaryColor: currentPrimaryColor as (typeof primaryColors)[number],
+	accentColor: currentAccentColor as AccentColor,
+	bgShade: currentBgShade as BgShade,
+	primaryColor: currentPrimaryColor as PrimaryColor,
 
 	setTheme: (theme) => {
+		const accent = defaultAccentColor[theme]
+		const shade = defaultBgShade[theme]
+		const primary = defaultPrimaryColor[theme]
+
 		localStorage.setItem('theme', theme)
 		document.documentElement.setAttribute('data-theme', theme)
-		set({ isDarkTheme: theme === 'dark' })
+
+		localStorage.setItem('accentColor', accent)
+		document.documentElement.style.setProperty('--color-accent', accent)
+		document.documentElement.style.setProperty(
+			'--color-accent-shadow',
+			`${accent}40`,
+		)
+
+		localStorage.setItem('shade', shade)
+		document.documentElement.style.setProperty('--color-shade', shade)
+
+		localStorage.setItem('primaryColor', primary)
+		document.documentElement.style.setProperty('--color-primary', primary)
+		document.documentElement.style.setProperty(
+			'--color-primary-shadow',
+			`${primary}40`,
+		)
+
+		set({
+			isDarkTheme: theme === 'dark',
+			accentColor: accent as AccentColor,
+			bgShade: shade as BgShade,
+			primaryColor: primary as PrimaryColor,
+		})
 	},
+
 	setAccentColor: (color) => {
 		localStorage.setItem('accentColor', color)
 		document.documentElement.style.setProperty('--color-accent', color)
@@ -54,10 +85,6 @@ const useThemeStore = create<ThemeStore>((set) => ({
 	setBgShade: (shade) => {
 		localStorage.setItem('shade', shade)
 		document.documentElement.style.setProperty('--color-shade', shade)
-		document.documentElement.style.setProperty(
-			'--color-shade-shadow',
-			`${shade}40`,
-		)
 		set({ bgShade: shade })
 	},
 	setPrimaryColor: (color) => {

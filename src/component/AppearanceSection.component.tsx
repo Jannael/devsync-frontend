@@ -2,15 +2,16 @@ import ColorPicker from '../component/ui/ColorPicker.ui'
 import Label from '../component/ui/Label.ui'
 import Select from '../component/ui/Select.ui'
 import {
-	accentColors,
-	bgShades,
-	primaryColors,
+	accentColorsObj,
+	bgShadesObj,
+	primaryColorsObj,
 	systemTheme,
 } from '../constant/Theme.constant'
 import useThemeStore from '../store/Theme.store'
 
 function AppearanceSection() {
 	const {
+		isDarkTheme,
 		accentColor,
 		bgShade,
 		primaryColor,
@@ -19,6 +20,11 @@ function AppearanceSection() {
 		setPrimaryColor,
 		setTheme,
 	} = useThemeStore()
+
+	const currentTheme = isDarkTheme ? 'dark' : 'light'
+	const accentColors = accentColorsObj[currentTheme]
+	const bgShades = bgShadesObj[currentTheme]
+	const primaryColors = primaryColorsObj[currentTheme]
 
 	const handleChangeTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selected = e.target.value
