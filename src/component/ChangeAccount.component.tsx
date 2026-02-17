@@ -58,6 +58,7 @@ function UpdateAccount() {
 			<Label id='newAccount'>New account</Label>
 			<Input
 				id='newAccount'
+				key='newAccount'
 				name='newAccount'
 				placeholder='example@gmail.com'
 				type='text'
@@ -81,6 +82,7 @@ function UpdateAccount() {
 			<Label id='currentAccountCode'>Current account code</Label>
 			<Input
 				id='currentAccountCode'
+				key='currentAccountCode'
 				name='currentAccountCode'
 				placeholder='1234'
 				type='text'
@@ -90,6 +92,7 @@ function UpdateAccount() {
 			<Label id='newAccountCode'>New account code</Label>
 			<Input
 				id='newAccountCode'
+				key='newAccountCode'
 				name='newAccountCode'
 				placeholder='1234'
 				type='text'

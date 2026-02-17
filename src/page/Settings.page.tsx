@@ -53,7 +53,10 @@ function Settings() {
 			<Toaster />
 			<div className='w-full max-w-7xl'>
 				<Header>
-					<h1 className='text-4xl font-bold'>Settings</h1>
+					<div className='flex flex-col gap-2'>
+						<h1 className='text-4xl font-bold'>Settings</h1>
+						<p className='text-xl text-txt/80'>{user?.account}</p>
+					</div>
 					<Link to={ROUTES.MAIN}>
 						Back
 						<ArrowLeftIcon />
