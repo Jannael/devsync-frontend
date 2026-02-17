@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import FullLogo from '../assets/FullLogo'
 import Navbar from '../component/Navbar.component'
 import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckListIcon, ListIcon, TerminalIcon } from '../Icon'
@@ -20,7 +21,9 @@ function Main() {
 	const Sections = () => {
 		return (
 			<>
-				<div className='flex-1 h-screen bg-green-800' id='Groups'></div>
+				<div className='flex-1 h-screen bg-green-800' id='Groups'>
+					<FullLogo />
+				</div>
 				<div className='flex-3 h-screen bg-red-800' id='Task'></div>
 				<div className='flex-1 h-screen bg-blue-800' id='Tasks'></div>
 			</>
@@ -44,7 +47,7 @@ function Main() {
 	}
 
 	return (
-		<div className='flex h-screen w-screen'>
+		<div className='flex h-screen w-screen bg-main'>
 			{isMobile && (
 				<Navbar
 					cb={(section) => setActiveSection(section)}
