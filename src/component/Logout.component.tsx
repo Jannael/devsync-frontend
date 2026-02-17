@@ -10,8 +10,8 @@ function Logout() {
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		await logoutMutation.mutateAsync()
-		window.location.href = ROUTES.LOGIN
+		const res = await logoutMutation.mutateAsync()
+		if (res) window.location.href = ROUTES.LOGIN
 	}
 
 	return (

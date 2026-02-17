@@ -20,7 +20,7 @@ function VerifyCode({
 			<Title>Verify code</Title>
 			<P>We have sent you a code to your email please verify it</P>
 			<Label id='code'>Code</Label>
-			<Input id='code' name='code' placeholder='code' type='text' />
+			<Input id='code' name='code' placeholder='1234' type='text' />
 			{error && <Warning message={error} />}
 			<Button block={block} type='submit'>
 				Verify

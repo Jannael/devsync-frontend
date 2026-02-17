@@ -7,6 +7,7 @@ function Input({
 	value,
 	onChange,
 	id,
+	variant,
 }: {
 	name: string
 	placeholder: string
@@ -14,12 +15,16 @@ function Input({
 	value?: string
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	id: string
+	variant?: 'default' | 'destructive'
 }) {
 	const [innerVal, setInnerVal] = useState(value || '')
 
 	return (
 		<input
-			className='border border-contrast/50 p-2 rounded-full focus:border-accent focus:outline-none transition-all duration-300 px-4'
+			className={`border p-2 rounded-full 
+				${variant === 'destructive' ? 'border-warning' : 'border-contrast/50'}
+				${variant === 'destructive' ? 'focus:border-warning' : 'focus:border-accent'}
+				focus:outline-none transition-all duration-300 px-4`}
 			id={id}
 			name={name}
 			onChange={(e) => {

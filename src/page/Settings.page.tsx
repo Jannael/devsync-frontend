@@ -1,4 +1,5 @@
 import AppearanceSection from '../component/AppearanceSection.component'
+import UpdateAccount from '../component/ChangeAccount.component'
 import Logout from '../component/Logout.component'
 import UserSection from '../component/UserSection.component'
 import Button from '../component/ui/Button.ui'
@@ -8,9 +9,7 @@ import Overlay from '../component/ui/Overlay.ui'
 import Toaster from '../component/ui/Toaster.ui'
 import { ROUTES } from '../constant/Route.constant'
 import { ArrowLeftIcon } from '../Icon'
-import {
-	useDangerZoneStore,
-} from '../store/DangerZone.store'
+import { useDangerZoneStore } from '../store/DangerZone.store'
 
 function Settings() {
 	const { showUpdateAccountModal, showLogoutModal, showDeleteAccountModal } =
@@ -62,6 +61,15 @@ function Settings() {
 								}
 							>
 								<Logout />
+							</Overlay>
+						)}
+						{showUpdateAccountModal && (
+							<Overlay
+								setShow={() =>
+									useDangerZoneStore.setState({ showUpdateAccountModal: false })
+								}
+							>
+								<UpdateAccount />
 							</Overlay>
 						)}
 					</section>
