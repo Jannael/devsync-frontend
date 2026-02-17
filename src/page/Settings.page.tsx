@@ -1,11 +1,51 @@
 import UserSection from '../component/UserSection.component'
 import Button from '../component/ui/Button.ui'
 import Header from '../component/ui/Header.ui'
+import Label from '../component/ui/Label.ui'
 import Toaster from '../component/ui/Toaster.ui'
 import { ROUTES } from '../constant/Route.constant'
 import { ArrowLeftIcon } from '../Icon'
+import useThemeStore, {
+	accentColors,
+	bgShades,
+	primaryColors,
+	systemTheme,
+} from '../store/Theme.store'
+
+function ColorPicker({
+	colors,
+	label,
+	onClick,
+}: {
+	colors: readonly string[]
+	label: string
+	onClick: (color: string) => void
+}) {
+	return (
+		<div className='flex gap-2 justify-between'>
+			<Label id={label}>{label}</Label>
+			<div className='flex gap-2'>
+				{colors.map((color) => (
+					<button
+						className='w-8 h-8 rounded-full cursor-pointer'
+						id={label}
+						key={color}
+						onClick={() => onClick(color)}
+						style={{ backgroundColor: color }}
+						type='button'
+					/>
+				))}
+			</div>
+		</div>
+	)
+}
 
 function Settings() {
+	const setAccentColor = useThemeStore((state) => state.setAccentColor)
+	const setBgShade = useThemeStore((state) => state.setBgShade)
+	const setPrimaryColor = useThemeStore((state) => state.setPrimaryColor)
+	const setIsDarkTheme = useThemeStore((state) => state.setTheme)
+
 	return (
 		<div className='min-h-dvh bg-main flex justify-center text-txt p-4 font-main'>
 			<Toaster />
@@ -24,8 +64,52 @@ function Settings() {
 						<ArrowLeftIcon />
 					</Button>
 				</Header>
-				<main className=''>
+				<main className='flex gap-8 flex-col'>
 					<UserSection />
+					<section className='flex gap-8 flex-col px-8 border-primary border-2 rounded-xl py-6'>
+						<h2 className='text-2xl font-bold'>Appearance</h2>
+						<div className='flex flex-col gap-4'>
+							<Label id='theme-select'>Theme</Label>
+							<select
+								className='bg-main border-primary border-2 rounded-xl px-4 py-2'
+								id='theme-select'
+								name='theme'
+								onChange={(e) => {
+									const selected = e.target.value
+									if (selected === 'system') {
+										setIsDarkTheme(systemTheme ? 'dark' : 'light')
+									} else {
+										setIsDarkTheme(selected as 'dark' | 'light')
+									}
+								}}
+							>
+								<option value='system'>System</option>
+								<option value='light'>Light</option>
+								<option value='dark'>Dark</option>
+							</select>
+						</div>
+						<ColorPicker
+							colors={accentColors}
+							label='Accent Color'
+							onClick={(color) =>
+								setAccentColor(color as (typeof accentColors)[number])
+							}
+						/>
+						<ColorPicker
+							colors={bgShades}
+							label='Background Shade'
+							onClick={(color) =>
+								setBgShade(color as (typeof bgShades)[number])
+							}
+						/>
+						<ColorPicker
+							colors={primaryColors}
+							label='Primary Color'
+							onClick={(color) =>
+								setPrimaryColor(color as (typeof primaryColors)[number])
+							}
+						/>
+					</section>
 				</main>
 			</div>
 		</div>
