@@ -36,7 +36,7 @@ export const api = async ({
 	if (!response.ok) {
 		const errorData = await response.json().catch(() => ({}))
 
-		if (errorData.msg === 'access token is invalid' && _retryCount < 3) {
+		if (errorData.msg === 'Access token is invalid' && _retryCount < 3) {
 			if (!isRefreshing) {
 				isRefreshing = true
 				AuthService.RequestAccessToken()
@@ -57,7 +57,7 @@ export const api = async ({
 			})
 		}
 
-		if (errorData.msg === 'refresh token is invalid') {
+		if (errorData.msg === 'Refresh token is invalid') {
 			toast.error('Your session has expired. Please login again.')
 			window.location.href = ROUTES.LOGIN
 		}

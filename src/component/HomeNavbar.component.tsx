@@ -55,7 +55,7 @@ function HomeNavbar({
 
 	return (
 		<nav className='flex w-full items-center justify-center font-main mt-5 md:mt-10 fixed top-0 left-0 z-50 px-4'>
-			<ul className='flex text-sm md:text-xl gap-2 md:gap-4 shadow-xl rounded-full p-2 md:p-3 bg-main text-contrast shadow-primary-shadow transition-all duration-300'>
+			<ul className='flex text-sm md:text-xl gap-2 md:gap-4 shadow-xl rounded-full p-2 md:p-3 bg-main text-txt shadow-primary-shadow transition-all duration-300'>
 				{items}
 			</ul>
 		</nav>
@@ -75,9 +75,7 @@ export function HomeNavbarItem({
 		<li>
 			<a
 				className={`py-1 px-2 md:py-2 md:px-3 rounded-full text-center transition-all duration-300 cursor-pointer flex items-center gap-1 md:gap-2 justify-center ${
-					active
-						? 'bg-primary text-contrast'
-						: 'hover:bg-shade hover:text-accent'
+					active ? 'bg-primary text-txt' : 'hover:bg-shade hover:text-accent'
 				}`}
 				href={`#${children}`}
 			>

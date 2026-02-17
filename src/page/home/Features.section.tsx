@@ -11,7 +11,7 @@ function FeaturesSection() {
 	const featureItems = features.map((feature) => {
 		return (
 			<li
-				className='flex items-center gap-3 md:gap-5 [&>svg]:text-contrast text-lg md:text-2xl text-contrast/80'
+				className='flex items-center gap-3 md:gap-5 [&>svg]:text-txt text-lg md:text-2xl text-txt/80'
 				key={feature}
 			>
 				<CheckIcon />

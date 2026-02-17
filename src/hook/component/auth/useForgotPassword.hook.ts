@@ -32,7 +32,9 @@ function useForgotPasswordComponent() {
 			if (data.password !== data['confirm-password'])
 				throw new Error('Passwords do not match')
 
-			const res = await requestCodeMutation.mutateAsync({ account: data.account })
+			const res = await requestCodeMutation.mutateAsync({
+				account: data.account,
+			})
 			setError(null)
 			if (res) setVerifyCode(true)
 		} catch (e) {

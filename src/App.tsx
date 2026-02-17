@@ -5,6 +5,7 @@ import { ROUTES } from './constant/Route.constant'
 const HomePage = lazy(() => import('./page/home/Home.page'))
 const LoginPage = lazy(() => import('./page/Login.page'))
 const MainPage = lazy(() => import('./page/Main.page'))
+const SettingsPage = lazy(() => import('./page/Settings.page'))
 
 //todo: loading component
 
@@ -15,6 +16,7 @@ function App() {
 				<Route element={<HomePage />} path={ROUTES.HOME} />
 				<Route element={<LoginPage />} path={ROUTES.LOGIN} />
 				<Route element={<MainPage />} path={ROUTES.MAIN} />
+				<Route element={<SettingsPage />} path={ROUTES.SETTINGS} />
 			</Routes>
 		</Suspense>
 	)

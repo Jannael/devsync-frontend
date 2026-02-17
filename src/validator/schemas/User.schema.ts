@@ -16,7 +16,7 @@ export const UserSchema = z.object({
 		nickName: z
 			.string('NickName is required')
 			.min(1, 'NickName is required')
-			.max(100, 'NickName must be at most 100 characters')
+			.max(100, 'NickName must be at most 100 characters'),
 	}),
 })
 

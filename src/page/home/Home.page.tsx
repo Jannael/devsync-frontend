@@ -13,7 +13,7 @@ const NAV_ITEMS = [
 
 function HomePage() {
 	return (
-		<div className='bg-main text-contrast min-h-screen font-main'>
+		<div className='bg-main text-txt min-h-screen font-main'>
 			<HomeNavbar navItems={NAV_ITEMS} />
 			<main className='flex flex-col max-w-7xl mx-auto px-6 md:px-0'>
 				<HeroSection />

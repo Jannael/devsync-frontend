@@ -44,7 +44,7 @@ function Footer() {
 	const personalItems = personal.map((personal) => {
 		return (
 			<li
-				className='flex items-center gap-2 md:gap-5 text-lg md:text-2xl text-contrast font-main font-bold'
+				className='flex items-center gap-2 md:gap-5 text-lg md:text-2xl text-txt font-main font-bold'
 				key={personal.label}
 			>
 				<a href={personal.href} rel='noopener' target='_blank'>
@@ -57,7 +57,7 @@ function Footer() {
 	const thanksItems = thanks.map((thank) => {
 		return (
 			<li
-				className='flex items-center gap-2 md:gap-5 text-lg md:text-2xl text-contrast font-main font-bold'
+				className='flex items-center gap-2 md:gap-5 text-lg md:text-2xl text-txt font-main font-bold'
 				key={thank.label}
 			>
 				<a href={thank.href} rel='noopener' target='_blank'>

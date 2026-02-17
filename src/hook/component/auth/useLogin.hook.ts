@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
+import { ROUTES } from '../../../constant/Route.constant'
 import GetFormData from '../../../utils/GetFormData.utils'
 import AccountValidator from '../../../validator/fields/Account.validator'
 import { PasswordValidator } from '../../../validator/fields/Password.schema'
 import { useRequestLogin } from '../../mutation/auth/useRequestLogin.mutation'
 import { useVerifyLogin } from '../../mutation/auth/useVerifyLogin.mutation'
-import { ROUTES } from '../../../constant/Route.constant'
 
 function useLogin() {
 	const loginInfo = useRef({

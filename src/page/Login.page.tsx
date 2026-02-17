@@ -11,16 +11,16 @@ const ForgotPassword = lazy(
 function Login() {
 	const { show } = useLoginStore()
 	return (
-		<div className='min-h-dvh bg-main flex justify-center items-center text-contrast p-4'>
+		<div className='min-h-dvh bg-main flex justify-center items-center text-txt p-4'>
 			<Toaster />
-			<div className='flex flex-col lg:flex-row size-full max-w-7xl gap-10 lg:gap-0'>
+			<main className='flex flex-col lg:flex-row size-full max-w-7xl gap-10 lg:gap-0'>
 				<div className='flex-1 flex flex-col justify-center items-center gap-5 text-center'>
 					<img
 						alt='Devsync brand'
 						className='w-64 md:w-80 lg:w-96 drop-shadow-xl drop-shadow-primary-shadow'
 						src='/full logo.png'
 					/>
-					<p className='text-lg md:text-xl font-bold text-contrast/80'>
+					<p className='text-lg md:text-xl font-bold text-txt/80'>
 						Less stuff better solutions
 					</p>
 				</div>
@@ -33,7 +33,7 @@ function Login() {
 						</Suspense>
 					</div>
 				</article>
-			</div>
+			</main>
 		</div>
 	)
 }

@@ -5,7 +5,7 @@ function About() {
 			id='About'
 		>
 			<h2 className='text-4xl md:text-6xl font-bold mb-5'>About</h2>
-			<div className='text-lg md:text-2xl text-contrast/70 max-w-4xl'>
+			<div className='text-lg md:text-2xl text-txt/70 max-w-4xl'>
 				<p className='w-full'>
 					Devsync was designed for personal improvement as developer, because
 					it's my first real project, the goal it's to maintain it and keep the

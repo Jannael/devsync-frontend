@@ -22,7 +22,7 @@ function HeroSection() {
 				</a>
 
 				<h1 className='text-4xl md:text-6xl font-bold mb-3 md:mb-5'>Devsync</h1>
-				<p className='text-lg md:text-2xl text-contrast/70'>
+				<p className='text-lg md:text-2xl text-txt/70'>
 					Task management and solution tracking
 				</p>
 				<Link
