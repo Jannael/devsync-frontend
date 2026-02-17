@@ -16,10 +16,11 @@ function DangerZone() {
 	}
 
 	return (
-		<section className='flex gap-8 flex-col border-warning border-2 p-4 rounded-lg'>
+		<section className='flex gap-4 md:gap-8 flex-col border-warning border-2 p-2 md:p-8 rounded-lg'>
 			<h2 className='text-2xl font-bold text-warning'>Danger Zone</h2>
 			<Button
 				block={false}
+				className='w-full'
 				onClick={() =>
 					useDangerZoneStore.setState({ showUpdateAccountModal: true })
 				}
@@ -30,6 +31,7 @@ function DangerZone() {
 			</Button>
 			<Button
 				block={false}
+				className='w-full'
 				onClick={() => useDangerZoneStore.setState({ showLogoutModal: true })}
 				type='button'
 				variant='destructive'
@@ -38,6 +40,7 @@ function DangerZone() {
 			</Button>
 			<Button
 				block={false}
+				className='w-full'
 				onClick={handleDeleteAccountRequest}
 				type='button'
 				variant='destructive'

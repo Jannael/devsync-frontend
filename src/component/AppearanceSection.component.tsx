@@ -60,7 +60,7 @@ function AppearanceSection() {
 	))
 
 	return (
-		<section className='flex gap-8 flex-col px-8 border-primary border-2 rounded-xl py-6'>
+		<section className='flex gap-8 flex-col px-2 md:px-8 border-primary border-2 rounded-xl py-6'>
 			<h2 className='text-2xl font-bold'>Appearance</h2>
 			<div className='flex flex-col gap-4'>
 				<Label id='theme-select'>Theme</Label>

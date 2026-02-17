@@ -22,10 +22,11 @@ function UpdateTextInput({
 
 	if (isEditing) {
 		return (
-			<article className='flex w-full justify-between items-center h-20 border-b-2 border-primary/50 pb-6'>
-				<div className='flex flex-col w-fit gap-3'>
+			<article className='flex w-full flex-col sm:flex-row justify-between items-start sm:items-center min-h-20 h-auto gap-4 border-b-2 border-primary/50 pb-6'>
+				<div className='flex flex-col w-full sm:w-fit gap-3'>
 					<Label id={label}>{label}</Label>
 					<Input
+						className='w-full'
 						id={label}
 						name={label}
 						onChange={(e) => setInnerVal(e.target.value)}
@@ -34,11 +35,15 @@ function UpdateTextInput({
 						value={innerVal}
 					/>
 				</div>
-				<div className='flex gap-3'>
-					<CancelBtn block={false} onClick={() => setIsEditing(false)} />
+				<div className='flex gap-3 w-full sm:w-fit'>
+					<CancelBtn
+						block={false}
+						className='w-full sm:w-fit'
+						onClick={() => setIsEditing(false)}
+					/>
 					<Button
 						block={false}
-						className='flex text-xl justify-center items-center gap-2'
+						className='flex text-xl justify-center items-center gap-2 w-full sm:w-fit'
 						onClick={() => {
 							onSave(innerVal, (error) => {
 								if (error) {
@@ -58,14 +63,14 @@ function UpdateTextInput({
 	}
 
 	return (
-		<article className='flex w-full justify-between items-center h-20 border-b-2 border-primary/50 pb-6'>
-			<div className='flex flex-col w-fit gap-3'>
+		<article className='flex w-full flex-col sm:flex-row justify-between items-start sm:items-center min-h-20 h-auto gap-4 border-b-2 border-primary/50 pb-6'>
+			<div className='flex flex-col w-full sm:w-fit gap-3 overflow-hidden'>
 				<Label id={label}>{label}</Label>
-				<p className='text-xl text-txt/80'>{value || placeholder}</p>
+				<p className='text-xl text-txt/80 wrap-break-word whitespace-normal'>{value || placeholder}</p>
 			</div>
 			<Button
 				block={false}
-				className='flex text-xl justify-center items-center gap-2'
+				className='flex text-xl justify-center items-center gap-2 w-full sm:w-fit'
 				onClick={() => {
 					setInnerVal(value)
 					setIsEditing(true)

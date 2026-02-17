@@ -96,7 +96,7 @@ function UserSection() {
 
 	return (
 		<>
-			<section className='px-8 flex flex-col gap-6'>
+			<section className='px-2 md:px-8 flex flex-col gap-6'>
 				<UpdateTextInput
 					label='Full name'
 					onSave={handleUpdateUser('fullName')}
