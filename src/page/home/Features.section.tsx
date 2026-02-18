@@ -14,7 +14,9 @@ function FeaturesSection() {
 				className='flex items-center gap-3 md:gap-5 [&>svg]:text-txt text-lg md:text-2xl text-txt/80'
 				key={feature}
 			>
-				<CheckIcon />
+				<div className='size-10 flex items-center justify-center rounded-full text-contrast'>
+					<CheckIcon />
+				</div>
 				<p>{feature}</p>
 			</li>
 		)
