@@ -5,7 +5,6 @@ import {
 	accentColorsObj,
 	bgShadesObj,
 	primaryColorsObj,
-	systemTheme,
 } from '../constant/Theme.constant'
 import useThemeStore from '../store/Theme.store'
 
@@ -28,11 +27,7 @@ function AppearanceSection() {
 
 	const handleChangeTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selected = e.target.value
-		if (selected === 'system') {
-			setTheme(systemTheme)
-		} else {
-			setTheme(selected as 'dark' | 'light')
-		}
+		setTheme(selected as 'dark' | 'light')
 	}
 
 	const handleChangeAccentColor = (color: string) => {
@@ -48,7 +43,6 @@ function AppearanceSection() {
 	}
 
 	const selectOptions = [
-		{ value: 'system', label: 'System' },
 		{ value: 'light', label: 'Light' },
 		{ value: 'dark', label: 'Dark' },
 	]
@@ -64,7 +58,7 @@ function AppearanceSection() {
 			<h2 className='text-2xl font-bold'>Appearance</h2>
 			<div className='flex flex-col gap-4'>
 				<Label id='theme-select'>Theme</Label>
-				<Select id='theme-select' onChange={handleChangeTheme}>
+				<Select id='theme-select' onChange={handleChangeTheme} value={currentTheme}>
 					{selectItems}
 				</Select>
 			</div>
