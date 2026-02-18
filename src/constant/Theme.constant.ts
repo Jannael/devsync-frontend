@@ -27,33 +27,34 @@ export const defaultTheme = {
 	bgShade: defaultBgShade[systemTheme],
 	primaryColor: defaultPrimaryColor[systemTheme],
 }
+
 export const accentColorsObj = {
 	dark: [
 		defaultAccentColor.dark,
-		'#FF0055', 
-		'#FF9100', 
-		'#CCFF00', 
-		'#00FFCC', 
-		'#007BFF', 
-		'#CC00FF', 
-		'#FFFFFF', 
+		'#FF0055',
+		'#FF9100',
+		'#CCFF00',
+		'#00FFCC',
+		'#007BFF',
+		'#CC00FF',
+		'#FFFFFF',
 	],
 	light: [
 		defaultAccentColor.light,
-		'#E6004D', 
-		'#D35400', 
-		'#7BB300', 
-		'#00A383', 
-		'#0059B3', 
-		'#8E00B3', 
-		'#000000', 
+		'#E6004D',
+		'#D35400',
+		'#7BB300',
+		'#00A383',
+		'#0059B3',
+		'#8E00B3',
+		'#000000',
 	],
 } as const
 
 export const bgShadesObj = {
 	dark: [
 		defaultBgShade.dark,
-		'#22000B', 
+		'#22000B',
 		'#221300',
 		'#161C00',
 		'#001A14',
@@ -63,12 +64,12 @@ export const bgShadesObj = {
 	],
 	light: [
 		defaultBgShade.light,
-		'#FFF0F3', 
-		'#FFF7ED', 
-		'#FBFFEB', 
-		'#E6FFFA', 
-		'#F0F7FF', 
-		'#FBF2FF', 
+		'#FFF0F3',
+		'#FFF7ED',
+		'#FBFFEB',
+		'#E6FFFA',
+		'#F0F7FF',
+		'#FBF2FF',
 		'#F5F5F5',
 	],
 } as const
@@ -95,6 +96,18 @@ export const primaryColorsObj = {
 		'#E0E0E0',
 	],
 } as const
+
+export const GroupColors: string[] = [
+	'#2C3E50',
+	'#4A148C',
+	'#004D40',
+	'#3E2723',
+	'#1A237E',
+	'#263238',
+	'#311B92',
+	'#000000',
+] as const
+
 export const primaryColors = primaryColorsObj[systemTheme]
 export const bgShades = bgShadesObj[systemTheme]
 export const accentColors = accentColorsObj[systemTheme]

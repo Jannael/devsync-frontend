@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Label from './Label.ui'
 
 function ColorPicker({
@@ -11,6 +12,9 @@ function ColorPicker({
 	onClick: (color: string) => void
 	currentColor: string
 }) {
+	const [innerCurrentColor, setInnerCurrentColor] =
+		useState<string>(currentColor)
+
 	return (
 		<div className='flex flex-col sm:flex-row gap-2 justify-between items-center sm:items-center'>
 			<Label id={label}>{label}</Label>
@@ -18,10 +22,13 @@ function ColorPicker({
 				{colors.map((color) => (
 					<button
 						className={`w-8 h-8 rounded-full cursor-pointer border-2
-						 ${currentColor === color ? 'border-contrast' : 'border-transparent'}`}
+						 ${innerCurrentColor === color ? 'border-contrast' : 'border-transparent'}`}
 						id={label}
 						key={color}
-						onClick={() => onClick(color)}
+						onClick={() => {
+							onClick(color)
+							setInnerCurrentColor(color)
+						}}
 						style={{ backgroundColor: color }}
 						type='button'
 					/>

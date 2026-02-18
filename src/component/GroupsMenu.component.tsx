@@ -1,16 +1,32 @@
+import { useRef, useState } from 'react'
 import FullLogo from '../assets/FullLogo'
 import { ROLES } from '../constant/ROLE.constant'
 import { ROUTES } from '../constant/Route.constant'
-import { useAcceptInvitation } from '../hook/mutation/invitation/useAcceptInvitation.mutation'
-import { useRejectInvitation } from '../hook/mutation/invitation/useRejectInvitation.mutation'
-import { useGetUserInvitations } from '../hook/query/user/useGetUserInvitations.query'
-import { CheckIcon, SettingsIcon, XIcon } from '../Icon'
+import { GroupColors } from '../constant/Theme.constant'
+import { useCreateGroup } from '../hook/mutation/group/useCreateGroup.mutation'
+import { SettingsIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
+import GetFormData from '../utils/GetFormData.utils'
+import { GroupValidator } from '../validator/schemas/Group.schema'
 import GroupList from './GroupList.component'
+import InvitationList from './InvitationList'
 import Button from './ui/Button.ui'
+import ColorPicker from './ui/ColorPicker.ui'
+import Form from './ui/Form.ui'
+import Input from './ui/Input.ui'
+import Label from './ui/Label.ui'
+import Overlay from './ui/Overlay.ui'
+import P from './ui/P.ui'
+import Title from './ui/Title.ui'
+import Warning from './ui/Warning.ui'
 
 function GroupsMenu() {
-	const { currentGroup, currentRole } = useMainStore()
+	const {
+		currentGroup,
+		currentRole,
+		showCreateGroupModal,
+		setShowCreateGroupModal,
+	} = useMainStore()
 
 	return (
 		<section className='flex-1 h-full p-3'>
@@ -43,71 +59,96 @@ function GroupsMenu() {
 							Create new task
 						</Button>
 					)}
-					<Button block={false} className='text-xl w-full' type='button'>
+
+					<Button
+						block={false}
+						className='text-xl w-full'
+						onClick={() => setShowCreateGroupModal(true)}
+						type='button'
+					>
 						Create new group
 					</Button>
+					{showCreateGroupModal && <CreateGroupModal />}
 				</article>
 			</article>
 		</section>
 	)
 }
 
-function InvitationList() {
-	const { data: invitations } = useGetUserInvitations()
-
-	const invitationItems = invitations?.map((invitation) => (
-		<InvitationItem
-			groupId={invitation.groupId}
-			key={invitation.groupId}
-			name={invitation.name}
-		/>
-	))
+function CreateGroupModal() {
+	const { setShowCreateGroupModal } = useMainStore()
 	return (
-		<article className='w-full flex flex-col items-center justify-center border-primary border-2 rounded-lg pb-4 px-4'>
-			<header className='flex justify-between w-full items-center py-4 text-2xl'>
-				Invitations
-			</header>
-			<div className='w-full flex flex-col items-center justify-center gap-2'>
-				{invitationItems && invitationItems.length > 0
-					? invitationItems
-					: 'You do not have any invitations'}
-			</div>
-		</article>
+		<Overlay setShow={(show) => setShowCreateGroupModal(show)}>
+			<CreateGroup />
+		</Overlay>
 	)
 }
 
-function InvitationItem({ name, groupId }: { name: string; groupId: string }) {
-	const AcceptMutation = useAcceptInvitation()
-	const RejectMutation = useRejectInvitation()
+function CreateGroup() {
+	const setShowCreateGroupModal = useMainStore(
+		(state) => state.setShowCreateGroupModal,
+	)
 
-	const handleAccept = () => {
-		AcceptMutation.mutate({ groupId })
-	}
+	const createGroupMutation = useCreateGroup()
+	const [error, setError] = useState<string | null>(null)
+	const currentGroupColor = useRef({ color: '' })
 
-	const handleReject = () => {
-		RejectMutation.mutate({ groupId })
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const data = GetFormData(e)
+		try {
+			const group = GroupValidator({
+				data: {
+					name: data.name,
+					repository: data.repository,
+					color: currentGroupColor.current.color,
+				},
+			})
+
+			const res = await createGroupMutation.mutateAsync({
+				name: group.data.name,
+				repository: group.data.repository || 'https://github.com/',
+				color: group.data.color,
+			})
+			if (res) setShowCreateGroupModal(false)
+		} catch (e) {
+			setError((e as Error).message)
+		}
 	}
 
 	return (
-		<div className='w-full flex items-center justify-between gap-2'>
-			<p className='text-contrast/80 truncate flex-1'>{name}</p>
-			<div className='flex items-center gap-2'>
-				<button
-					className='text-accent cursor-pointer size-8 flex items-center justify-center rounded-full hover:bg-accent/30'
-					onClick={handleAccept}
-					type='button'
-				>
-					<CheckIcon />
-				</button>
-				<button
-					className='text-warning cursor-pointer size-8 flex items-center justify-center rounded-full hover:bg-warning/30'
-					onClick={handleReject}
-					type='button'
-				>
-					<XIcon />
-				</button>
-			</div>
-		</div>
+		<Form onSubmit={handleSubmit}>
+			<Title>Create group</Title>
+			<P>Please fill the form below to create a new group</P>
+
+			<Label id='name'>Name</Label>
+			<Input id='name' name='name' placeholder='Devsync' type='text' />
+			<Label id='repository'>Repository</Label>
+			<Input
+				className='mb-3'
+				id='repository'
+				name='repository'
+				placeholder='https://github.com/devsync'
+				type='text'
+			/>
+
+			<ColorPicker
+				colors={GroupColors}
+				currentColor={currentGroupColor.current.color}
+				label='Color'
+				onClick={(color) => {
+					currentGroupColor.current.color = color
+				}}
+			/>
+			{error && <Warning message={error} />}
+			<Button
+				block={createGroupMutation.isPending}
+				className='mt-3'
+				type='submit'
+			>
+				Create
+			</Button>
+		</Form>
 	)
 }
 

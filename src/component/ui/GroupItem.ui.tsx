@@ -12,11 +12,11 @@ function GroupItem({
 	name: string
 	role: string
 }) {
-	const { setCurrentGroup, setCurrentRole } = useMainStore()
+	const { setCurrentGroup, setCurrentRole, currentGroup } = useMainStore()
 
 	return (
 		<div
-			className={`w-full flex items-center justify-between`}
+			className={`w-full flex items-center justify-between ${currentGroup === id ? 'bg-accent' : ''}`}
 			style={{
 				backgroundImage: `linear-gradient(to left, ${color}, var(--color-primary))`,
 				borderRadius: '8px',

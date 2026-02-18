@@ -61,7 +61,7 @@ const GroupService = {
 			endpoint: `${route}/create/`,
 			options: {
 				method: 'POST',
-				body: JSON.stringify(data),
+				body: JSON.stringify({ data }),
 			},
 		})
 		const group: Group = {
