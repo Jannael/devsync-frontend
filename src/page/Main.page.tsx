@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
+import Toaster from '../component/ui/Toaster.ui'
 import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckListIcon, ListIcon, TerminalIcon } from '../Icon'
 
@@ -46,6 +47,7 @@ function Main() {
 		<div
 			className={`flex h-screen w-screen text-txt bg-main ${isMobile ? 'pt-18' : ''}`}
 		>
+			<Toaster />
 			{isMobile && (
 				<Navbar
 					cb={(section) => setActiveSection(section)}
