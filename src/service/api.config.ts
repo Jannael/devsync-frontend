@@ -62,7 +62,9 @@ export const api = async ({
 			window.location.href = ROUTES.LOGIN
 		}
 
-		throw new Error(`${errorData.msg}: ${errorData.description}`)
+		throw new Error(
+			`${errorData.msg} ${errorData.description ? `: ${errorData.description}` : ''}`,
+		)
 	}
 
 	return response.json()

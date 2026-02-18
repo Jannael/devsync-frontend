@@ -6,6 +6,7 @@ import useMainStore from '../store/Main.store'
 import GroupList from './GroupList.component'
 import InvitationList from './InvitationList'
 import CreateGroupModal from './modal/CreateGroup.modal'
+import JoinGroupModal from './modal/JoinGroup.modal'
 import Button from './ui/Button.ui'
 
 function GroupsMenu() {
@@ -13,6 +14,7 @@ function GroupsMenu() {
 		currentGroup,
 		currentRole,
 		showCreateGroupModal,
+		showJoinModal,
 		setShowCreateGroupModal,
 	} = useMainStore()
 
@@ -57,6 +59,7 @@ function GroupsMenu() {
 						Create new group
 					</Button>
 					{showCreateGroupModal && <CreateGroupModal />}
+					{showJoinModal && <JoinGroupModal />}
 				</article>
 			</article>
 		</section>
