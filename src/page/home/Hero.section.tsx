@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import Pet from '../../assets/Pet'
 import { ROUTES } from '../../constant/Route.constant'
 import { GithubIcon } from '../../Icon'
 
@@ -33,11 +34,7 @@ function HeroSection() {
 				</Link>
 			</div>
 			<div className='flex gap-2 flex-1 justify-center mt-10 md:mt-0'>
-				<img
-					alt='Devsync'
-					className='w-4/5 md:w-full max-w-sm md:max-w-none aspect-auto h-fit'
-					src='/pet.png'
-				/>
+				<Pet />
 			</div>
 		</section>
 	)
