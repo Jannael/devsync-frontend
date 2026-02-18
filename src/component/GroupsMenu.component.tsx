@@ -27,12 +27,12 @@ function GroupsMenu() {
 					</div>
 				</div>
 
-				<article className='w-full flex flex-col items-center justify-center gap-4'>
+				<article className='w-full flex flex-col items-center justify-center gap-4 text-txt'>
 					<a
 						className='flex items-center gap-2 text-2xl self-start mb-3'
 						href={ROUTES.SETTINGS}
 					>
-						<div className='size-10 flex items-center justify-center rounded-full text-contrast'>
+						<div className='size-10 flex items-center justify-center rounded-full'>
 							<SettingsIcon />
 						</div>
 						Settings

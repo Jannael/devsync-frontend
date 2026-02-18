@@ -37,7 +37,7 @@ function About() {
 export function Anchor({ href, name }: { href: string; name: string }) {
 	return (
 		<a
-			className='text-primary/80 hover:text-accent transition-all duration-300'
+			className='text-accent hover:text-accent/70 transition-all duration-300'
 			href={href}
 			rel='noopener'
 			target='_blank'

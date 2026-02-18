@@ -15,8 +15,9 @@ function Button({
 }) {
 	return (
 		<button
-			className={`text-white py-2 rounded-full px-3 cursor-pointer 
+			className={` py-2 rounded-full px-3 cursor-pointer 
 				border-2 border-transparent
+				${variant === 'destructive' ? 'text-white' : 'text-txt'} 
 				${variant === 'destructive' ? 'bg-warning' : 'bg-primary'} 
 				${variant === 'destructive' ? 'hover:text-warning' : 'hover:text-accent'} 
 				${variant === 'destructive' ? 'hover:border-warning' : 'hover:border-accent'} 
