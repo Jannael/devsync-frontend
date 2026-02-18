@@ -3,4 +3,5 @@ export const ROUTES = {
 	MAIN: '/',
 	LOGIN: '/login',
 	SETTINGS: '/settings',
+	GROUP_SETTINGS: '/settings/group',
 }

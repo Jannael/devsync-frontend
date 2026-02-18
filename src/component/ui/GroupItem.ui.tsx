@@ -1,3 +1,5 @@
+import { Link } from 'react-router'
+import { ROUTES } from '../../constant/Route.constant'
 import { DotsVerticalIcon } from '../../Icon'
 import useMainStore from '../../store/Main.store'
 
@@ -33,14 +35,19 @@ function GroupItem({
 				{name}
 			</button>
 			<button
-				className='text-xl bg-main p-2 rounded-full cursor-pointer m-1'
+				className='flex items-center justify-center'
 				onClick={() => {
 					setCurrentGroup(id)
 					setCurrentRole(role)
 				}}
 				type='button'
 			>
-				<DotsVerticalIcon />
+				<Link
+					className='text-xl bg-main p-2 rounded-full cursor-pointer m-1'
+					to={ROUTES.GROUP_SETTINGS}
+				>
+					<DotsVerticalIcon />
+				</Link>
 			</button>
 		</div>
 	)
