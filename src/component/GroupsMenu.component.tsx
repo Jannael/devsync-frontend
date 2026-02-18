@@ -16,7 +16,7 @@ function GroupsMenu() {
 		<section className='flex-1 h-full p-3'>
 			<article
 				className='flex-1 h-full bg-main flex flex-col justify-between items-center
-			border-primary border py-5 rounded-lg px-3 gap-6'
+			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
 				id='Groups'
 			>
 				<div className='w-full flex items-center justify-center flex-col gap-6'>
@@ -90,7 +90,7 @@ function InvitationItem({ name, groupId }: { name: string; groupId: string }) {
 
 	return (
 		<div className='w-full flex items-center justify-between gap-2'>
-			<p className='text-contrast/80'>{name}</p>
+			<p className='text-contrast/80 truncate flex-1'>{name}</p>
 			<div className='flex items-center gap-2'>
 				<button
 					className='text-accent cursor-pointer size-8 flex items-center justify-center rounded-full hover:bg-accent/30'

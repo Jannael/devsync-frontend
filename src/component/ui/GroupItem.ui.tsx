@@ -23,7 +23,7 @@ function GroupItem({
 			}}
 		>
 			<button
-				className='cursor-pointer flex-1 text-left p-3'
+				className='cursor-pointer flex-1 text-left p-3 truncate'
 				onClick={() => {
 					setCurrentGroup(id)
 					setCurrentRole(role)
