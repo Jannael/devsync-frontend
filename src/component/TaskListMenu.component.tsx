@@ -7,6 +7,9 @@ import Button from './ui/Button.ui'
 function TaskListMenu() {
 	const currentRole = useMainStore((state) => state.currentRole)
 	const currentTask = useMainStore((state) => state.currentTask)
+	const currentTaskIsCompleted = useMainStore(
+		(state) => state.currentTaskIsCompleted,
+	)
 	const [selected, setSelected] = useState<'tasks' | 'assign'>('tasks')
 
 	return (
@@ -37,6 +40,7 @@ function TaskListMenu() {
 				</header>
 				<TaskListComponent selected={selected} />
 				{(currentRole === ROLES.techLead || currentRole === ROLES.developer) &&
+					!currentTaskIsCompleted &&
 					currentTask && (
 						<Button
 							block={false}

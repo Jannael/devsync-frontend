@@ -4,6 +4,7 @@ import ROLES from '../constant/Roles.constant'
 import { ROUTES } from '../constant/Route.constant'
 import { SettingsIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
+import useTaskStore from '../store/Task.store'
 import GroupList from './GroupList.component'
 import InvitationList from './InvitationList'
 import CreateGroupModal from './modal/CreateGroup.modal'
@@ -18,6 +19,7 @@ function GroupsMenu() {
 		showJoinModal,
 		setShowCreateGroupModal,
 	} = useMainStore()
+	const setCreateTask = useTaskStore((state) => state.setCreate)
 
 	return (
 		<section className='flex-1 h-full p-3'>
@@ -46,7 +48,12 @@ function GroupsMenu() {
 					</Link>
 
 					{currentGroup !== null && currentRole === ROLES.techLead && (
-						<Button block={false} className='text-xl w-full' type='button'>
+						<Button
+							block={false}
+							className='text-xl w-full'
+							onClick={() => setCreateTask(true)}
+							type='button'
+						>
 							Create new task
 						</Button>
 					)}
