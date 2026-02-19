@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
+import TaskListMenu from '../component/TaskListMenu.component'
 import Toaster from '../component/ui/Toaster.ui'
 import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckListIcon, ListIcon, TerminalIcon } from '../Icon'
@@ -24,7 +25,7 @@ function Main() {
 			<>
 				<GroupsMenu />
 				<div className='flex-3 h-full bg-red-800' id='Task'></div>
-				<div className='flex-1 h-full bg-blue-800' id='Tasks'></div>
+				<TaskListMenu />
 			</>
 		)
 	}
@@ -36,9 +37,7 @@ function Main() {
 				{activeSection === 'Task' && (
 					<div className='flex-3 h-full bg-red-800' id='Task'></div>
 				)}
-				{activeSection === 'Tasks' && (
-					<div className='flex-1 h-full bg-blue-800' id='Tasks'></div>
-				)}
+				{activeSection === 'Tasks' && <TaskListMenu />}
 			</>
 		)
 	}

@@ -1,5 +1,6 @@
+import { Link } from 'react-router'
 import FullLogo from '../assets/FullLogo'
-import { ROLES } from '../constant/ROLE.constant'
+import ROLES from '../constant/Roles.constant'
 import { ROUTES } from '../constant/Route.constant'
 import { SettingsIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
@@ -34,17 +35,17 @@ function GroupsMenu() {
 				</div>
 
 				<article className='w-full flex flex-col items-center justify-center gap-4 text-txt'>
-					<a
+					<Link
 						className='flex items-center gap-2 text-2xl self-start mb-3'
-						href={ROUTES.SETTINGS}
+						to={ROUTES.SETTINGS}
 					>
 						<div className='size-10 flex items-center justify-center rounded-full'>
 							<SettingsIcon />
 						</div>
 						Settings
-					</a>
+					</Link>
 
-					{currentGroup !== null && currentRole === ROLES.TECH_LEAD && (
+					{currentGroup !== null && currentRole === ROLES.techLead && (
 						<Button block={false} className='text-xl w-full' type='button'>
 							Create new task
 						</Button>

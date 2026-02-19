@@ -68,8 +68,8 @@ function Navbar({
 	})
 
 	return (
-		<nav className='flex w-full items-center justify-center font-main mt-5 md:mt-10 fixed top-0 left-0 z-50 px-4'>
-			<ul className='flex text-sm md:text-xl gap-2 md:gap-4 shadow-xl rounded-full p-1 md:p-2 bg-main text-txt shadow-primary-shadow transition-all duration-300'>
+		<nav className='flex w-full items-center justify-center font-main mt-5 lg:mt-10 fixed top-0 left-0 z-50 px-4'>
+			<ul className='flex text-sm lg:text-xl gap-2 lg:gap-4 shadow-xl rounded-full p-1 lg:p-2 bg-main text-txt shadow-primary-shadow transition-all duration-300'>
 				{items}
 			</ul>
 		</nav>
