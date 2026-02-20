@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { ROUTES } from '../../constant/Route.constant'
 import { DotsVerticalIcon } from '../../Icon'
 import useMainStore from '../../store/Main.store'
+import useTaskStore from '../../store/Task.store'
 
 function GroupItem({
 	color,
@@ -15,6 +16,8 @@ function GroupItem({
 	role: string
 }) {
 	const { setCurrentGroup, setCurrentRole, currentGroup } = useMainStore()
+	const setCreate = useTaskStore((state) => state.setCreate)
+	const setEdit = useTaskStore((state) => state.setEdit)
 
 	return (
 		<div
@@ -29,6 +32,8 @@ function GroupItem({
 				onClick={() => {
 					setCurrentGroup(id)
 					setCurrentRole(role)
+					setCreate(false)
+					setEdit(false)
 				}}
 				type='button'
 			>
@@ -39,6 +44,8 @@ function GroupItem({
 				onClick={() => {
 					setCurrentGroup(id)
 					setCurrentRole(role)
+					setCreate(false)
+					setEdit(false)
 				}}
 				type='button'
 			>

@@ -48,6 +48,7 @@ function TaskListComponent({ selected }: { selected: 'tasks' | 'assign' }) {
 			{taskPages === undefined && <p>Please click a group to see its tasks</p>}
 			{data?.task.length === 0 && <p>There are no tasks to show</p>}
 			<div className='h-4 w-full' ref={observerTarget} />
+			{isFetchingNextPage && <p>Loading more...</p>}
 		</ul>
 	)
 }

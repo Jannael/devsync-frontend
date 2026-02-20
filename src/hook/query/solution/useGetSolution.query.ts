@@ -7,6 +7,8 @@ export const useGetSolution = (args: { _id: string; groupId: string }) => {
 		queryKey: SOLUTION_KEYS.DETAIL(args._id),
 		queryFn: () => SolutionService.Get(args),
 		enabled: !!args._id && !!args.groupId,
+		retry: false,
+		staleTime: Infinity,
 	})
 
 	return query

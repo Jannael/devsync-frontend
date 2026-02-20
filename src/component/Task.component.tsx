@@ -124,7 +124,7 @@ function Task() {
 						))}
 					</ul>
 					<div className='flex-2 border border-primary rounded-lg p-3 overflow-hidden flex flex-col'>
-						<p className='text-sm text-primary mb-2 uppercase font-bold'>
+						<p className='text-sm text-txt mb-2 uppercase font-bold'>
 							{code?.language}
 						</p>
 						<div className='flex-1 overflow-auto rounded-md'>
@@ -134,7 +134,7 @@ function Task() {
 									padding: '1rem',
 									fontSize: '0.875rem',
 									height: '100%',
-									backgroundColor: 'transparent',
+									backgroundColor: '#222',
 								}}
 								language={code?.language?.toLowerCase() || 'typescript'}
 								style={vscDarkPlus}
