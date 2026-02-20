@@ -6,6 +6,7 @@ import useMainStore from '../../store/Main.store'
 function TaskListItem({ task }: { task: TaskList['task'][number] }) {
 	const currentRole = useMainStore((state) => state.currentRole)
 	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
+	const setShowSolveBtn = useMainStore((state) => state.setShowSolveBtn)
 
 	return (
 		<li
@@ -13,9 +14,10 @@ function TaskListItem({ task }: { task: TaskList['task'][number] }) {
 			key={task._id}
 			onClick={() => {
 				setCurrentTask(task._id)
+				setShowSolveBtn(true)
 			}}
 		>
-			<span className='w-fit px-2 pr-4 h-10 flex items-center'>
+			<span className='w-12 px-2 pr-4 h-10 flex items-center'>
 				{task.priority}
 			</span>
 			<span className='flex-1 truncate h-10 flex items-center'>

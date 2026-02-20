@@ -72,7 +72,7 @@ function CreateTask() {
 					<Textarea
 						id='description'
 						name='description'
-						placeholder='Task description'
+						placeholder='I came up with this solution...'
 					/>
 				</div>
 				<div className='w-full flex-1 flex flex-col md:flex-row gap-5'>

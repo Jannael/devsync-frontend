@@ -8,9 +8,12 @@ import Button from './ui/Button.ui'
 
 function TaskListMenu() {
 	const setIsSolution = useTaskStore((state) => state.setIsSolution)
+	const setCreate = useTaskStore((state) => state.setCreate)
 	const currentRole = useMainStore((state) => state.currentRole)
 	const currentTask = useMainStore((state) => state.currentTask)
 	const currentGroup = useMainStore((state) => state.currentGroup)
+	const showSolveBtn = useMainStore((state) => state.showSolveBtn)
+	const setShowSolveBtn = useMainStore((state) => state.setShowSolveBtn)
 
 	const { data: task } = useGetTask({
 		_id: currentTask ?? '',
@@ -28,7 +31,10 @@ function TaskListMenu() {
 					<header className='flex w-full justify-around items-center border-b border-primary pb-3 mb-3'>
 						<button
 							className={`flex-1 text-center rounded-lg cursor-pointer py-2 text-txt ${selected === 'tasks' ? 'bg-shade' : ''}`}
-							onClick={() => setSelected('tasks')}
+							onClick={() => {
+								setSelected('tasks')
+								setShowSolveBtn(false)
+							}}
 							type='button'
 						>
 							Tasks
@@ -37,7 +43,10 @@ function TaskListMenu() {
 							currentRole === ROLES.documenter) && (
 							<button
 								className={`flex-1 text-center rounded-lg cursor-pointer py-2 text-txt ${selected === 'assign' ? 'bg-shade' : ''}`}
-								onClick={() => setSelected('assign')}
+								onClick={() => {
+									setSelected('assign')
+									setShowSolveBtn(false)
+								}}
 								type='button'
 							>
 								Assign
@@ -48,6 +57,7 @@ function TaskListMenu() {
 				</div>
 
 				{currentTask &&
+					showSolveBtn &&
 					(currentRole === ROLES.techLead || currentRole === ROLES.developer) &&
 					!task?.isComplete && (
 						<Button
@@ -55,6 +65,7 @@ function TaskListMenu() {
 							className='w-full bg-accent rounded-lg py-2 cursor-pointer'
 							onClick={() => {
 								setIsSolution(true)
+								setCreate(true)
 							}}
 							type='button'
 						>

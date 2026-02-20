@@ -8,6 +8,7 @@ interface MainState {
 
 	showCreateGroupModal: boolean
 	showJoinModal: boolean
+	showSolveBtn: boolean
 
 	setCurrentGroup: (group: string) => void
 	setCurrentTask: (task: string) => void
@@ -15,6 +16,7 @@ interface MainState {
 
 	setShowCreateGroupModal: (show: boolean) => void
 	setShowJoinModal: (show: boolean) => void
+	setShowSolveBtn: (show: boolean) => void
 }
 
 const useMainStore = create<MainState>((set) => ({
@@ -25,6 +27,7 @@ const useMainStore = create<MainState>((set) => ({
 
 	showCreateGroupModal: false,
 	showJoinModal: false,
+	showSolveBtn: false,
 
 	setCurrentGroup: (group) => set({ currentGroup: group }),
 	setCurrentTask: (task) => set({ currentTask: task }),
@@ -32,6 +35,7 @@ const useMainStore = create<MainState>((set) => ({
 
 	setShowCreateGroupModal: (show) => set({ showCreateGroupModal: show }),
 	setShowJoinModal: (show) => set({ showJoinModal: show }),
+	setShowSolveBtn: (show) => set({ showSolveBtn: show }),
 }))
 
 export default useMainStore

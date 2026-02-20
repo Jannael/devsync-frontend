@@ -1,16 +1,14 @@
-import { useState } from "react"
+import { forwardRef, useState } from 'react'
 
-function Select({
-	children,
-	id,
-	onChange,
-	value,
-}: {
-	children: React.ReactNode
-	id: string
-	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-	value: string
-}) {
+const Select = forwardRef<
+	HTMLSelectElement,
+	{
+		children: React.ReactNode
+		id: string
+		onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+		value: string
+	}
+>(({ children, id, onChange, value }, ref) => {
 	const [innerValue, setInnerValue] = useState(value)
 	return (
 		<select
@@ -21,10 +19,12 @@ function Select({
 				setInnerValue(e.target.value)
 				onChange(e)
 			}}
+			ref={ref}
 			value={innerValue}
 		>
 			{children}
 		</select>
 	)
-}
+})
+
 export default Select

@@ -15,7 +15,7 @@ function CodeInput() {
 					<option value='c'>C</option>
 				</Select>
 			</div>
-			<Textarea id='code' name='code' placeholder='feat: add login page' />
+			<Textarea id='code' name='code' placeholder='console.log("Hello World")' />
 		</div>
 	)
 }
