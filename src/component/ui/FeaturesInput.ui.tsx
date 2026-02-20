@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CheckIcon } from '../../Icon'
+import { CheckIcon, XIcon } from '../../Icon'
 import Button from './Button.ui'
 import Input from './Input.ui'
 import Label from './Label.ui'
@@ -18,8 +18,8 @@ function FeaturesInput({
 		if (features.includes(feature)) return
 
 		setFeatures([...features, feature])
-		setFeature('')
 	}
+
 	const featuresItems = features.map((feature) => (
 		<li
 			className='flex items-center gap-2 border-b border-primary/30 py-1 truncate'
@@ -28,7 +28,14 @@ function FeaturesInput({
 			<div className='size-8 text-primary'>
 				<CheckIcon />
 			</div>
-			{feature}
+			<span className='flex-1'>{feature}</span>
+			<button
+				className='size-8 text-primary cursor-pointer'
+				onClick={() => setFeatures(features.filter((f) => f !== feature))}
+				type='button'
+			>
+				<XIcon />
+			</button>
 		</li>
 	))
 
