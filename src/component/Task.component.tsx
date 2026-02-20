@@ -1,3 +1,5 @@
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { useDeleteSolution } from '../hook/mutation/solution/useDeleteSolution.mutation'
 import { useDeleteTask } from '../hook/mutation/task/useDeleteTask.mutation'
 import { useGetSolution } from '../hook/query/solution/useGetSolution.query'
@@ -121,9 +123,25 @@ function Task() {
 							</li>
 						))}
 					</ul>
-					<div className='flex-2 border border-primary rounded-lg p-3'>
-						<p>{code?.language}</p>
-						<p>{code?.content}</p>
+					<div className='flex-2 border border-primary rounded-lg p-3 overflow-hidden flex flex-col'>
+						<p className='text-sm text-primary mb-2 uppercase font-bold'>
+							{code?.language}
+						</p>
+						<div className='flex-1 overflow-auto rounded-md'>
+							<SyntaxHighlighter
+								customStyle={{
+									margin: 0,
+									padding: '1rem',
+									fontSize: '0.875rem',
+									height: '100%',
+									backgroundColor: 'transparent',
+								}}
+								language={code?.language?.toLowerCase() || 'typescript'}
+								style={vscDarkPlus}
+							>
+								{code?.content || ''}
+							</SyntaxHighlighter>
+						</div>
 					</div>
 				</div>
 			</article>

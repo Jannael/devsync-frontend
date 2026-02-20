@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { SOLUTION_KEYS } from '../../../constant/SolutionKeys.constant'
-import useShowErrorFromServer from '../../../hook/ShowErrorFromServer.handler'
 import SolutionService from '../../../service/Solution.service'
 
 export const useGetSolution = (args: { _id: string; groupId: string }) => {
@@ -8,11 +7,6 @@ export const useGetSolution = (args: { _id: string; groupId: string }) => {
 		queryKey: SOLUTION_KEYS.DETAIL(args._id),
 		queryFn: () => SolutionService.Get(args),
 		enabled: !!args._id && !!args.groupId,
-	})
-
-	useShowErrorFromServer({
-		isError: query.isError,
-		error: query.error,
 	})
 
 	return query

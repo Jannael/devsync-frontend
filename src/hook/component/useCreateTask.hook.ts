@@ -1,18 +1,19 @@
 import { useState } from 'react'
-import { useCreateTask } from '../mutation/task/useCreateTask.mutation'
-import useTaskStore from '../../store/Task.store'
+import { toast } from 'sonner'
 import useMainStore from '../../store/Main.store'
-import { useGetTask } from '../query/task/useGetTask.query'
+import useTaskStore from '../../store/Task.store'
+import GetFormData from './../../utils/GetFormData.utils'
 import { SolutionValidator } from '../../validator/schemas/Solution.schema'
 import { TaskValidator } from '../../validator/schemas/Task.schema'
 import { useCreateSolution } from '../mutation/solution/useCreateSolution.mutation'
-import { toast } from 'sonner'
-import GetFormData from './../../utils/GetFormData.utils'
+import { useCreateTask } from '../mutation/task/useCreateTask.mutation'
+import { useGetTask } from '../query/task/useGetTask.query'
 
 function useCreateTaskComponent() {
 	const setCreate = useTaskStore((state) => state.setCreate)
 	const isSolution = useTaskStore((state) => state.isSolution)
-  const assignedUser = useTaskStore((state) => state.assignedUser)
+	const setIsSolution = useTaskStore((state) => state.setIsSolution)
+	const assignedUser = useTaskStore((state) => state.assignedUser)
 	const currentTask = useMainStore((state) => state.currentTask)
 	const currentGroup = useMainStore((state) => state.currentGroup)
 	const createTask = useCreateTask()
@@ -22,7 +23,7 @@ function useCreateTaskComponent() {
 		_id: currentTask ?? '',
 		groupId: currentGroup ?? '',
 	})
-  const blockSave = createTask.isPending || createSolution.isPending
+	const blockSave = createTask.isPending || createSolution.isPending
 
 	const [features, setFeatures] = useState<string[]>(task?.feature ?? [])
 
@@ -73,7 +74,8 @@ function useCreateTaskComponent() {
 					},
 				})
 			}
-      setCreate(false)
+			setCreate(false)
+			setIsSolution(false)
 		} catch (e) {
 			toast.error((e as Error).message)
 		}
@@ -86,7 +88,7 @@ function useCreateTaskComponent() {
 		isSolution,
 		task,
 		setCreate,
-    blockSave
+		blockSave,
 	}
 }
 
