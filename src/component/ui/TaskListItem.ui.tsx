@@ -9,16 +9,20 @@ function TaskListItem({ task }: { task: TaskList['task'][number] }) {
 
 	return (
 		<li
-			className='flex items-center justify-between w-full border-b border-primary pb-2 cursor-pointer'
+			className='flex items-center justify-between w-full border-b border-primary p-2 cursor-pointer'
 			key={task._id}
 			onClick={() => {
 				setCurrentTask(task._id)
 			}}
 		>
-			<span className='w-fit px-2 pr-4'>{task.priority}</span>
-			<span className='flex-1 truncate'>{task.name}</span>
+			<span className='w-fit px-2 pr-4 h-10 flex items-center'>
+				{task.priority}
+			</span>
+			<span className='flex-1 truncate h-10 flex items-center'>
+				{task.name}
+			</span>
 			{currentRole === ROLES.techLead && (
-				<span className='w-fit flex justify-end size-10 text-primary'>
+				<span className='flex justify-end size-8 text-primary'>
 					{task.isComplete ? <CheckIcon /> : <XIcon />}
 				</span>
 			)}
