@@ -2,6 +2,7 @@ import { useState } from 'react'
 import CreateTask from '../component/CreateTask.component'
 import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
+import Task from '../component/Task.component'
 import TaskListMenu from '../component/TaskListMenu.component'
 import UsersMenu from '../component/UsersMenu.component'
 import Toaster from '../component/ui/Toaster.ui'
@@ -24,12 +25,19 @@ function Main() {
 	const [activeSection, setActiveSection] = useState('Groups')
 	const { create, edit } = useTaskStore()
 	const sideMenu = create || edit ? <UsersMenu /> : <TaskListMenu />
+	const MainComponent = create ? (
+		<CreateTask />
+	) : edit ? (
+		<Task />
+	) : (
+		<Task />
+	)
 
 	const Sections = () => {
 		return (
 			<>
 				<GroupsMenu />
-				<CreateTask />
+				{MainComponent}
 				{sideMenu}
 			</>
 		)
@@ -39,7 +47,7 @@ function Main() {
 		return (
 			<>
 				{activeSection === 'Groups' && <GroupsMenu />}
-				{activeSection === 'Task' && <CreateTask />}
+				{activeSection === 'Task' && MainComponent}
 				{activeSection === 'Tasks' && sideMenu}
 			</>
 		)

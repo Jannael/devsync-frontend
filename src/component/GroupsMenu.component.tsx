@@ -20,6 +20,7 @@ function GroupsMenu() {
 		setShowCreateGroupModal,
 	} = useMainStore()
 	const setCreateTask = useTaskStore((state) => state.setCreate)
+	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
 	const setIsSolution = useTaskStore((state) => state.setIsSolution)
 
 	return (
@@ -55,6 +56,7 @@ function GroupsMenu() {
 							onClick={() => {
 								setCreateTask(true)
 								setIsSolution(false)
+								setCurrentTask(null)
 							}}
 							type='button'
 						>

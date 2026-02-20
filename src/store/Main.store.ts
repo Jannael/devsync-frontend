@@ -11,7 +11,7 @@ interface MainState {
 	showSolveBtn: boolean
 
 	setCurrentGroup: (group: string) => void
-	setCurrentTask: (task: string) => void
+	setCurrentTask: (task: string | null) => void
 	setCurrentRole: (role: string) => void
 
 	setShowCreateGroupModal: (show: boolean) => void

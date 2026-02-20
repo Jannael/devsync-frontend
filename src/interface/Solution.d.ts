@@ -3,7 +3,7 @@ interface Solution {
 	user: string
 	groupId: string
 	description: string
-	feature?: string | null
+	feature?: string[] | null
 	code?: {
 		language: string
 		content: string
