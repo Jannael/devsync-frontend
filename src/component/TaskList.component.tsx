@@ -1,12 +1,24 @@
 import { useGetTasksByGroup } from '../hook/query/task/useGetTasksByGroup.query'
+import useInfiniteScroll from '../hook/useInfiniteScroll.hook'
 import useMainStore from '../store/Main.store'
 import TaskListItem from './ui/TaskListItem.ui'
 
 function TaskListComponent({ selected }: { selected: 'tasks' | 'assign' }) {
 	const currentGroup = useMainStore((state) => state.currentGroup)
-	const { data: taskPages } = useGetTasksByGroup({
+	const {
+		data: taskPages,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+	} = useGetTasksByGroup({
 		groupId: currentGroup ?? '',
 	})
+	const { observerTarget } = useInfiniteScroll({
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+	})
+
 	const data = taskPages?.pages.reduce(
 		(acc, page) => {
 			return {
@@ -35,6 +47,7 @@ function TaskListComponent({ selected }: { selected: 'tasks' | 'assign' }) {
 				: assignItems}
 			{taskPages === undefined && <p>Please click a group to see its tasks</p>}
 			{data?.task.length === 0 && <p>There are no tasks to show</p>}
+			<div className='h-4 w-full' ref={observerTarget} />
 		</ul>
 	)
 }
