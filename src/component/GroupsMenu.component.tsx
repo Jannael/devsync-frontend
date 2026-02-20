@@ -20,6 +20,7 @@ function GroupsMenu() {
 		setShowCreateGroupModal,
 	} = useMainStore()
 	const setCreateTask = useTaskStore((state) => state.setCreate)
+	const setIsSolution = useTaskStore((state) => state.setIsSolution)
 
 	return (
 		<section className='flex-1 h-full p-3'>
@@ -51,7 +52,10 @@ function GroupsMenu() {
 						<Button
 							block={false}
 							className='text-xl w-full'
-							onClick={() => setCreateTask(true)}
+							onClick={() => {
+								setCreateTask(true)
+								setIsSolution(false)
+							}}
 							type='button'
 						>
 							Create new task

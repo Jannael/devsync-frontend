@@ -10,7 +10,7 @@ import Textarea from './ui/Textarea.ui'
 import useCreateTaskComponent from '../hook/component/useCreateTask.hook'
 
 function CreateTask() {
-	const { handleCreate, setFeatures, features, isSolution, task, setCreate } =
+	const { handleCreate, setFeatures, features, isSolution, task, setCreate, blockSave } =
 		useCreateTaskComponent()
 
 	return (
@@ -52,7 +52,7 @@ function CreateTask() {
 					</div>
 					<div className='flex gap-3 h-full items-end w-full sm:w-auto'>
 						<Button
-							block={false}
+							block={blockSave}
 							className='flex-1 sm:flex-none'
 							onClick={() => {
 								setCreate(false)
@@ -62,7 +62,7 @@ function CreateTask() {
 						>
 							Cancel
 						</Button>
-						<Button block={false} className='flex-1' type='submit'>
+						<Button block={blockSave} className='flex-1' type='submit'>
 							Save
 						</Button>
 					</div>

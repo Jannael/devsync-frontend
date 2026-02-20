@@ -22,6 +22,7 @@ function useCreateTaskComponent() {
 		_id: currentTask ?? '',
 		groupId: currentGroup ?? '',
 	})
+  const blockSave = createTask.isPending || createSolution.isPending
 
 	const [features, setFeatures] = useState<string[]>(task?.feature ?? [])
 
@@ -72,6 +73,7 @@ function useCreateTaskComponent() {
 					},
 				})
 			}
+      setCreate(false)
 		} catch (e) {
 			toast.error((e as Error).message)
 		}
@@ -84,6 +86,7 @@ function useCreateTaskComponent() {
 		isSolution,
 		task,
 		setCreate,
+    blockSave
 	}
 }
 
