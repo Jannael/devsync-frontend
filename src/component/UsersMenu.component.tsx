@@ -3,34 +3,34 @@ import Button from './ui/Button.ui'
 import MemberItem from './ui/MemberItem.ui'
 import Select from './ui/Select.ui'
 
+// the goal of this component its to show the users with access to the task or solution
+// and update the global state assignedUsers to create or update the task or solution
+// this means the component must show the input when: 
+// edit a solution (current assigned users: from the task)
+// edit a task (current assigned users: from the task)
+// create a task (local state assigned users)
+// and only must show the members (no input and assignedUsers update):
+// create a solution (current assigned users: from the task)
+
 function UsersMenu() {
 	const {
-		handleAddMember,
 		selectRef,
-		membersData,
-		isSolution,
-		task,
+		membersData: membersAccounts,
+		showInput,
 		members,
+		handleAddMember,
 		onRemoveMember,
 	} = useUsersMenu()
 
-	const selectItems = membersData?.map((member) => (
+	const selectItems = membersAccounts?.map((member) => (
 		<option key={member.groupId} value={member.account}>
 			{member.account}
 		</option>
 	))
 
-	const memberItems = isSolution
-		? task?.user?.map((assignedUser) => (
-				<MemberItem
-					key={assignedUser}
-					member={assignedUser}
-					onRemove={onRemoveMember}
-				/>
-			))
-		: members?.map((member) => (
-				<MemberItem key={member} member={member} onRemove={onRemoveMember} />
-			))
+	const memberItems = members.map((member) => (
+		<MemberItem key={member} member={member} onRemove={onRemoveMember} />
+	))
 
 	return (
 		<section className='flex-1 h-full p-3' id='Tasks'>
@@ -42,7 +42,7 @@ function UsersMenu() {
 					<div className='w-full'>
 						<h2 className='text-2xl font-bold'>Users with access</h2>
 					</div>
-					{!isSolution && (
+					{showInput && (
 						<div className='w-full flex flex-col gap-3'>
 							<Select id='user' onChange={() => {}} ref={selectRef} value=''>
 								{selectItems}
