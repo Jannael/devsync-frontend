@@ -17,7 +17,7 @@ function CreateTask() {
 		<section className='flex-3 h-full p-3' id='Task'>
 			<Form
 				className='h-full bg-main flex flex-col items-center
-			border-primary border rounded-lg gap-6 overflow-y-auto max-w-none p-5 px-6'
+			 rounded-lg gap-6 overflow-y-auto max-w-none p-5 px-6'
 				onSubmit={handleCreate}
 				padding={false}
 			>
