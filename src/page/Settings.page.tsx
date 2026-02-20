@@ -14,7 +14,7 @@ function Settings() {
 		<div className='min-h-dvh bg-main flex justify-center text-txt p-2 md:p-8 font-main'>
 			<Toaster />
 			<div className='w-full max-w-7xl'>
-				<Header>
+				<Header className='mb-6 md:mb-10'>
 					<div className='flex flex-col gap-1 md:gap-2 items-center sm:items-start text-center sm:text-left'>
 						<h1 className='text-3xl md:text-4xl font-bold'>Settings</h1>
 						<p className='text-xl text-txt/80 break-all'>{user?.account}</p>

@@ -13,11 +13,10 @@ function TaskListMenu() {
 	const [selected, setSelected] = useState<'tasks' | 'assign'>('tasks')
 
 	return (
-		<section className='flex-1 h-full p-3'>
+		<section className='flex-1 h-full p-3' id='Tasks'>
 			<article
 				className='h-full bg-main flex flex-col items-center
 			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
-				id='Tasks'
 			>
 				<header className='flex w-full justify-around items-center border-b border-primary pb-3'>
 					<button

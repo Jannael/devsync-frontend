@@ -17,7 +17,7 @@ interface TaskStore {
 	setCreate: (create: boolean) => void
 }
 
-const TaskStore = create<TaskStore>((set) => ({
+const useTaskStore = create<TaskStore>((set) => ({
 	isSolution: false,
 	edit: false,
 	create: false,
@@ -27,4 +27,4 @@ const TaskStore = create<TaskStore>((set) => ({
 	setCreate: (create: boolean) => set({ create }),
 }))
 
-export default TaskStore
+export default useTaskStore

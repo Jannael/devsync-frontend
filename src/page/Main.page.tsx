@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import CreateTask from '../component/CreateTask.component'
 import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
 import TaskListMenu from '../component/TaskListMenu.component'
@@ -24,7 +25,7 @@ function Main() {
 		return (
 			<>
 				<GroupsMenu />
-				<div className='flex-3 h-full bg-red-800' id='Task'></div>
+				<CreateTask />
 				<TaskListMenu />
 			</>
 		)
@@ -34,9 +35,7 @@ function Main() {
 		return (
 			<>
 				{activeSection === 'Groups' && <GroupsMenu />}
-				{activeSection === 'Task' && (
-					<div className='flex-3 h-full bg-red-800' id='Task'></div>
-				)}
+				{activeSection === 'Task' && <CreateTask />}
 				{activeSection === 'Tasks' && <TaskListMenu />}
 			</>
 		)
