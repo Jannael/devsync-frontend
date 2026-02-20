@@ -1,15 +1,21 @@
 import { useState } from 'react'
 import ROLES from '../constant/Roles.constant'
+import { useGetTask } from '../hook/query/task/useGetTask.query'
 import useMainStore from '../store/Main.store'
+import useTaskStore from '../store/Task.store'
 import TaskListComponent from './TaskList.component'
 import Button from './ui/Button.ui'
 
 function TaskListMenu() {
+	const setIsSolution = useTaskStore((state) => state.setIsSolution)
 	const currentRole = useMainStore((state) => state.currentRole)
 	const currentTask = useMainStore((state) => state.currentTask)
-	const currentTaskIsCompleted = useMainStore(
-		(state) => state.currentTaskIsCompleted,
-	)
+	const currentGroup = useMainStore((state) => state.currentGroup)
+
+	const { data: task } = useGetTask({
+		_id: currentTask ?? '',
+		groupId: currentGroup ?? '',
+	})
 	const [selected, setSelected] = useState<'tasks' | 'assign'>('tasks')
 
 	return (
@@ -38,13 +44,15 @@ function TaskListMenu() {
 					)}
 				</header>
 				<TaskListComponent selected={selected} />
-				{(currentRole === ROLES.techLead || currentRole === ROLES.developer) &&
-					!currentTaskIsCompleted &&
-					currentTask && (
+				{currentTask &&
+					(currentRole === ROLES.techLead || currentRole === ROLES.developer) &&
+					!task?.isComplete && (
 						<Button
 							block={false}
 							className='w-full bg-accent rounded-lg py-2 cursor-pointer'
-							onClick={() => {}}
+							onClick={() => {
+								setIsSolution(true)
+							}}
 							type='button'
 						>
 							SOLVE

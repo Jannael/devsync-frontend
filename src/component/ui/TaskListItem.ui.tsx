@@ -6,16 +6,13 @@ import useMainStore from '../../store/Main.store'
 function TaskListItem({ task }: { task: TaskList['task'][number] }) {
 	const currentRole = useMainStore((state) => state.currentRole)
 	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
-	const setCurrentTaskIsCompleted = useMainStore(
-		(state) => state.setCurrentTaskIsCompleted,
-	)
+
 	return (
 		<li
 			className='flex items-center justify-between w-full border-b border-primary pb-2 cursor-pointer'
 			key={task._id}
 			onClick={() => {
 				setCurrentTask(task._id)
-				setCurrentTaskIsCompleted(task.isComplete)
 			}}
 		>
 			<span className='w-fit px-2 pr-4'>{task.priority}</span>

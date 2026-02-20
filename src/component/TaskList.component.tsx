@@ -41,7 +41,7 @@ function TaskListComponent({ selected }: { selected: 'tasks' | 'assign' }) {
 	})
 
 	return (
-		<ul className='px-3'>
+		<ul className='px-3 w-full'>
 			{data && data?.task.length > 0 && selected === 'tasks'
 				? taskItems
 				: assignItems}

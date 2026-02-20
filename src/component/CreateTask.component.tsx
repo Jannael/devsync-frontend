@@ -107,7 +107,7 @@ function CreateTask() {
 										type='text'
 									/>
 								</div>
-								<div className='w-full md:w-32 flex flex-col gap-1'>
+								{!isSolution && <div className='w-full md:w-32 flex flex-col gap-1'>
 									<Label id='priority'>Priority</Label>
 									<Select id='priority' onChange={() => {}} value='0'>
 										{[...Array(11)].map((_, i) => (
@@ -116,7 +116,7 @@ function CreateTask() {
 											</option>
 										))}
 									</Select>
-								</div>
+								</div>}
 							</div>
 						)}
 						{isSolution && <h1>{task?.name}</h1>}
