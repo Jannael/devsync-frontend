@@ -25,9 +25,9 @@ function TaskListMenu() {
 		<section className='flex-1 h-full p-3' id='Tasks'>
 			<article
 				className='h-full bg-main flex flex-col items-center
-			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
+			border-primary border py-5 rounded-lg px-3 gap-6'
 			>
-				<div className='flex-1 w-full'>
+				<div className='flex-1 w-full flex flex-col min-h-0'>
 					<header className='flex w-full justify-around items-center border-b border-primary pb-3 mb-3'>
 						<button
 							className={`flex-1 text-center rounded-lg cursor-pointer py-2 text-txt ${selected === 'tasks' ? 'bg-shade' : ''}`}
