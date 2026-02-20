@@ -11,20 +11,24 @@ interface TaskStore {
 	isSolution: boolean
 	edit: boolean
 	create: boolean
+	assignedUser: string[]
 
 	setIsSolution: (isSolution: boolean) => void
 	setEdit: (edit: boolean) => void
 	setCreate: (create: boolean) => void
+	setAssignedUser: (assignedUser: string[]) => void
 }
 
 const useTaskStore = create<TaskStore>((set) => ({
 	isSolution: false,
 	edit: false,
 	create: false,
+	assignedUser: [],
 
 	setIsSolution: (isSolution: boolean) => set({ isSolution }),
 	setEdit: (edit: boolean) => set({ edit }),
 	setCreate: (create: boolean) => set({ create }),
+	setAssignedUser: (assignedUser: string[]) => set({ assignedUser }),
 }))
 
 export default useTaskStore
