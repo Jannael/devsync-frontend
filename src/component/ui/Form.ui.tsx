@@ -11,7 +11,7 @@ function Form({
 }) {
 	return (
 		<form
-			className={`flex flex-col gap-5 w-full max-w-md justify-around 
+			className={`flex flex-col gap-5 w-full justify-around 
 				${padding ? 'py-10 md:py-15 px-6 md:px-10' : ''} rounded-xl border-primary border bg-main ${className}`}
 			onSubmit={onSubmit}
 		>

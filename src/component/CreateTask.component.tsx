@@ -41,7 +41,7 @@ function CreateTask() {
 										type='text'
 									/>
 								</div>
-								<div className='w-full sm:w-32 flex flex-col gap-1'>
+								<div className='w-full sm:w-32 flex flex-col gap-1 mr-3'>
 									<Label id='priority'>Priority</Label>
 									<Select id='priority' onChange={() => {}} value='0'>
 										{[...Array(11)].map((_, i) => (

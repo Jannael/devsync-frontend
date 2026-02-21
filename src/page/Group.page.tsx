@@ -1,6 +1,7 @@
 import { toast } from 'sonner'
 import GroupInvitationList from '../component/GroupInvitationList.component'
 import MemberList from '../component/MemberList.component'
+import InviteMemberModal from '../component/modal/InviteMember.modal'
 import UpdateGroupInfo from '../component/UpdateGroupInfo.component'
 import Button from '../component/ui/Button.ui'
 import Header from '../component/ui/Header.ui'
@@ -12,6 +13,7 @@ import { useDeleteGroup } from '../hook/mutation/group/useDeleteGroup.mutation'
 import { useQuitGroup } from '../hook/mutation/group/useQuitGroup.mutation'
 import { useGetGroup } from '../hook/query/group/useGetGroup.query'
 import { ArrowLeftIcon } from '../Icon'
+import { useGroupStore } from '../store/Group.store'
 import useMainStore from '../store/Main.store'
 
 function GroupPage() {
@@ -20,6 +22,9 @@ function GroupPage() {
 	const deleteGroupMutation = useDeleteGroup()
 	const quitGroupMutation = useQuitGroup()
 	const { data: group } = useGetGroup(currentGroup ?? '')
+	const showInviteMemberModal = useGroupStore(
+		(state) => state.showInviteMemberModal,
+	)
 
 	const handleQuitGroup = async () => {
 		const res = await quitGroupMutation.mutateAsync({
@@ -82,6 +87,7 @@ function GroupPage() {
 					<MemberList />
 					<GroupInvitationList />
 				</main>
+				{showInviteMemberModal && <InviteMemberModal />}
 			</div>
 		</div>
 	)
