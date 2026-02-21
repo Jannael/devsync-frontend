@@ -57,23 +57,24 @@ function Task() {
 		<section className='flex-3 h-full p-3' id='Task'>
 			<article
 				className='h-full bg-main flex flex-col items-center
-			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
+			border-primary border py-5 rounded-lg w-full px-3 gap-6 overflow-y-auto'
 			>
-				<Header>
-					<div>
-						<h1 className='text-2xl font-bold truncate'>
+				<Header className='flex-col md:flex-row gap-4 md:gap-0'>
+					<div className='w-full'>
+						<h1 className='text-2xl font-bold truncate text-center md:text-left'>
 							{taskQuery.data?.name}
 						</h1>
 						{solutionQuery.data?.user !== undefined && (
-							<p className='truncate'>
+							<p className='truncate text-center md:text-left'>
 								Solution by: {solutionQuery.data?.user}
 							</p>
 						)}
 					</div>
-					<div className='flex gap-2'>
+					<div className='flex flex-wrap md:flex-nowrap gap-2 justify-center w-full md:w-auto'>
 						{!!solutionQuery.data && (
 							<Button
 								block={false}
+								className='flex-1 md:flex-none'
 								onClick={() => setIsSolution(!isSolution)}
 								type='button'
 							>
@@ -82,6 +83,7 @@ function Task() {
 						)}
 						<Button
 							block={false}
+							className='flex-1 md:flex-none'
 							onClick={() => {
 								setEdit(true)
 								setAssignedUser(taskQuery.data?.user ?? [])
@@ -92,6 +94,7 @@ function Task() {
 						</Button>
 						<Button
 							block={false}
+							className='flex-1 md:flex-none'
 							onClick={() => {
 								if (isSolution) {
 									deleteSolutionMutation.mutate({
@@ -114,11 +117,11 @@ function Task() {
 						</Button>
 					</div>
 				</Header>
-				<p className='w-full p-3 border border-primary rounded-lg flex-1'>
+				<p className='w-full p-3 border border-primary rounded-lg flex-none'>
 					{description}
 				</p>
-				<div className='flex-2 flex w-full gap-3'>
-					<ul className='flex-1 border border-primary rounded-lg p-3'>
+				<div className='flex-none lg:flex-1 flex flex-col lg:flex-row w-full gap-3'>
+					<ul className='flex-1 border border-primary rounded-lg p-3 min-h-32 max-h-48 lg:max-h-none overflow-y-auto'>
 						{features?.map((feature) => (
 							<li
 								className='flex items-center gap-2 border-b border-primary/30 py-1 px-3 truncate'
