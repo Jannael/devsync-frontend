@@ -98,14 +98,14 @@ export const primaryColorsObj = {
 } as const
 
 export const GroupColors: string[] = [
-	'#2C3E50',
-	'#4A148C',
-	'#004D40',
-	'#3E2723',
-	'#1A237E',
-	'#263238',
-	'#311B92',
-	'#000000',
+  '#3498DB',
+  '#9B59B6',
+  '#1ABC9C',
+  '#E67E22',
+  '#3F51B5',
+  '#2ECC71',
+  '#673AB7',
+  '#E74C3C',
 ] as const
 
 export const primaryColors = primaryColorsObj[systemTheme]

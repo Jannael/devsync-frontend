@@ -88,7 +88,7 @@ const GroupService = {
 			endpoint: `${route}/update/`,
 			options: {
 				method: 'PUT',
-				body: JSON.stringify({ groupId, ...data }),
+				body: JSON.stringify({ groupId, data }),
 			},
 		})
 

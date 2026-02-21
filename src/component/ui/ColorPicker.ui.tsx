@@ -16,7 +16,7 @@ function ColorPicker({
 		useState<string>(currentColor)
 
 	return (
-		<div className='flex flex-col sm:flex-row gap-2 justify-between items-center sm:items-center'>
+		<div className='flex flex-col sm:flex-row gap-2 justify-between items-center sm:items-center w-full'>
 			<Label id={label}>{label}</Label>
 			<div className='flex gap-2 flex-wrap justify-center sm:justify-start w-full sm:w-auto'>
 				{colors.map((color) => (

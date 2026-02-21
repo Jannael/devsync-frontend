@@ -21,7 +21,7 @@ function GroupItem({
 
 	return (
 		<div
-			className={`w-full flex items-center justify-between ${currentGroup === id ? 'bg-accent' : ''}`}
+			className={`w-full flex items-center justify-between border ${currentGroup === id ? 'border-accent' : 'border-transparent'}`}
 			style={{
 				backgroundImage: `linear-gradient(to left, ${color}, var(--color-primary))`,
 				borderRadius: '8px',
