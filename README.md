@@ -3,9 +3,9 @@
   <br>
   <a href="https://devsync.com.mx" target="_blank" rel="noopener noreferrer">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./Public/FullLogo-dark.png">
-      <source media="(prefers-color-scheme: light)" srcset="./Public/FullLogo-light.png">
-      <img alt="DevSync logo" src="./Public/FullLogo-dark.png" height="60">
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Jannael/devsync-frontend/blob/main/public/FullLogo-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="https://github.com/Jannael/devsync-frontend/blob/main/public/FullLogo-light.png">
+      <img alt="DevSync logo" src="https://github.com/Jannael/devsync-frontend/blob/main/public/FullLogo-dark.png" height="110">
     </picture>
   </a>
   <br>
