@@ -17,6 +17,7 @@ function Task() {
 
 	const isSolution = useTaskStore((state) => state.isSolution)
 	const setIsSolution = useTaskStore((state) => state.setIsSolution)
+	const setAssignedUser = useTaskStore((state) => state.setAssignedUser)
 	const setEdit = useTaskStore((state) => state.setEdit)
 	const deleteTaskMutation = useDeleteTask()
 	const deleteSolutionMutation = useDeleteSolution()
@@ -70,7 +71,7 @@ function Task() {
 						)}
 					</div>
 					<div className='flex gap-2'>
-						{solutionQuery.data !== undefined && (
+						{!!solutionQuery.data && (
 							<Button
 								block={false}
 								onClick={() => setIsSolution(!isSolution)}
@@ -79,7 +80,14 @@ function Task() {
 								{isSolution ? 'Task' : 'Solution'}
 							</Button>
 						)}
-						<Button block={false} onClick={() => setEdit(true)} type='button'>
+						<Button
+							block={false}
+							onClick={() => {
+								setEdit(true)
+								setAssignedUser(taskQuery.data?.user ?? [])
+							}}
+							type='button'
+						>
 							Edit
 						</Button>
 						<Button

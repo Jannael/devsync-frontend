@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import CreateTask from '../component/CreateTask.component'
+import EditableTask from '../component/EditableTask.component'
 import GroupsMenu from '../component/GroupsMenu.component'
 import Navbar from '../component/Navbar.component'
 import Task from '../component/Task.component'
@@ -23,35 +24,17 @@ const navItems = [
 function Main() {
 	const isMobile = useIsMobile()
 	const [activeSection, setActiveSection] = useState('Groups')
-	const { create, edit } = useTaskStore()
+	const create = useTaskStore((state) => state.create)
+	const edit = useTaskStore((state) => state.edit)
+
 	const sideMenu = create || edit ? <UsersMenu /> : <TaskListMenu />
 	const MainComponent = create ? (
 		<CreateTask />
 	) : edit ? (
-		<Task />
+		<EditableTask />
 	) : (
 		<Task />
 	)
-
-	const Sections = () => {
-		return (
-			<>
-				<GroupsMenu />
-				{MainComponent}
-				{sideMenu}
-			</>
-		)
-	}
-
-	const CurrentSection = () => {
-		return (
-			<>
-				{activeSection === 'Groups' && <GroupsMenu />}
-				{activeSection === 'Task' && MainComponent}
-				{activeSection === 'Tasks' && sideMenu}
-			</>
-		)
-	}
 
 	return (
 		<div
@@ -64,8 +47,20 @@ function Main() {
 					navItems={navItems}
 				/>
 			)}
-			{!isMobile && <Sections />}
-			{isMobile && <CurrentSection />}
+			{!isMobile && (
+				<>
+					<GroupsMenu />
+					{MainComponent}
+					{sideMenu}
+				</>
+			)}
+			{isMobile && (
+				<>
+					{activeSection === 'Groups' && <GroupsMenu />}
+					{activeSection === 'Task' && MainComponent}
+					{activeSection === 'Tasks' && sideMenu}
+				</>
+			)}
 		</div>
 	)
 }

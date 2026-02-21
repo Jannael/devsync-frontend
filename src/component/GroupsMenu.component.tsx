@@ -19,9 +19,12 @@ function GroupsMenu() {
 		showJoinModal,
 		setShowCreateGroupModal,
 	} = useMainStore()
+
 	const setCreateTask = useTaskStore((state) => state.setCreate)
 	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
 	const setIsSolution = useTaskStore((state) => state.setIsSolution)
+	const setAssignedUser = useTaskStore((state) => state.setAssignedUser)
+	const setIsEdit = useTaskStore((state) => state.setEdit)
 
 	return (
 		<section className='flex-1 h-full p-3'>
@@ -55,7 +58,9 @@ function GroupsMenu() {
 							className='text-xl w-full'
 							onClick={() => {
 								setCreateTask(true)
+								setIsEdit(false)
 								setIsSolution(false)
+								setAssignedUser([])
 								setCurrentTask(null)
 							}}
 							type='button'
