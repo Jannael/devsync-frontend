@@ -10,7 +10,13 @@ const languages = [
 	{ value: 'c', label: 'C' },
 ]
 
-function CodeInput() {
+function CodeInput({
+	language,
+	content,
+}: {
+	language?: string
+	content?: string
+}) {
 	const languageOptions = languages.map((language) => (
 		<option key={language.value} value={language.value}>
 			{language.label}
@@ -23,7 +29,7 @@ function CodeInput() {
 				<Label id='code'>Code</Label>
 				<div className='flex items-center gap-2'>
 					<Label id='language'>Language</Label>
-					<Select id='language' onChange={() => {}} value='typescript'>
+					<Select id='language' onChange={() => {}} value={language || 'typescript'}>
 						{languageOptions}
 					</Select>
 				</div>
@@ -32,6 +38,7 @@ function CodeInput() {
 				id='code'
 				name='code'
 				placeholder='console.log("Hello World")'
+				value={content}
 			/>
 		</div>
 	)
