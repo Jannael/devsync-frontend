@@ -63,7 +63,7 @@ function FeaturesInput({
 					Add
 				</Button>
 			</div>
-			<ul className='flex flex-col gap-2 mt-3 overflow-y-auto h-84'>
+			<ul className='flex flex-col gap-2 mt-3 overflow-y-auto h-48 md:h-84'>
 				{featuresItems}
 			</ul>
 		</div>

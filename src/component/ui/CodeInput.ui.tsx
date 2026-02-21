@@ -25,9 +25,9 @@ function CodeInput({
 
 	return (
 		<div className='flex-2 flex flex-col gap-3'>
-			<div className='w-full flex justify-between items-center'>
+			<div className='w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0'>
 				<Label id='code'>Code</Label>
-				<div className='flex items-center gap-2'>
+				<div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
 					<Label id='language'>Language</Label>
 					<Select
 						id='language'
