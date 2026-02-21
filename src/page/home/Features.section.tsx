@@ -31,7 +31,7 @@ function FeaturesSection() {
 				<img
 					alt='Devsync'
 					className='w-4/5 md:w-full max-w-sm md:max-w-none'
-					src='/pet.png'
+					src='/MainPage.webp'
 				/>
 			</div>
 			<div className='flex-1 text-center md:text-left'>

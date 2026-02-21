@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
+import Loading from './component/ui/Loading.ui'
 import { ROUTES } from './constant/Route.constant'
 
 const HomePage = lazy(() => import('./page/home/Home.page'))
@@ -12,7 +13,7 @@ const GroupPage = lazy(() => import('./page/Group.page'))
 
 function App() {
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<Suspense fallback={<Loading />}>
 			<Routes>
 				<Route element={<HomePage />} path={ROUTES.HOME} />
 				<Route element={<LoginPage />} path={ROUTES.LOGIN} />

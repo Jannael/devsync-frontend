@@ -1,4 +1,5 @@
 import Button from '../component/ui/Button.ui'
+import { ROUTES } from '../constant/Route.constant'
 import { useRequestCode } from '../hook/mutation/auth/useRequestCode.mutation'
 import { useGetUser } from '../hook/query/user/useGetUser.query'
 import { useDangerZoneStore } from '../store/DangerZone.store'
@@ -21,13 +22,22 @@ function DangerZone() {
 			<Button
 				block={false}
 				className='w-full'
+				onClick={() => (window.location.href = ROUTES.LOGIN)}
+				type='button'
+				variant='destructive'
+			>
+				Change account
+			</Button>
+			<Button
+				block={false}
+				className='w-full'
 				onClick={() =>
 					useDangerZoneStore.setState({ showUpdateAccountModal: true })
 				}
 				type='button'
 				variant='destructive'
 			>
-				Change account
+				Update account
 			</Button>
 			<Button
 				block={false}
