@@ -1,6 +1,6 @@
 # Architecture Overview
 
-the only thing you need to know it the request flow:
+the only thing you need to know is the request flow:
 
 Hook.mutation → Service → Api
 Hook.query → Service → Api
