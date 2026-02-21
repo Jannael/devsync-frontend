@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import HomeNavbar from '../../component/Navbar.component'
+
 import { AboutIcon, FeaturesIcon, HomeIcon } from '../../Icon'
 import About from './About.section'
 import FeaturesSection from './Features.section'
@@ -12,6 +14,10 @@ const NAV_ITEMS = [
 ]
 
 function HomePage() {
+	useEffect(() => {
+		localStorage.setItem('showHome', 'true')
+	}, [])
+
 	return (
 		<div className='bg-main text-txt min-h-screen font-main'>
 			<HomeNavbar navItems={NAV_ITEMS} />
