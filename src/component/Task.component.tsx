@@ -77,7 +77,7 @@ function Task() {
 								onClick={() => setIsSolution(!isSolution)}
 								type='button'
 							>
-								{isSolution ? 'Task' : 'Solution'}
+								{isSolution ? 'show Task' : 'show Solution'}
 							</Button>
 						)}
 						<Button

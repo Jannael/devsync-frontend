@@ -7,6 +7,8 @@ import { useGetTask } from '../hook/query/task/useGetTask.query'
 import useMainStore from '../store/Main.store'
 import useTaskStore from '../store/Task.store'
 import GetFormData from '../utils/GetFormData.utils'
+import { SolutionPartialValidator } from '../validator/schemas/Solution.schema'
+import { TaskPartialValidator } from '../validator/schemas/Task.schema'
 import Button from './ui/Button.ui'
 import CodeInput from './ui/CodeInput.ui'
 import FeaturesInput from './ui/FeaturesInput.ui'
@@ -16,6 +18,7 @@ import Input from './ui/Input.ui'
 import Label from './ui/Label.ui'
 import Select from './ui/Select.ui'
 import Textarea from './ui/Textarea.ui'
+import Toaster from './ui/Toaster.ui'
 
 function EditableTask() {
 	const isSolution = useTaskStore((state) => state.isSolution)
@@ -41,7 +44,7 @@ function EditableTask() {
 	const description = isSolution ? solution?.description : task?.description
 	const code = isSolution ? solution?.code : task?.code
 
-	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const data = GetFormData(e)
 		const updateData = {
@@ -57,20 +60,32 @@ function EditableTask() {
 		}
 
 		try {
+			let success: boolean
 			if (isSolution) {
-				updateSolutionMutation.mutate({
+				SolutionPartialValidator({
 					_id: currentTask ?? '',
+					data: { ...updateData },
 					groupId: currentGroup ?? '',
-					data: updateData,
+				})
+
+				success = await updateSolutionMutation.mutateAsync({
+					_id: currentTask ?? '',
+					data: { ...updateData },
+					groupId: currentGroup ?? '',
 				})
 			} else {
-				updateTaskMutation.mutate({
+				TaskPartialValidator({
+					_id: currentTask ?? '',
+					data: { ...updateData, priority: Number(data.priority) },
+					groupId: currentGroup ?? '',
+				})
+				success = await updateTaskMutation.mutateAsync({
 					_id: currentTask ?? '',
 					groupId: currentGroup ?? '',
 					data: { ...updateData, priority: Number(data.priority) },
 				})
 			}
-			setEdit(false)
+			if (success) setEdit(false)
 		} catch (e) {
 			toast.error((e as Error).message)
 		}
@@ -78,6 +93,7 @@ function EditableTask() {
 
 	return (
 		<section className='flex-3 h-full p-3' id='Task'>
+			<Toaster />
 			<Form
 				className='h-full bg-main flex flex-col items-center
 			 rounded-lg gap-6 overflow-y-auto max-w-none p-5 px-6'

@@ -4,7 +4,7 @@ import CreateValidator from '../../utils/helper/CreateValidator.helper.ts'
 const objectIdRegex = /^[0-9a-fA-F]{24}$/
 
 export const ObjectIdSchema = z
-	.string()
+	.string('ObjectId is required')
 	.regex(objectIdRegex, 'Invalid MongoDB ObjectId')
 
 export const ObjectIdValidator = CreateValidator<typeof ObjectIdSchema, string>(

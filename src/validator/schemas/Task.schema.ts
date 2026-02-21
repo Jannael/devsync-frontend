@@ -41,11 +41,12 @@ export const TaskSchema = TaskBaseSchema.extend({
 export const TaskSchemaUpdate = TaskBaseSchema.extend({
 	_id: ObjectIdSchema,
 	groupId: ObjectIdSchema,
-	data: TaskBaseSchema.shape.data.optional(),
+	data: TaskBaseSchema.shape.data.partial(),
 })
 export const TaskSchemaPartial = TaskSchemaUpdate.partial()
 
 export type TaskType = z.infer<typeof TaskSchema>
+export type TaskPartialType = z.infer<typeof TaskSchemaPartial>
 
 export const TaskValidator = CreateValidator<typeof TaskSchema, TaskType>(
 	TaskSchema,
@@ -53,5 +54,5 @@ export const TaskValidator = CreateValidator<typeof TaskSchema, TaskType>(
 
 export const TaskPartialValidator = CreateValidator<
 	typeof TaskSchemaPartial,
-	Partial<TaskType>
+	TaskPartialType
 >(TaskSchemaPartial)

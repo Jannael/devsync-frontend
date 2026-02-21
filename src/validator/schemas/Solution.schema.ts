@@ -30,6 +30,7 @@ export const SolutionSchemaPartial = z.object({
 })
 
 export type SolutionType = z.infer<typeof SolutionSchema>
+export type SolutionPartialType = z.infer<typeof SolutionSchemaPartial>
 
 export const SolutionValidator = CreateValidator<
 	typeof SolutionSchema,
@@ -38,5 +39,5 @@ export const SolutionValidator = CreateValidator<
 
 export const SolutionPartialValidator = CreateValidator<
 	typeof SolutionSchemaPartial,
-	Partial<SolutionType>
+	SolutionPartialType
 >(SolutionSchemaPartial)
