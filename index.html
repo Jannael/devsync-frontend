@@ -4,34 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>devsync-frontend</title>
+    <title>Devsync</title>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="font-main">
+    <div id="root" class="font-main"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script type="module"> 
-    import { routesConst } from './src/routes.constants.ts';
+    <script>
+      const theme = localStorage.getItem("theme");
+      const accentColor = localStorage.getItem("accentColor");
+      const shade = localStorage.getItem("shade");
+      const primaryColor = localStorage.getItem("primaryColor");
+      const root = document.documentElement;
 
-    const theme = localStorage.getItem('theme')
-    if (theme) {
-      document.documentElement.setAttribute('data-theme', theme)
-    }
-
-      const worker = new Worker(new URL('/refreshToken.ts', import.meta.url), { type: 'module' })
-      if (!window.location.href.includes(routesConst.login) &&
-          !window.location.href.includes(routesConst.verifyCode) &&
-          !window.location.href.includes(routesConst.signup) &&
-          !window.location.href.includes(routesConst.home) 
-      ){
-        worker.postMessage('start')
+      if (theme) {
+        root.setAttribute("data-theme", theme);
       }
 
-      worker.onmessage = (message) => {
-        if (message.data === 'login') {
-          window.location.href = routesConst.login
-        }
+      if (accentColor) {
+        root.style.setProperty("--color-accent", accentColor);
+        root.style.setProperty("--color-accent-shadow", `${accentColor}40`);
       }
 
+      if (shade) {
+        root.style.setProperty("--color-shade", shade);
+      }
+
+      if (primaryColor) {
+        root.style.setProperty("--color-primary", primaryColor);
+        root.style.setProperty("--color-primary-shadow", `${primaryColor}40`);
+      }
     </script>
   </body>
 </html>

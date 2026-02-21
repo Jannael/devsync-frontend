@@ -1,18 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400&display=swap");
 @import "tailwindcss";
 
 @theme {
-	--font-main: "lexend", sans-serif;
-	--color-primary: #222;
-	--color-contrast: #ddd;
-	--color-txt: #ddd;
-	--color-error: #ec003f;
-}
+	--font-main: "roboto", sans-serif;
+	--font-logo: "Bitcount Grid Double", sans-serif;
 
-:-webkit-autofill,
-:-webkit-autofill:hover,
-:-webkit-autofill:focus {
-	-webkit-text-fill-color: var(--color-contrast);
-	-webkit-box-shadow: var(--color-primary) inset;
-	transition: background-color 5000s ease-in-out 0s;
+	--color-main: #222;
+	--color-contrast: #fbfbfb;
+
+	--color-primary: #00af77;
+	--color-accent: #00ffaa;
+	--color-shade: #006142;
+
+	--color-main-shadow: #22222240;
+	--color-contrast-shadow: #fbfbfb40;
+
+	--color-primary-shadow: #00af7740;
+	--color-accent-shadow: #00ffaa40;
+
+	--color-txt: #fbfbfd;
+	--color-warning: #ec003f;
 }

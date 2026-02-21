@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.3.15/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -16,15 +16,11 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"a11y": {
-				"useKeyWithClickEvents": "off",
-				"noLabelWithoutControl": "off"
-			},
 			"style": {
 				"noNonNullAssertion": "off"
 			},
-			"suspicious": {
-				"noExplicitAny": "off"
+			"a11y": {
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	},

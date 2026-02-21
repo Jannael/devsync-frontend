@@ -1,41 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..500;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@400&display=swap");
+
 @media (prefers-color-scheme: light) {
 	:root {
-		--color-primary: #ddd;
-		--color-contrast: #222;
-		--color-txt: #000;
+		--color-main: #ffffff;
+		--color-contrast: #111111;
+
+		--color-primary: #03c584;
+		--color-accent: #00ff80;
+		--color-shade: #00ffae10;
+
+		--color-main-shadow: #22222240;
+		--color-contrast-shadow: #fbfbfb40;
+
+		--color-primary-shadow: #00cc8840;
+		--color-accent-shadow: #00855940;
+
+		--color-txt: #111;
+		--color-warning: #dc2626;
 	}
 }
 
+[data-theme="light"] {
+	--color-main: #ffffff;
+	--color-contrast: #111111;
+
+	--color-primary: #03c584;
+	--color-accent: #00ff80;
+	--color-shade: #00ffae10;
+
+	--color-main-shadow: #22222240;
+	--color-contrast-shadow: #fbfbfb40;
+
+	--color-primary-shadow: #00cc8840;
+	--color-accent-shadow: #00855940;
+
+	--color-txt: #111;
+	--color-warning: #dc2626;
+}
+
+[data-theme="dark"] {
+	--color-main: #222;
+	--color-contrast: #fbfbfb;
+
+	--color-primary: #00af77;
+	--color-accent: #00ffaa;
+	--color-shade: #006142;
+
+	--color-main-shadow: #22222240;
+	--color-contrast-shadow: #fbfbfb40;
+
+	--color-primary-shadow: #00af7740;
+	--color-accent-shadow: #00ffaa40;
+
+	--color-txt: #fbfbfd;
+	--color-warning: #ec003f;
+}
+
+/* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-	background: var(--color-primary);
-	border-radius: 10px;
+	background: var(--color-main);
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--color-contrast);
-	border: 2px solid #f1f5f9;
-	border-radius: 10px;
+	background: var(--color-primary);
+	border: 2px solid var(--color-main);
+	border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: var(--color-contrast);
+	background: var(--color-accent);
 }
 
-[data-theme="light"] {
-	--color-primary: #ddd;
-	--color-contrast: #222;
-	--color-txt: #000;
-	--color-error: #ec003f;
-}
-
-[data-theme="dark"] {
-	--color-primary: #222;
-	--color-contrast: #ddd;
-	--color-txt: #ddd;
-	--color-error: #ec003f;
+/* Firefox support */
+* {
+	scrollbar-color: var(--color-primary) var(--color-main);
+	scrollbar-width: thin;
 }
