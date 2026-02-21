@@ -60,11 +60,11 @@ function MemberListItem({
 
 	return (
 		<div
-			className='flex flex-col sm:flex-row justify-between items-center w-full border-b border-primary py-4 px-3 gap-4'
+			className='flex flex-col sm:flex-row justify-between items-start sm:items-center w-full border-b border-primary py-4 px-3 gap-4'
 			key={member.account}
 		>
-			<p className='flex-1 font-bold'>{member.account}</p>
-			<div className='flex items-center gap-3 w-full sm:w-auto'>
+			<p className='w-full sm:flex-1 font-bold break-all text-center sm:text-left'>{member.account}</p>
+			<div className='flex flex-wrap items-center gap-3 w-full sm:w-auto justify-center sm:justify-end'>
 				{currentRole === Roles.techLead ? (
 					<Select
 						id={`role-${member.account}`}
