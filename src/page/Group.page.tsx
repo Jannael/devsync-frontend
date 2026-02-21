@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
-import MemberList from '../component/MemberList'
+import GroupInvitationList from '../component/GroupInvitationList.component'
+import MemberList from '../component/MemberList.component'
 import UpdateGroupInfo from '../component/UpdateGroupInfo.component'
 import Button from '../component/ui/Button.ui'
 import Header from '../component/ui/Header.ui'
@@ -20,14 +21,18 @@ function GroupPage() {
 	const quitGroupMutation = useQuitGroup()
 	const { data: group } = useGetGroup(currentGroup ?? '')
 
-	const handleQuitGroup = () => {
-		quitGroupMutation.mutate({ groupId: currentGroup ?? '' })
-		window.location.href = ROUTES.MAIN
+	const handleQuitGroup = async () => {
+		const res = await quitGroupMutation.mutateAsync({
+			groupId: currentGroup ?? '',
+		})
+		if (res) window.location.href = ROUTES.MAIN
 	}
 
-	const handleDeleteGroup = () => {
-		deleteGroupMutation.mutate({ groupId: currentGroup ?? '' })
-		window.location.href = ROUTES.MAIN
+	const handleDeleteGroup = async () => {
+		const res = await deleteGroupMutation.mutateAsync({
+			groupId: currentGroup ?? '',
+		})
+		if (res) window.location.href = ROUTES.MAIN
 	}
 
 	return (
@@ -74,17 +79,8 @@ function GroupPage() {
 				</Header>
 				<main className='flex gap-8 flex-col'>
 					<UpdateGroupInfo />
-					<section className='flex gap-8 flex-col px-2 md:px-8 border-primary border-2 rounded-xl py-6'>
-						<div className='flex justify-between items-center'>
-							<h2 className='text-2xl font-bold'>Members</h2>
-							{currentRole === Roles.techLead && (
-								<Button block={false} type='button'>
-									Invite member
-								</Button>
-							)}
-						</div>
-						<MemberList />
-					</section>
+					<MemberList />
+					<GroupInvitationList />
 				</main>
 			</div>
 		</div>

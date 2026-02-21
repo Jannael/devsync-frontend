@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Roles from '../../constant/Roles.constant'
+import { useCancelInvitation } from '../../hook/mutation/invitation/useCancelInvitation.mutation'
+import { useUpdateInvitationRole } from '../../hook/mutation/invitation/useUpdateInvitationRole.mutation'
 import { useRemoveMember } from '../../hook/mutation/member/useRemoveMember.mutation'
 import { useUpdateMemberRole } from '../../hook/mutation/member/useUpdateMemberRole.mutation'
 import type { Member } from '../../interface/Member'
@@ -10,9 +12,11 @@ import Select from './Select.ui'
 function MemberListItem({
 	member,
 	groupId,
+	mode = 'member',
 }: {
 	member: Member
 	groupId: string
+	mode?: 'member' | 'invitation'
 }) {
 	const [selectedRole, setSelectedRole] = useState(member.role)
 	const updateMemberRole = useUpdateMemberRole()
@@ -21,19 +25,37 @@ function MemberListItem({
 
 	const isChanged = selectedRole !== member.role
 
+	const cancelInvitation = useCancelInvitation()
+	const updateInvitationRole = useUpdateInvitationRole()
+
 	const handleSave = () => {
-		updateMemberRole.mutate({
-			groupId,
-			account: member.account,
-			newRole: selectedRole,
-		})
+		if (mode === 'member') {
+			updateMemberRole.mutate({
+				groupId,
+				account: member.account,
+				newRole: selectedRole,
+			})
+		} else {
+			updateInvitationRole.mutate({
+				groupId,
+				account: member.account,
+				newRole: selectedRole,
+			})
+		}
 	}
 
 	const handleRemove = () => {
-		removeMember.mutate({
-			groupId,
-			account: member.account,
-		})
+		if (mode === 'member') {
+			removeMember.mutate({
+				groupId,
+				account: member.account,
+			})
+		} else {
+			cancelInvitation.mutate({
+				groupId,
+				account: member.account,
+			})
+		}
 	}
 
 	return (
@@ -69,7 +91,7 @@ function MemberListItem({
 							type='button'
 							variant='destructive'
 						>
-							Remove
+							{mode === 'member' ? 'Remove' : 'Cancel'}
 						</Button>
 					</>
 				)}
