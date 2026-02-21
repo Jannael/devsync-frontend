@@ -5,6 +5,7 @@ import Header from '../component/ui/Header.ui'
 import Link from '../component/ui/Link'
 import Toaster from '../component/ui/Toaster.ui'
 import UpdateTextInput from '../component/ui/UpdateTextInput.ui'
+import Roles from '../constant/Roles.constant'
 import { ROUTES } from '../constant/Route.constant'
 import { GroupColors } from '../constant/Theme.constant'
 import { useUpdateGroup } from '../hook/mutation/group/useUpdateGroup.mutation'
@@ -14,9 +15,11 @@ import useMainStore from '../store/Main.store'
 
 function GroupPage() {
 	const currentGroup = useMainStore((state) => state.currentGroup)
+	const currentRole = useMainStore((state) => state.currentRole)
 	const [changeColor, setChangeColor] = useState<string | null>(null)
 	const { data: group } = useGetGroup(currentGroup ?? '')
 	const updateGroupMutation = useUpdateGroup()
+
 	const GroupInfo = useRef<{
 		name: string | null
 		repository: string | null
@@ -59,6 +62,7 @@ function GroupPage() {
 								cb(null)
 							}}
 							placeholder='Devsync'
+							validRoles={[Roles.techLead]}
 							value={GroupInfo.current.name ?? ''}
 						/>
 						<UpdateTextInput
@@ -69,6 +73,7 @@ function GroupPage() {
 								cb(null)
 							}}
 							placeholder='Devsync'
+							validRoles={[Roles.techLead]}
 							value={GroupInfo.current.repository ?? ''}
 						/>
 						<div className='flex gap-4 w-full border-b border-primary/50 pb-6'>
@@ -78,7 +83,7 @@ function GroupPage() {
 								label='Group Color'
 								onClick={(color) => setChangeColor(color)}
 							/>
-							{changeColor && (
+							{changeColor && currentRole === Roles.techLead && (
 								<Button
 									block={false}
 									onClick={() => {
