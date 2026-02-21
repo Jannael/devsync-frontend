@@ -24,7 +24,9 @@ function GroupList() {
 				<Button
 					block={false}
 					className='text-xl'
-					onClick={() => {setShowJoinModal(true)}}
+					onClick={() => {
+						setShowJoinModal(true)
+					}}
 					type='button'
 				>
 					Join

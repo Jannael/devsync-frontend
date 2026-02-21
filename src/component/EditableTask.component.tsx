@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { useUpdateSolution } from '../hook/mutation/solution/useUpdateSolution.mutation'
 import { useUpdateTask } from '../hook/mutation/task/useUpdateTask.mutation'
 import { useGetSolution } from '../hook/query/solution/useGetSolution.query'
@@ -15,7 +16,6 @@ import Input from './ui/Input.ui'
 import Label from './ui/Label.ui'
 import Select from './ui/Select.ui'
 import Textarea from './ui/Textarea.ui'
-import { toast } from 'sonner'
 
 function EditableTask() {
 	const isSolution = useTaskStore((state) => state.isSolution)

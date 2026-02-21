@@ -5,7 +5,7 @@ import Select from './ui/Select.ui'
 
 // the goal of this component its to show the users with access to the task or solution
 // and update the global state assignedUsers to create or update the task or solution
-// this means the component must show the input when: 
+// this means the component must show the input when:
 // edit a solution (current assigned users: from the task)
 // edit a task (current assigned users: from the task)
 // create a task (local state assigned users)

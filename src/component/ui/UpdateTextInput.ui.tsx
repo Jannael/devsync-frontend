@@ -66,7 +66,9 @@ function UpdateTextInput({
 		<article className='flex w-full flex-col sm:flex-row justify-between items-start sm:items-center min-h-20 h-auto gap-4 border-b-2 border-primary/50 pb-6'>
 			<div className='flex flex-col w-full sm:w-fit gap-3 overflow-hidden'>
 				<Label id={label}>{label}</Label>
-				<p className='text-xl text-txt/80 wrap-break-word whitespace-normal'>{value || placeholder}</p>
+				<p className='text-xl text-txt/80 wrap-break-word whitespace-normal'>
+					{value || placeholder}
+				</p>
 			</div>
 			<Button
 				block={false}

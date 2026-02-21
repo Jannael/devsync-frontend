@@ -14,8 +14,9 @@ export const useDangerZoneStore = create<DangerZoneStore>((set) => ({
 	showLogoutModal: false,
 	showDeleteAccountModal: false,
 
-	setUpdateAccountModal: (value: boolean) => set({ showUpdateAccountModal: value }),
+	setUpdateAccountModal: (value: boolean) =>
+		set({ showUpdateAccountModal: value }),
 	setLogoutModal: (value: boolean) => set({ showLogoutModal: value }),
-	setDeleteAccountModal: (value: boolean) => set({ showDeleteAccountModal: value }),
+	setDeleteAccountModal: (value: boolean) =>
+		set({ showDeleteAccountModal: value }),
 }))
-

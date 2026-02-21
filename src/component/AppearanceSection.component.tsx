@@ -58,7 +58,11 @@ function AppearanceSection() {
 			<h2 className='text-2xl font-bold'>Appearance</h2>
 			<div className='flex flex-col gap-4'>
 				<Label id='theme-select'>Theme</Label>
-				<Select id='theme-select' onChange={handleChangeTheme} value={currentTheme}>
+				<Select
+					id='theme-select'
+					onChange={handleChangeTheme}
+					value={currentTheme}
+				>
 					{selectItems}
 				</Select>
 			</div>

@@ -29,7 +29,11 @@ function CodeInput({
 				<Label id='code'>Code</Label>
 				<div className='flex items-center gap-2'>
 					<Label id='language'>Language</Label>
-					<Select id='language' onChange={() => {}} value={language || 'typescript'}>
+					<Select
+						id='language'
+						onChange={() => {}}
+						value={language || 'typescript'}
+					>
 						{languageOptions}
 					</Select>
 				</div>
