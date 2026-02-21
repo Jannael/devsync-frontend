@@ -16,7 +16,7 @@
 <div align="center">
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](Typescript)
-[![Vite.js](https://img_shields.io/badge/Vite.js-%23404d59.svg?logo=vite&logoColor=%2361DAFB)](Vite)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff)](#)
 [![React](https://img.shields.io/badge/React-%234ea94b.svg?logo=react&logoColor=white)](React)
 [![pnpm](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=fff)](pnpm)
 [![Biome](https://img.shields.io/badge/Biome-60a5fa?logo=biome&logoColor=white)](https://biomejs.dev)
@@ -40,7 +40,7 @@ It uses [Devsync backend](https://github.com/jannael/devsync).
 | Category             | Technology                                                                                                       |
 | :------------------- | :--------------------------------------------------------------------------------------------------------------- |
 | Language             | [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](Typescript)        |
-| Framework            | [![Vite.js](https://img_shields.io/badge/Vite.js-%23404d59.svg?logo=vite&logoColor=%2361DAFB)](Vite) |
+| Framework            | [![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff)](#) |
 | React             | [![React](https://img.shields.io/badge/React-%234ea94b.svg?logo=react&logoColor=white)](React)           |
 | Package Manager      | [![pnpm](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=fff)](pnpm)                                |
 | **LINTER/FORMATTER** |                                                                                                                  |
