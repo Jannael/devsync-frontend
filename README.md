@@ -51,7 +51,7 @@ It uses [Devsync backend](https://github.com/jannael/devsync).
 
 Developed using Node.js 24.11.0.
 
-> {!IMPORTANT}
+> [!IMPORTANT]
 > This uses [Devsync backend](https://github.com/jannael/devsync).
 
 1. **Install dependencies:**
