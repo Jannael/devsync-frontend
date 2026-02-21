@@ -37,7 +37,7 @@ function useCreateTaskComponent() {
 			description: formData.description,
 			code: {
 				language: formData.language,
-				content: formData.code,
+				content: formData.code ? formData.code : 'no code',
 			},
 			feature: features,
 			user: assignedUser,

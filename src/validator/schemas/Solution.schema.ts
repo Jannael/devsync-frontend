@@ -15,7 +15,7 @@ export const SolutionSchema = z.object({
 					.max(100, 'Feature item must be at most 100 characters'),
 			)
 			.nullable(),
-		code: CodeFieldSchema,
+		code: CodeFieldSchema.optional(),
 		description: z
 			.string('Description is required')
 			.min(1, 'Description is required')

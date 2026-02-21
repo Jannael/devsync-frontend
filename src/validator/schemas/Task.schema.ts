@@ -13,7 +13,7 @@ export const TaskBaseSchema = z.object({
 			.string('Name is required')
 			.min(1, 'Name is required')
 			.max(100, 'Name must be at most 100 characters'),
-		code: CodeFieldSchema,
+		code: CodeFieldSchema.optional(),
 		feature: z
 			.array(
 				z
