@@ -1,3 +1,4 @@
+import { toast } from 'sonner'
 import MemberList from '../component/MemberList'
 import UpdateGroupInfo from '../component/UpdateGroupInfo.component'
 import Button from '../component/ui/Button.ui'
@@ -8,6 +9,7 @@ import Roles from '../constant/Roles.constant'
 import { ROUTES } from '../constant/Route.constant'
 import { useDeleteGroup } from '../hook/mutation/group/useDeleteGroup.mutation'
 import { useQuitGroup } from '../hook/mutation/group/useQuitGroup.mutation'
+import { useGetGroup } from '../hook/query/group/useGetGroup.query'
 import { ArrowLeftIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
 
@@ -16,6 +18,7 @@ function GroupPage() {
 	const currentGroup = useMainStore((state) => state.currentGroup)
 	const deleteGroupMutation = useDeleteGroup()
 	const quitGroupMutation = useQuitGroup()
+	const { data: group } = useGetGroup(currentGroup ?? '')
 
 	const handleQuitGroup = () => {
 		quitGroupMutation.mutate({ groupId: currentGroup ?? '' })
@@ -34,6 +37,15 @@ function GroupPage() {
 				<Header className='mb-6 md:mb-10'>
 					<div className='flex flex-col gap-1 md:gap-2 items-center sm:items-start text-center sm:text-left'>
 						<h1 className='text-3xl md:text-4xl font-bold'>Group Settings</h1>
+						<h2
+							className='text-txt/80'
+							onClick={() => {
+								navigator.clipboard.writeText(group?._id ?? '')
+								toast.success('Copied')
+							}}
+						>
+							{group?._id}
+						</h2>
 					</div>
 					<div className='flex gap-2'>
 						<Button
