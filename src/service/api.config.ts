@@ -3,7 +3,7 @@ import { ROUTES } from '../constant/Route.constant'
 import type { SuccessResponse } from '../interface/Response'
 import AuthService from './Auth.service'
 
-const BASE_URL = import.meta.env?.VITE_API_URL || 'http://localhost:3000'
+const BASE_URL = import.meta.env?.VITE_API_DOMAIN || 'http://localhost:3000'
 
 let isRefreshing = false
 let refreshSubscribers: ((token: string) => void)[] = []
