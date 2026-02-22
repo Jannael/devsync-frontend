@@ -6,10 +6,12 @@ import AuthService from './Auth.service'
 const BASE_URL = import.meta.env?.VITE_API_DOMAIN || 'http://localhost:3000'
 
 let isRefreshing = false
-let refreshSubscribers: ((token: string) => void)[] = []
+let refreshSubscribers: ((error: Error | null) => void)[] = []
 
-const onTokenRefreshed = (token: string) => {
-	refreshSubscribers.map((callback) => callback(token))
+const onTokenRefreshed = (error: Error | null) => {
+	refreshSubscribers.forEach((callback) => {
+		callback(error)
+	})
 	refreshSubscribers = []
 }
 
@@ -42,17 +44,21 @@ export const api = async ({
 				AuthService.RequestAccessToken()
 					.then(() => {
 						isRefreshing = false
-						onTokenRefreshed('ready')
+						onTokenRefreshed(null)
 					})
 					.catch(() => {
 						isRefreshing = false
-						window.location.href = ROUTES.LOGIN
-					})
+						onTokenRefreshed(new Error('Token refresh failed'))
+ 					})
 			}
 
-			return new Promise((resolve) => {
-				refreshSubscribers.push(() => {
-					resolve(api({ endpoint, options, _retryCount: _retryCount + 1 }))
+			return new Promise((resolve, reject) => {
+				refreshSubscribers.push((error) => {
+					if (error) {
+						reject(error)
+					} else {
+						resolve(api({ endpoint, options, _retryCount: _retryCount + 1 }))
+					}
 				})
 			})
 		}
@@ -60,6 +66,7 @@ export const api = async ({
 		if (errorData.msg === 'Refresh token is invalid') {
 			toast.error('Your session has expired. Please login again.')
 			window.location.href = ROUTES.LOGIN
+			return new Promise(() => {})
 		}
 
 		throw new Error(
