@@ -31,7 +31,7 @@ function Main() {
 	useEffect(() => {
 		const showHome = localStorage.getItem('showHome')
 		if (!showHome) {
-			navigate(ROUTES.MAIN)
+			navigate(ROUTES.HOME)
 		}
 	}, [navigate])
 
