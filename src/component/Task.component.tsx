@@ -86,41 +86,43 @@ function Task() {
 							</Button>
 						)}
 						{currentRole === Roles.techLead && (
-							<Button
-								block={false}
-								className='flex-1 md:flex-none'
-								onClick={() => {
-									setEdit(true)
-									setAssignedUser(taskQuery.data?.user ?? [])
-								}}
-								type='button'
-							>
-								Edit
-							</Button>
+							<>
+								<Button
+									block={false}
+									className='flex-1 md:flex-none'
+									onClick={() => {
+										setEdit(true)
+										setAssignedUser(taskQuery.data?.user ?? [])
+									}}
+									type='button'
+								>
+									Edit
+								</Button>
+								<Button
+									block={false}
+									className='flex-1 md:flex-none'
+									onClick={() => {
+										if (isSolution) {
+											deleteSolutionMutation.mutate({
+												_id: currentTask ?? '',
+												groupId: currentGroup ?? '',
+											})
+											setCurrentTask(null)
+										} else {
+											deleteTaskMutation.mutate({
+												_id: currentTask ?? '',
+												groupId: currentGroup ?? '',
+											})
+											setCurrentTask(null)
+										}
+									}}
+									type='button'
+									variant='destructive'
+								>
+									Delete
+								</Button>
+							</>
 						)}
-						<Button
-							block={false}
-							className='flex-1 md:flex-none'
-							onClick={() => {
-								if (isSolution) {
-									deleteSolutionMutation.mutate({
-										_id: currentTask ?? '',
-										groupId: currentGroup ?? '',
-									})
-									setCurrentTask(null)
-								} else {
-									deleteTaskMutation.mutate({
-										_id: currentTask ?? '',
-										groupId: currentGroup ?? '',
-									})
-									setCurrentTask(null)
-								}
-							}}
-							type='button'
-							variant='destructive'
-						>
-							Delete
-						</Button>
 					</div>
 				</Header>
 				<p className='w-full p-3 border border-primary rounded-lg flex-none'>

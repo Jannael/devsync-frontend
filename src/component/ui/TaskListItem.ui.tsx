@@ -23,7 +23,7 @@ function TaskListItem({ task }: { task: TaskList['task'][number] }) {
 			<span className='flex-1 truncate h-10 flex items-center'>
 				{task.name}
 			</span>
-			{currentRole === ROLES.techLead && (
+			{(currentRole === ROLES.techLead || currentRole === ROLES.documenter) && (
 				<span className='flex justify-end size-8 text-primary'>
 					{task.isComplete ? <CheckIcon /> : <XIcon />}
 				</span>
