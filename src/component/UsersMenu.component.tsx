@@ -1,4 +1,5 @@
 import useUsersMenu from '../hook/component/useUsersMenu.hook'
+import useIsMobile from '../hook/useIsMobile.hook'
 import Button from './ui/Button.ui'
 import MemberItem from './ui/MemberItem.ui'
 import Select from './ui/Select.ui'
@@ -22,6 +23,8 @@ function UsersMenu() {
 		onRemoveMember,
 	} = useUsersMenu()
 
+	const isMobile = useIsMobile()
+
 	const selectItems = membersAccounts?.map((member) => (
 		<option key={member.groupId} value={member.account}>
 			{member.account}
@@ -33,10 +36,10 @@ function UsersMenu() {
 	))
 
 	return (
-		<section className='flex-1 h-full p-3' id='Tasks'>
+		<section className={`flex-1 h-full ${isMobile ? 'p-0' : 'p-3'}`} id='Tasks'>
 			<article
-				className='h-full bg-main flex flex-col items-center
-			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
+				className={`h-full bg-main flex flex-col items-center
+			border-primary border py-5 rounded-lg gap-6 overflow-y-auto px-3`}
 			>
 				<header className='flex justify-between items-center w-full px-3 border-b border-primary pb-3 flex-col gap-5'>
 					<div className='w-full'>

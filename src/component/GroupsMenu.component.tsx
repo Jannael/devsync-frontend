@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import FullLogo from '../assets/FullLogo'
 import ROLES from '../constant/Roles.constant'
 import { ROUTES } from '../constant/Route.constant'
+import useIsMobile from '../hook/useIsMobile.hook'
 import { SettingsIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
 import useTaskStore from '../store/Task.store'
@@ -19,6 +20,7 @@ function GroupsMenu() {
 		showJoinModal,
 		setShowCreateGroupModal,
 	} = useMainStore()
+	const isMobile = useIsMobile()
 
 	const setCreateTask = useTaskStore((state) => state.setCreate)
 	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
@@ -27,10 +29,10 @@ function GroupsMenu() {
 	const setIsEdit = useTaskStore((state) => state.setEdit)
 
 	return (
-		<section className='flex-1 h-full p-3'>
+		<section className={`flex-1 h-full ${isMobile ? 'p-0' : 'p-3'}`}>
 			<article
-				className='flex-1 h-full bg-main flex flex-col justify-between items-center
-			border-primary border py-5 rounded-lg px-3 gap-6 overflow-y-auto'
+				className={`flex-1 h-full bg-main flex flex-col justify-between items-center
+			border-primary border py-5 rounded-lg gap-6 overflow-y-auto px-3`}
 				id='Groups'
 			>
 				<div className='w-full flex items-center justify-center flex-col gap-6'>

@@ -49,7 +49,7 @@ function Main() {
 
 	return (
 		<div
-			className={`flex h-screen w-screen text-txt bg-main ${isMobile ? 'pt-18' : ''}`}
+			className={`flex h-dvh w-full text-txt bg-main ${isMobile ? 'pt-18' : ''}`}
 		>
 			<Toaster />
 			{isMobile && (

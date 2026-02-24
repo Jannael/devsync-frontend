@@ -1,9 +1,11 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import Roles from '../constant/Roles.constant'
 import { useDeleteSolution } from '../hook/mutation/solution/useDeleteSolution.mutation'
 import { useDeleteTask } from '../hook/mutation/task/useDeleteTask.mutation'
 import { useGetSolution } from '../hook/query/solution/useGetSolution.query'
 import { useGetTask } from '../hook/query/task/useGetTask.query'
+import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckIcon } from '../Icon'
 import useMainStore from '../store/Main.store'
 import useTaskStore from '../store/Task.store'
@@ -13,6 +15,7 @@ import Header from './ui/Header.ui'
 function Task() {
 	const currentTask = useMainStore((state) => state.currentTask)
 	const currentGroup = useMainStore((state) => state.currentGroup)
+	const currentRole = useMainStore((state) => state.currentRole)
 	const setCurrentTask = useMainStore((state) => state.setCurrentTask)
 
 	const isSolution = useTaskStore((state) => state.isSolution)
@@ -21,6 +24,7 @@ function Task() {
 	const setEdit = useTaskStore((state) => state.setEdit)
 	const deleteTaskMutation = useDeleteTask()
 	const deleteSolutionMutation = useDeleteSolution()
+	const isMobile = useIsMobile()
 
 	const taskQuery = useGetTask({
 		_id: currentTask ?? '',
@@ -54,7 +58,7 @@ function Task() {
 	}
 
 	return (
-		<section className='flex-3 h-full p-3' id='Task'>
+		<section className={`flex-3 h-full ${isMobile ? 'w-full' : ''}`} id='Task'>
 			<article
 				className='h-full bg-main flex flex-col items-center
 			border-primary border py-5 rounded-lg w-full px-3 gap-6 overflow-y-auto'
@@ -81,17 +85,19 @@ function Task() {
 								{isSolution ? 'show Task' : 'show Solution'}
 							</Button>
 						)}
-						<Button
-							block={false}
-							className='flex-1 md:flex-none'
-							onClick={() => {
-								setEdit(true)
-								setAssignedUser(taskQuery.data?.user ?? [])
-							}}
-							type='button'
-						>
-							Edit
-						</Button>
+						{currentRole === Roles.techLead && (
+							<Button
+								block={false}
+								className='flex-1 md:flex-none'
+								onClick={() => {
+									setEdit(true)
+									setAssignedUser(taskQuery.data?.user ?? [])
+								}}
+								type='button'
+							>
+								Edit
+							</Button>
+						)}
 						<Button
 							block={false}
 							className='flex-1 md:flex-none'

@@ -4,6 +4,7 @@ import { useUpdateSolution } from '../hook/mutation/solution/useUpdateSolution.m
 import { useUpdateTask } from '../hook/mutation/task/useUpdateTask.mutation'
 import { useGetSolution } from '../hook/query/solution/useGetSolution.query'
 import { useGetTask } from '../hook/query/task/useGetTask.query'
+import useIsMobile from '../hook/useIsMobile.hook'
 import useMainStore from '../store/Main.store'
 import useTaskStore from '../store/Task.store'
 import GetFormData from '../utils/GetFormData.utils'
@@ -39,6 +40,7 @@ function EditableTask() {
 	const [features, setFeatures] = useState<string[]>(task?.feature ?? [])
 	const updateTaskMutation = useUpdateTask()
 	const updateSolutionMutation = useUpdateSolution()
+	const isMobile = useIsMobile()
 
 	const name = task?.name
 	const description = isSolution ? solution?.description : task?.description
@@ -92,7 +94,7 @@ function EditableTask() {
 	}
 
 	return (
-		<section className='flex-3 h-full p-3' id='Task'>
+		<section className={`flex-3 h-full ${isMobile ? 'w-full' : ''} w-full`} id='Task'>
 			<Toaster />
 			<Form
 				className='h-full bg-main flex flex-col items-center
