@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useState } from 'react'
 import CreateTask from '../component/CreateTask.component'
 import EditableTask from '../component/EditableTask.component'
 import GroupsMenu from '../component/GroupsMenu.component'
@@ -8,10 +7,10 @@ import Task from '../component/Task.component'
 import TaskListMenu from '../component/TaskListMenu.component'
 import UsersMenu from '../component/UsersMenu.component'
 import Toaster from '../component/ui/Toaster.ui'
+import { ROUTES } from '../constant/Route.constant'
 import useIsMobile from '../hook/useIsMobile.hook'
 import { CheckListIcon, ListIcon, TerminalIcon } from '../Icon'
 import useTaskStore from '../store/Task.store'
-import { ROUTES } from '../constant/Route.constant'
 
 // this is the plan for this page, this page its gonna hve 3 components, the group and invitation list, the current task, and the tasks list, the issue? mobile responsive, that is 2 different menus, with a big component in the middle, so i come up with the next idea, i am going to use, the navbar component to show one at a time in mobile, and only show the selected component, and in desktop show all of them.
 
@@ -25,18 +24,15 @@ const navItems = [
 
 function Main() {
 	const isMobile = useIsMobile()
-	const navigate = useNavigate()
 	const [activeSection, setActiveSection] = useState('Groups')
-
-	useEffect(() => {
-		const showHome = localStorage.getItem('showHome')
-		if (!showHome) {
-			navigate(ROUTES.HOME)
-		}
-	}, [navigate])
-
 	const create = useTaskStore((state) => state.create)
 	const edit = useTaskStore((state) => state.edit)
+
+	const showHome = localStorage.getItem('showHome')
+	if (showHome === null) {
+		window.location.href = ROUTES.HOME
+		return null
+	}
 
 	const sideMenu = create || edit ? <UsersMenu /> : <TaskListMenu />
 	const MainComponent = create ? (
