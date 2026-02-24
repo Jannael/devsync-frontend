@@ -21,7 +21,7 @@ function MemberItem({
 		<li
 			className={`border-b border-primary/50 rounded-lg px-3 py-2 w-full flex items-center ${!showInput ? 'justify-center' : 'justify-between'}`}
 		>
-			<span className={`${!showInput ? 'w-full' : 'w-full'} truncate`}>{member}</span>
+			<span className={`${!showInput ? 'w-full' : 'w-fit'} truncate`}>{member}</span>
 			{showInput && (
 				<button
 					className='cursor-pointer w-fit'
