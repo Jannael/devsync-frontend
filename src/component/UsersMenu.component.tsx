@@ -36,7 +36,7 @@ function UsersMenu() {
 	))
 
 	return (
-		<section className={`flex-1 h-full ${isMobile ? 'p-0' : 'p-3'}`} id='Tasks'>
+		<section className={`flex-1 h-full ${isMobile ? 'p-0' : 'p-3'} w-full`} id='Tasks'>
 			<article
 				className={`h-full bg-main flex flex-col items-center
 			border-primary border py-5 rounded-lg gap-6 overflow-y-auto px-3`}
